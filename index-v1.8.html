@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>TELKU V1.8</title>
+<title>TELKU V1.8.1</title>
 
 <style>
 *{
@@ -20,24 +20,24 @@ body{
 
 header{
   background:#111827;
-  color:white;
+  color:#fff;
   padding:18px;
   text-align:center;
-  font-size:22px;
-  font-weight:bold;
+  font-size:23px;
+  font-weight:700;
 }
 
 .container{
-  max-width:520px;
+  max-width:540px;
   margin:auto;
   padding:18px;
 }
 
 .card{
-  background:white;
+  background:#fff;
   border-radius:18px;
   padding:18px;
-  margin-bottom:15px;
+  margin-bottom:16px;
   box-shadow:0 5px 20px rgba(0,0,0,.07);
 }
 
@@ -49,13 +49,19 @@ h3{
   margin-bottom:8px;
 }
 
-input,select{
+p{
+  line-height:1.5;
+}
+
+input,
+select{
   width:100%;
   padding:13px;
   margin:7px 0 12px;
   border:1px solid #d6dce5;
   border-radius:10px;
   font-size:15px;
+  background:#fff;
 }
 
 button{
@@ -64,22 +70,28 @@ button{
   border:0;
   border-radius:12px;
   background:#111827;
-  color:white;
+  color:#fff;
   font-size:16px;
-  font-weight:bold;
+  font-weight:700;
   cursor:pointer;
 }
 
 button:disabled{
-  opacity:.6;
+  opacity:.55;
 }
 
 .plan{
+  background:#fff;
   border:1px solid #e1e5eb;
-  border-radius:14px;
-  padding:15px;
+  border-radius:15px;
+  padding:16px;
   margin:10px 0;
   cursor:pointer;
+  transition:.2s;
+}
+
+.plan:hover{
+  transform:translateY(-1px);
 }
 
 .plan.selected{
@@ -87,21 +99,40 @@ button:disabled{
   background:#f3f4f6;
 }
 
+.plan-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+}
+
+.plan-code{
+  font-size:12px;
+  color:#667085;
+  margin-top:5px;
+}
+
+.plan-info{
+  margin-top:9px;
+  color:#475467;
+}
+
 .price{
   font-size:20px;
-  font-weight:bold;
-  margin-top:6px;
+  font-weight:700;
+  margin-top:8px;
 }
 
 .hidden{
-  display:none;
+  display:none!important;
 }
 
 .status{
-  padding:12px;
+  padding:13px;
   border-radius:10px;
   margin-top:12px;
   font-size:14px;
+  line-height:1.5;
   white-space:pre-wrap;
 }
 
@@ -124,9 +155,18 @@ button:disabled{
   background:#f3f4f6;
   padding:10px;
   border-radius:8px;
-  margin-top:7px;
+  margin-top:6px;
   font-family:monospace;
   word-break:break-all;
+}
+
+.small{
+  font-size:13px;
+  color:#667085;
+}
+
+.flag{
+  font-size:25px;
 }
 </style>
 </head>
@@ -139,45 +179,86 @@ TELKU
 
 <div class="container">
 
-<!-- HOME -->
+<!-- ==================================================
+     HOME
+================================================== -->
+
 <div id="home">
 
   <div class="card">
-    <h2>🌍 Global eSIM</h2>
-    <p>Stay connected across countries with TELKU.</p>
+    <h2>🌍 TELKU Global eSIM</h2>
+    <p>
+      Stay connected across countries with TELKU.
+    </p>
   </div>
 
-  <div class="card">
-    <h3>Customer</h3>
 
-    <input id="fullName" placeholder="Full Name">
-    <input id="email" type="email" placeholder="Email">
-    <input id="phone" placeholder="Phone">
-    <input id="country" placeholder="Country">
+  <!-- CUSTOMER -->
+
+  <div class="card">
+
+    <h3>Customer Information</h3>
+
+    <input
+      id="fullName"
+      placeholder="Full Name"
+      autocomplete="name"
+    >
+
+    <input
+      id="email"
+      type="email"
+      placeholder="Email"
+      autocomplete="email"
+    >
+
+    <input
+      id="phone"
+      placeholder="Phone"
+      autocomplete="tel"
+    >
 
   </div>
 
+
+  <!-- COUNTRY -->
+
   <div class="card">
+
     <h3>Choose Country</h3>
 
-    <select id="countrySelect" onchange="loadPlans()">
-      <option value="">Select Country</option>
-      <option value="Indonesia">Indonesia</option>
-      <option value="Singapore">Singapore</option>
-      <option value="Malaysia">Malaysia</option>
-      <option value="Thailand">Thailand</option>
-      <option value="Japan">Japan</option>
-      <option value="South Korea">South Korea</option>
+    <select
+      id="countrySelect"
+      onchange="loadPlans()"
+    >
+
+      <option value="">
+        Select Country
+      </option>
+
     </select>
 
+    <div
+      id="countryStatus"
+      class="small"
+    >
+      Loading countries...
+    </div>
+
   </div>
+
+
+  <!-- PLANS -->
 
   <div id="plans"></div>
 
 </div>
 
 
-<!-- PAYMENT -->
+<!-- ==================================================
+     PAYMENT
+================================================== -->
+
 <div id="paymentPage" class="hidden">
 
   <div class="card">
@@ -186,15 +267,30 @@ TELKU
 
     <div id="paymentSummary"></div>
 
-    <h3 style="margin-top:18px;">Payment Method</h3>
+    <h3 style="margin-top:18px;">
+      Payment Method
+    </h3>
 
     <select id="paymentMethod">
-      <option value="online">Online Payment</option>
-      <option value="card">Credit / Debit Card</option>
-      <option value="bank_transfer">Bank Transfer</option>
+
+      <option value="online">
+        Online Payment
+      </option>
+
+      <option value="card">
+        Credit / Debit Card
+      </option>
+
+      <option value="bank_transfer">
+        Bank Transfer
+      </option>
+
     </select>
 
-    <button id="payButton" onclick="processPayment()">
+    <button
+      id="payButton"
+      onclick="processPayment()"
+    >
       Pay Now
     </button>
 
@@ -205,14 +301,19 @@ TELKU
 </div>
 
 
-<!-- SUCCESS -->
+<!-- ==================================================
+     SUCCESS
+================================================== -->
+
 <div id="successPage" class="hidden">
 
   <div class="card">
 
     <h2>✅ Transaction Success</h2>
 
-    <p>Your TELKU transaction has been created.</p>
+    <p>
+      Your TELKU transaction has been created.
+    </p>
 
     <div id="successData"></div>
 
@@ -226,22 +327,25 @@ TELKU
 <script>
 
 /* =====================================================
-   TELKU SUPABASE CONFIG
+   SUPABASE CONFIG
 ===================================================== */
 
 const SUPABASE_URL =
 "https://xozjhayxttryegynntld.supabase.co";
 
+
 /*
-  Gunakan Publishable Key TELKU yang sudah digunakan
-  pada versi sebelumnya.
+  PENTING:
+  Ganti nilai di bawah dengan Publishable Key TELKU
+  yang sebelumnya sudah digunakan.
 */
+
 const SUPABASE_KEY =
-"sb_publishable_oe2mqFxqjRqkx7IxO2dk8w_3UGaVsRr";
+"YOUR_EXISTING_SUPABASE_PUBLISHABLE_KEY";
 
 
 /* =====================================================
-   STATE
+   GLOBAL STATE
 ===================================================== */
 
 let selectedPlan = null;
@@ -259,50 +363,86 @@ async function supabaseRequest(
 ){
 
   const options = {
-    method,
+
+    method:method,
+
     headers:{
       "apikey":SUPABASE_KEY,
       "Authorization":"Bearer " + SUPABASE_KEY,
       "Content-Type":"application/json",
       "Prefer":"return=representation"
     }
+
   };
 
+
   if(body !== null){
-    options.body = JSON.stringify(body);
+
+    options.body =
+      JSON.stringify(body);
+
   }
 
-  const response = await fetch(
-    SUPABASE_URL +
-    "/rest/v1/" +
-    table +
-    query,
-    options
-  );
 
-  const text = await response.text();
+  const response =
+    await fetch(
+      SUPABASE_URL +
+      "/rest/v1/" +
+      table +
+      query,
+      options
+    );
+
+
+  const text =
+    await response.text();
+
 
   let data = null;
 
+
   try{
-    data = text ? JSON.parse(text) : null;
+
+    data =
+      text
+      ? JSON.parse(text)
+      : null;
+
   }catch(e){
+
     data = text;
+
   }
+
 
   if(!response.ok){
 
     let message = "";
 
+
     if(data && data.message){
-      message = data.message;
+
+      message =
+        data.message;
+
     }else if(data && data.hint){
-      message = data.hint;
+
+      message =
+        data.hint;
+
     }else if(data && data.details){
-      message = data.details;
+
+      message =
+        data.details;
+
     }else{
-      message = text || "Unknown Supabase error";
+
+      message =
+        text ||
+        "Unknown Supabase error";
+
     }
+
 
     throw new Error(
       "HTTP " +
@@ -310,104 +450,120 @@ async function supabaseRequest(
       " - " +
       message
     );
+
   }
 
+
   return data;
+
 }
 
 
 /* =====================================================
-   GENERATOR
+   RANDOM CODE
 ===================================================== */
 
 function randomCode(prefix){
 
-  const now = Date.now().toString().slice(-8);
+  const timestamp =
+    Date.now()
+    .toString()
+    .slice(-8);
 
   const random =
-    Math.floor(Math.random()*9000)+1000;
+    Math.floor(
+      Math.random()*9000
+    ) + 1000;
 
-  return prefix + "-" + now + "-" + random;
+
+  return (
+    prefix +
+    "-" +
+    timestamp +
+    "-" +
+    random
+  );
+
 }
 
 
 /* =====================================================
-   DEMO PLANS
+   LOAD COUNTRIES FROM TELKU_PLANS
 ===================================================== */
 
-const demoPlans = [
+async function loadCountries(){
 
-  {
-    id:"1",
-    country:"Indonesia",
-    name:"Indonesia 5GB",
-    data:"5 GB",
-    days:7,
-    price:50000,
-    currency:"IDR"
-  },
+  const select =
+    document.getElementById(
+      "countrySelect"
+    );
 
-  {
-    id:"2",
-    country:"Indonesia",
-    name:"Indonesia 10GB",
-    data:"10 GB",
-    days:15,
-    price:85000,
-    currency:"IDR"
-  },
+  const status =
+    document.getElementById(
+      "countryStatus"
+    );
 
-  {
-    id:"3",
-    country:"Singapore",
-    name:"Singapore 5GB",
-    data:"5 GB",
-    days:7,
-    price:70000,
-    currency:"IDR"
-  },
 
-  {
-    id:"4",
-    country:"Malaysia",
-    name:"Malaysia 5GB",
-    data:"5 GB",
-    days:7,
-    price:65000,
-    currency:"IDR"
-  },
+  try{
 
-  {
-    id:"5",
-    country:"Thailand",
-    name:"Thailand 5GB",
-    data:"5 GB",
-    days:7,
-    price:70000,
-    currency:"IDR"
-  },
+    const plans =
+      await supabaseRequest(
+        "telku_plans",
+        "GET",
+        null,
+        "?select=country&order=country.asc"
+      );
 
-  {
-    id:"6",
-    country:"Japan",
-    name:"Japan 5GB",
-    data:"5 GB",
-    days:7,
-    price:90000,
-    currency:"IDR"
-  },
 
-  {
-    id:"7",
-    country:"South Korea",
-    name:"Korea 5GB",
-    data:"5 GB",
-    days:7,
-    price:90000,
-    currency:"IDR"
+    const countries = [
+      ...new Set(
+        (plans || [])
+          .map(x => x.country)
+          .filter(Boolean)
+      )
+    ];
+
+
+    select.innerHTML =
+      `<option value="">
+        Select Country
+      </option>`;
+
+
+    countries.forEach(country => {
+
+      const option =
+        document.createElement(
+          "option"
+        );
+
+      option.value =
+        country;
+
+      option.textContent =
+        country;
+
+      select.appendChild(
+        option
+      );
+
+    });
+
+
+    status.innerText =
+      countries.length +
+      " countries available";
+
+  }catch(error){
+
+    console.error(error);
+
+    status.innerText =
+      "Unable to load countries.";
+
   }
 
-];
+}
 
 
 /* =====================================================
@@ -417,87 +573,179 @@ const demoPlans = [
 async function loadPlans(){
 
   const country =
-    document.getElementById("countrySelect").value;
+    document
+      .getElementById(
+        "countrySelect"
+      )
+      .value;
+
 
   const container =
-    document.getElementById("plans");
+    document.getElementById(
+      "plans"
+    );
+
 
   container.innerHTML = "";
 
   selectedPlan = null;
 
+
   if(!country){
+
     return;
+
   }
 
-  let plans = [];
 
   try{
 
-    plans = await supabaseRequest(
-      "telku_plans",
-      "GET",
-      null,
-      "?country=eq." +
-      encodeURIComponent(country) +
-      "&select=*"
-    );
+    const plans =
+      await supabaseRequest(
+        "telku_plans",
+        "GET",
+        null,
+        "?country=eq." +
+        encodeURIComponent(country) +
+        "&select=id,plan_code,country,flag,data_gb,validity_days,price&order=price.asc"
+      );
+
+
+    if(!plans || plans.length === 0){
+
+      container.innerHTML = `
+        <div class="card">
+          <p>
+            No plans available for this country.
+          </p>
+        </div>
+      `;
+
+      return;
+
+    }
+
+
+    plans.forEach(plan => {
+
+      const div =
+        document.createElement(
+          "div"
+        );
+
+
+      div.className =
+        "plan";
+
+
+      const flag =
+        plan.flag || "🌍";
+
+
+      div.innerHTML = `
+
+        <div class="plan-top">
+
+          <div>
+
+            <span class="flag">
+              ${flag}
+            </span>
+
+            <strong>
+              ${plan.country}
+            </strong>
+
+          </div>
+
+          <strong>
+            ${plan.data_gb} GB
+          </strong>
+
+        </div>
+
+
+        <div class="plan-code">
+          Plan: ${plan.plan_code}
+        </div>
+
+
+        <div class="plan-info">
+          Valid for ${plan.validity_days} days
+        </div>
+
+
+        <div class="price">
+          IDR
+          ${Number(plan.price)
+            .toLocaleString("id-ID")}
+        </div>
+
+      `;
+
+
+      div.onclick = function(){
+
+        document
+          .querySelectorAll(".plan")
+          .forEach(x =>
+            x.classList.remove(
+              "selected"
+            )
+          );
+
+
+        div.classList.add(
+          "selected"
+        );
+
+
+        /*
+          IMPORTANT:
+          selectedPlan.id sekarang adalah
+          UUID ASLI dari telku_plans.
+        */
+
+        selectedPlan =
+          plan;
+
+
+        showPayment();
+
+      };
+
+
+      container.appendChild(
+        div
+      );
+
+    });
+
 
   }catch(error){
 
-    console.log(
-      "Using demo plans:",
-      error.message
-    );
+    console.error(error);
 
-    plans =
-      demoPlans.filter(
-        p => p.country === country
-      );
-  }
 
-  if(!plans || plans.length === 0){
+    container.innerHTML = `
 
-    plans =
-      demoPlans.filter(
-        p => p.country === country
-      );
-  }
+      <div class="card">
 
-  plans.forEach(plan => {
+        <div class="status error">
 
-    const div =
-      document.createElement("div");
+          Failed to load plans.
 
-    div.className = "plan";
+          <br><br>
 
-    div.innerHTML = `
-      <h3>${plan.name || "TELKU Plan"}</h3>
-      <p>${plan.data || ""} • ${plan.days || ""} days</p>
-      <div class="price">
-        ${plan.currency || "IDR"}
-        ${Number(plan.price || 0).toLocaleString("id-ID")}
+          ${error.message}
+
+        </div>
+
       </div>
+
     `;
 
-    div.onclick = function(){
-
-      document
-        .querySelectorAll(".plan")
-        .forEach(x =>
-          x.classList.remove("selected")
-        );
-
-      div.classList.add("selected");
-
-      selectedPlan = plan;
-
-      showPayment();
-    };
-
-    container.appendChild(div);
-
-  });
+  }
 
 }
 
@@ -509,63 +757,136 @@ async function loadPlans(){
 function showPayment(){
 
   if(!selectedPlan){
+
     return;
+
   }
+
 
   document
     .getElementById("home")
-    .classList.add("hidden");
+    .classList.add(
+      "hidden"
+    );
+
 
   document
     .getElementById("paymentPage")
-    .classList.remove("hidden");
+    .classList.remove(
+      "hidden"
+    );
+
 
   document
-    .getElementById("paymentSummary")
+    .getElementById(
+      "paymentSummary"
+    )
     .innerHTML = `
 
-      <p><strong>${selectedPlan.name}</strong></p>
+      <p>
+        <strong>
+          ${selectedPlan.country}
+        </strong>
+      </p>
 
       <p>
-        ${selectedPlan.data || ""}
+        ${selectedPlan.data_gb} GB
         /
-        ${selectedPlan.days || ""} days
+        ${selectedPlan.validity_days} days
+      </p>
+
+      <p class="small">
+        Plan Code:
+        ${selectedPlan.plan_code}
       </p>
 
       <div class="price">
-        ${selectedPlan.currency || "IDR"}
-        ${Number(selectedPlan.price || 0)
-          .toLocaleString("id-ID")}
+
+        IDR
+        ${Number(
+          selectedPlan.price
+        ).toLocaleString("id-ID")}
+
       </div>
+
+      <p class="small"
+         style="margin-top:8px;">
+
+        Plan UUID:
+        ${selectedPlan.id}
+
+      </p>
+
   `;
 
 }
 
 
 /* =====================================================
-   CUSTOMER
+   GET OR CREATE CUSTOMER
 ===================================================== */
 
 async function getOrCreateCustomer(){
 
   const fullName =
-    document.getElementById("fullName").value.trim();
+    document
+      .getElementById(
+        "fullName"
+      )
+      .value
+      .trim();
+
 
   const email =
-    document.getElementById("email").value.trim();
+    document
+      .getElementById(
+        "email"
+      )
+      .value
+      .trim();
+
 
   const phone =
-    document.getElementById("phone").value.trim();
+    document
+      .getElementById(
+        "phone"
+      )
+      .value
+      .trim();
+
 
   const country =
-    document.getElementById("country").value.trim() ||
-    document.getElementById("countrySelect").value;
+    document
+      .getElementById(
+        "countrySelect"
+      )
+      .value;
 
-  if(!fullName || !email){
+
+  if(!fullName){
 
     throw new Error(
-      "Nama dan email customer wajib diisi."
+      "Full Name wajib diisi."
     );
+
+  }
+
+
+  if(!email){
+
+    throw new Error(
+      "Email wajib diisi."
+    );
+
+  }
+
+
+  if(!country){
+
+    throw new Error(
+      "Country wajib dipilih."
+    );
+
   }
 
 
@@ -582,7 +903,10 @@ async function getOrCreateCustomer(){
     );
 
 
-  if(existing && existing.length > 0){
+  if(
+    existing &&
+    existing.length > 0
+  ){
 
     return existing[0];
 
@@ -594,18 +918,43 @@ async function getOrCreateCustomer(){
   const customerCode =
     randomCode("CUS");
 
+
   const created =
     await supabaseRequest(
       "telku_customer",
       "POST",
       {
-        customer_code:customerCode,
-        full_name:fullName,
-        email:email,
-        phone:phone,
-        country:country
+
+        customer_code:
+          customerCode,
+
+        full_name:
+          fullName,
+
+        email:
+          email,
+
+        phone:
+          phone,
+
+        country:
+          country
+
       }
     );
+
+
+  if(
+    !created ||
+    !created.length
+  ){
+
+    throw new Error(
+      "Customer tidak berhasil dibuat."
+    );
+
+  }
+
 
   return created[0];
 
@@ -618,30 +967,79 @@ async function getOrCreateCustomer(){
 
 async function createOrder(customer){
 
+  /*
+    selectedPlan.id = UUID asli
+    dari telku_plans.
+  */
+
+  const planUUID =
+    selectedPlan.id;
+
+
+  if(!planUUID){
+
+    throw new Error(
+      "Plan UUID tidak ditemukan."
+    );
+
+  }
+
+
+  /*
+    Validasi sederhana UUID.
+  */
+
+  const uuidPattern =
+    /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
+
+  if(
+    !uuidPattern.test(
+      String(planUUID)
+    )
+  ){
+
+    throw new Error(
+      "Plan ID bukan UUID: " +
+      planUUID
+    );
+
+  }
+
+
   const orderCode =
     randomCode("ORD");
 
-  /*
-    IMPORTANT:
-    Jangan mengirim field yang tidak diperlukan.
-    Supabase akan menggunakan default untuk field lainnya.
-  */
 
   const payload = {
 
-    order_code:orderCode,
+    order_code:
+      orderCode,
 
-    cust_id:customer.id,
+    cust_id:
+      customer.id,
 
-    plan_id:String(selectedPlan.id),
+    plan_id:
+      planUUID,
 
-    status:"pending",
+    status:
+      "pending",
 
-    total:Number(selectedPlan.price || 0),
+    total:
+      Number(
+        selectedPlan.price
+      ),
 
-    currency:selectedPlan.currency || "IDR"
+    currency:
+      "IDR"
 
   };
+
+
+  console.log(
+    "ORDER PAYLOAD:",
+    payload
+  );
 
 
   const result =
@@ -652,10 +1050,13 @@ async function createOrder(customer){
     );
 
 
-  if(!result || !result.length){
+  if(
+    !result ||
+    !result.length
+  ){
 
     throw new Error(
-      "Order berhasil dikirim tetapi tidak ada data order yang dikembalikan."
+      "Order tidak menghasilkan data."
     );
 
   }
@@ -675,8 +1076,13 @@ async function createPayment(order){
   const paymentCode =
     randomCode("PAY");
 
+
   const method =
-    document.getElementById("paymentMethod").value;
+    document
+      .getElementById(
+        "paymentMethod"
+      )
+      .value;
 
 
   const result =
@@ -685,23 +1091,34 @@ async function createPayment(order){
       "POST",
       {
 
-        payment_code:paymentCode,
+        payment_code:
+          paymentCode,
 
-        order_id:order.id,
+        order_id:
+          order.id,
 
-        method:method,
+        method:
+          method,
 
-        status:"paid",
+        status:
+          "paid",
 
-        amount:Number(selectedPlan.price || 0),
+        amount:
+          Number(
+            selectedPlan.price
+          ),
 
-        currency:selectedPlan.currency || "IDR"
+        currency:
+          "IDR"
 
       }
     );
 
 
-  if(!result || !result.length){
+  if(
+    !result ||
+    !result.length
+  ){
 
     throw new Error(
       "Payment tidak menghasilkan data."
@@ -731,19 +1148,26 @@ async function createInvoice(order){
       "POST",
       {
 
-        invoice_code:invoiceCode,
+        invoice_code:
+          invoiceCode,
 
-        order_id:order.id,
+        order_id:
+          order.id,
 
-        status:"paid",
+        status:
+          "paid",
 
-        issued_at:new Date().toISOString()
+        issued_at:
+          new Date().toISOString()
 
       }
     );
 
 
-  if(!result || !result.length){
+  if(
+    !result ||
+    !result.length
+  ){
 
     throw new Error(
       "Invoice tidak berhasil dibuat."
@@ -773,17 +1197,23 @@ async function createEsim(order){
       "POST",
       {
 
-        esim_code:esimCode,
+        esim_code:
+          esimCode,
 
-        order_id:order.id,
+        order_id:
+          order.id,
 
-        status:"pending"
+        status:
+          "pending"
 
       }
     );
 
 
-  if(!result || !result.length){
+  if(
+    !result ||
+    !result.length
+  ){
 
     throw new Error(
       "eSIM tidak berhasil dibuat."
@@ -810,14 +1240,16 @@ async function markOrderPaid(order){
       status:"paid"
     },
     "?id=eq." +
-    encodeURIComponent(order.id)
+    encodeURIComponent(
+      order.id
+    )
   );
 
 }
 
 
 /* =====================================================
-   FULL TRANSACTION
+   SAVE FULL TRANSACTION
 ===================================================== */
 
 async function saveTransaction(){
@@ -851,7 +1283,9 @@ async function saveTransaction(){
   try{
 
     order =
-      await createOrder(customer);
+      await createOrder(
+        customer
+      );
 
   }catch(error){
 
@@ -868,7 +1302,9 @@ async function saveTransaction(){
   try{
 
     payment =
-      await createPayment(order);
+      await createPayment(
+        order
+      );
 
   }catch(error){
 
@@ -885,7 +1321,9 @@ async function saveTransaction(){
   try{
 
     invoice =
-      await createInvoice(order);
+      await createInvoice(
+        order
+      );
 
   }catch(error){
 
@@ -902,7 +1340,9 @@ async function saveTransaction(){
   try{
 
     esim =
-      await createEsim(order);
+      await createEsim(
+        order
+      );
 
   }catch(error){
 
@@ -918,7 +1358,9 @@ async function saveTransaction(){
 
   try{
 
-    await markOrderPaid(order);
+    await markOrderPaid(
+      order
+    );
 
   }catch(error){
 
@@ -932,11 +1374,20 @@ async function saveTransaction(){
 
   return {
 
-    customer,
-    order,
-    payment,
-    invoice,
-    esim
+    customer:
+      customer,
+
+    order:
+      order,
+
+    payment:
+      payment,
+
+    invoice:
+      invoice,
+
+    esim:
+      esim
 
   };
 
@@ -950,34 +1401,51 @@ async function saveTransaction(){
 async function processPayment(){
 
   const button =
-    document.getElementById("payButton");
+    document.getElementById(
+      "payButton"
+    );
+
 
   const status =
-    document.getElementById("paymentStatus");
+    document.getElementById(
+      "paymentStatus"
+    );
 
 
   if(!selectedPlan){
 
-    status.innerHTML =
-      `<div class="status error">
+    status.innerHTML = `
+
+      <div class="status error">
+
         Please select a plan first.
-      </div>`;
+
+      </div>
+
+    `;
 
     return;
 
   }
 
 
-  button.disabled = true;
+  button.disabled =
+    true;
+
 
   button.innerText =
     "Processing...";
 
 
-  status.innerHTML =
-    `<div class="status info">
+  status.innerHTML = `
+
+    <div class="status info">
+
       Processing TELKU transaction...
-    </div>`;
+
+    </div>
+
+  `;
 
 
   try{
@@ -986,30 +1454,49 @@ async function processPayment(){
       await saveTransaction();
 
 
-    status.innerHTML =
-      `<div class="status success">
+    status.innerHTML = `
+
+      <div class="status success">
+
         Transaction completed successfully.
-      </div>`;
+
+      </div>
+
+    `;
 
 
     document
-      .getElementById("paymentPage")
-      .classList.add("hidden");
+      .getElementById(
+        "paymentPage"
+      )
+      .classList.add(
+        "hidden"
+      );
 
 
     document
-      .getElementById("successPage")
-      .classList.remove("hidden");
+      .getElementById(
+        "successPage"
+      )
+      .classList.remove(
+        "hidden"
+      );
 
 
     document
-      .getElementById("successData")
+      .getElementById(
+        "successData"
+      )
       .innerHTML = `
 
-        <p>Customer Code</p>
+        <p>
+          Customer Code
+        </p>
+
         <div class="code">
           ${result.customer.customer_code || "-"}
         </div>
+
 
         <p style="margin-top:12px;">
           Order Code
@@ -1019,6 +1506,7 @@ async function processPayment(){
           ${result.order.order_code}
         </div>
 
+
         <p style="margin-top:12px;">
           Payment Code
         </p>
@@ -1027,6 +1515,7 @@ async function processPayment(){
           ${result.payment.payment_code}
         </div>
 
+
         <p style="margin-top:12px;">
           Invoice Code
         </p>
@@ -1034,6 +1523,7 @@ async function processPayment(){
         <div class="code">
           ${result.invoice.invoice_code}
         </div>
+
 
         <p style="margin-top:12px;">
           eSIM Code
@@ -1048,21 +1538,32 @@ async function processPayment(){
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      "TELKU TRANSACTION ERROR:",
+      error
+    );
 
 
-    status.innerHTML =
-      `<div class="status error">
-        <strong>Transaction Error</strong>
+    status.innerHTML = `
+
+      <div class="status error">
+
+        <strong>
+          Transaction Error
+        </strong>
 
         <br><br>
 
         ${error.message}
 
-      </div>`;
+      </div>
+
+    `;
 
 
-    button.disabled = false;
+    button.disabled =
+      false;
+
 
     button.innerText =
       "Pay Now";
@@ -1070,6 +1571,13 @@ async function processPayment(){
   }
 
 }
+
+
+/* =====================================================
+   START APP
+===================================================== */
+
+loadCountries();
 
 </script>
 
