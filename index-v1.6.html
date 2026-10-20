@@ -1,1 +1,1910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>TELKU V1.6 — Database Connected</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f4f8fc;
+    color:#12233f;
+}
+
+button,input,select{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+header{
+    background:#fff;
+    border-bottom:1px solid #e3ebf3;
+    position:sticky;
+    top:0;
+    z-index:50;
+}
+
+.nav{
+    max-width:1200px;
+    margin:auto;
+    height:76px;
+    padding:0 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.sim{
+    width:40px;
+    height:46px;
+    background:#11bce8;
+    border-radius:9px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    font-size:22px;
+    font-weight:900;
+}
+
+.brand{
+    font-size:26px;
+    font-weight:900;
+    letter-spacing:2px;
+    color:#10274a;
+}
+
+.brand span{
+    color:#11bce8;
+}
+
+.tagline{
+    font-size:7px;
+    letter-spacing:1.5px;
+    color:#71829a;
+}
+
+.navlinks{
+    display:flex;
+    gap:5px;
+}
+
+.navlinks button{
+    border:0;
+    background:transparent;
+    padding:10px 12px;
+    color:#53677f;
+    border-radius:8px;
+}
+
+.navlinks button:hover{
+    background:#edfaff;
+    color:#08a8d5;
+}
+
+.avatar{
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    background:#10274a;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+}
+
+main{
+    max-width:1200px;
+    margin:auto;
+    padding:25px 20px 100px;
+}
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+.hero{
+    background:linear-gradient(135deg,#09264c,#0c557f);
+    color:white;
+    border-radius:22px;
+    padding:40px;
+    display:grid;
+    grid-template-columns:1.3fr .7fr;
+    gap:30px;
+}
+
+.hero h1{
+    font-size:42px;
+    line-height:1.1;
+    margin:14px 0;
+}
+
+.hero p{
+    color:#c9d9e8;
+    line-height:1.7;
+}
+
+.hero-card{
+    background:rgba(255,255,255,.1);
+    border:1px solid rgba(255,255,255,.2);
+    padding:25px;
+    border-radius:18px;
+    align-self:center;
+}
+
+.big{
+    font-size:42px;
+    font-weight:900;
+    margin:8px 0;
+}
+
+.search{
+    display:flex;
+    background:white;
+    border-radius:10px;
+    padding:5px;
+    margin-top:22px;
+    max-width:580px;
+}
+
+.search input{
+    flex:1;
+    border:0;
+    outline:0;
+    padding:13px;
+}
+
+.primary{
+    border:0;
+    background:#10b9e7;
+    color:white;
+    padding:12px 18px;
+    border-radius:8px;
+    font-weight:bold;
+}
+
+.secondary{
+    border:1px solid #d5e1eb;
+    background:white;
+    color:#173456;
+    padding:11px 16px;
+    border-radius:8px;
+    font-weight:bold;
+}
+
+.section-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin:30px 0 15px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+}
+
+.card{
+    background:white;
+    border:1px solid #e0e9f1;
+    border-radius:15px;
+    padding:19px;
+}
+
+.plan{
+    transition:.2s;
+}
+
+.plan:hover{
+    transform:translateY(-3px);
+    border-color:#11bce8;
+}
+
+.flag{
+    font-size:30px;
+    margin-bottom:10px;
+}
+
+.data{
+    font-size:27px;
+    font-weight:900;
+    margin:10px 0 3px;
+}
+
+.price{
+    font-size:21px;
+    font-weight:900;
+    margin:12px 0;
+}
+
+.muted{
+    color:#71829a;
+    font-size:13px;
+}
+
+.badge{
+    display:inline-block;
+    padding:5px 9px;
+    border-radius:20px;
+    background:#e7f9fd;
+    color:#079bc6;
+    font-size:11px;
+    font-weight:bold;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    margin:20px 0;
+}
+
+.stat{
+    background:white;
+    border:1px solid #e0e9f1;
+    border-radius:15px;
+    padding:20px;
+}
+
+.stat-number{
+    font-size:27px;
+    font-weight:900;
+    margin-top:8px;
+}
+
+.form-card{
+    background:white;
+    border:1px solid #dfe8f0;
+    border-radius:17px;
+    padding:25px;
+    max-width:750px;
+    margin:auto;
+}
+
+.form-group{
+    margin-bottom:15px;
+}
+
+.form-group label{
+    display:block;
+    font-size:13px;
+    font-weight:bold;
+    margin-bottom:7px;
+}
+
+.form-group input,
+.form-group select{
+    width:100%;
+    padding:12px;
+    border:1px solid #d6e2eb;
+    border-radius:8px;
+    outline:none;
+}
+
+.notice{
+    background:#edfaff;
+    border:1px solid #c9edf7;
+    color:#17627b;
+    border-radius:10px;
+    padding:13px;
+    margin:15px 0;
+    font-size:13px;
+}
+
+.success{
+    max-width:650px;
+    margin:30px auto;
+    background:white;
+    border:1px solid #dce8f0;
+    border-radius:18px;
+    padding:30px;
+    text-align:center;
+}
+
+.success-icon{
+    width:65px;
+    height:65px;
+    border-radius:50%;
+    background:#e5faef;
+    color:#14945a;
+    font-size:34px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:auto auto 15px;
+}
+
+.invoice{
+    max-width:800px;
+    margin:auto;
+    background:white;
+    border:1px solid #dce7ef;
+    border-radius:17px;
+    padding:30px;
+}
+
+.invoice-head{
+    display:flex;
+    justify-content:space-between;
+    border-bottom:1px solid #e3ebf2;
+    padding-bottom:18px;
+    margin-bottom:20px;
+}
+
+.invoice-total{
+    display:flex;
+    justify-content:space-between;
+    border-top:2px solid #10274a;
+    margin-top:20px;
+    padding-top:20px;
+    font-size:20px;
+    font-weight:bold;
+}
+
+.status{
+    display:inline-block;
+    padding:6px 10px;
+    border-radius:20px;
+    font-size:11px;
+    font-weight:bold;
+}
+
+.active{
+    background:#e6f9ef;
+    color:#15965a;
+}
+
+.pending{
+    background:#fff4d6;
+    color:#b27800;
+}
+
+.esim{
+    max-width:650px;
+    background:linear-gradient(135deg,#09284f,#08769e);
+    color:white;
+    padding:27px;
+    border-radius:20px;
+}
+
+.progress{
+    height:9px;
+    background:rgba(255,255,255,.2);
+    border-radius:20px;
+    overflow:hidden;
+    margin:15px 0;
+}
+
+.progress div{
+    width:35%;
+    height:100%;
+    background:#11c5ed;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.table-wrap{
+    background:white;
+    border:1px solid #dfe8ef;
+    border-radius:15px;
+    overflow:auto;
+}
+
+th,td{
+    padding:14px;
+    border-bottom:1px solid #edf2f6;
+    text-align:left;
+    font-size:13px;
+}
+
+th{
+    background:#f7fafc;
+    color:#64778d;
+}
+
+.qr{
+    width:190px;
+    height:190px;
+    margin:20px auto;
+    background:
+    repeating-linear-gradient(
+        45deg,
+        #111 0 5px,
+        #fff 5px 10px
+    );
+    border:12px solid white;
+    box-shadow:0 0 0 1px #ddd;
+}
+
+footer{
+    background:#0a1d37;
+    color:#afc0d1;
+    text-align:center;
+    padding:28px;
+    font-size:13px;
+}
+
+.mobile{
+    display:none;
+}
+
+@media(max-width:900px){
+
+    .navlinks{
+        display:none;
+    }
+
+    .hero{
+        grid-template-columns:1fr;
+    }
+
+    .grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+@media(max-width:600px){
+
+    .nav{
+        height:67px;
+        padding:0 13px;
+    }
+
+    .brand{
+        font-size:21px;
+    }
+
+    main{
+        padding:15px 13px 85px;
+    }
+
+    .hero{
+        padding:25px 20px;
+        border-radius:18px;
+    }
+
+    .hero h1{
+        font-size:31px;
+    }
+
+    .search{
+        display:block;
+        background:transparent;
+    }
+
+    .search input{
+        width:100%;
+        border-radius:8px;
+        margin-bottom:7px;
+    }
+
+    .search button{
+        width:100%;
+    }
+
+    .grid{
+        grid-template-columns:1fr 1fr;
+        gap:10px;
+    }
+
+    .stats{
+        gap:10px;
+    }
+
+    .stat{
+        padding:14px;
+    }
+
+    .mobile{
+        position:fixed;
+        bottom:0;
+        left:0;
+        right:0;
+        height:64px;
+        background:white;
+        border-top:1px solid #dce6ef;
+        display:flex;
+        justify-content:space-around;
+        z-index:100;
+    }
+
+    .mobile button{
+        border:0;
+        background:white;
+        color:#60748a;
+        font-size:11px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="nav">
+
+<div class="logo">
+<div class="sim">E</div>
+
+<div>
+<div class="brand">TELK<span>U</span></div>
+<div class="tagline">E SIMCARD INTERNATIONAL DIGITAL</div>
+</div>
+</div>
+
+<div class="navlinks">
+<button onclick="showPage('home')">Home</button>
+<button onclick="showPage('plans')">Plans</button>
+<button onclick="showPage('orders')">Orders</button>
+<button onclick="showPage('esim')">My eSIM</button>
+</div>
+
+<div class="avatar">U</div>
+
+</div>
+
+</header>
+
+
+<main>
+
+<!-- HOME -->
+
+<section id="home" class="page active">
+
+<div class="hero">
+
+<div>
+
+<span class="badge">TELKU V1.6 DATABASE CONNECTED</span>
+
+<h1>Stay Connected<br>Across Borders.</h1>
+
+<p>
+TELKU global digital connectivity platform.
+Plans are now loaded directly from the TELKU database.
+</p>
+
+<div class="search">
+
+<input
+id="searchInput"
+placeholder="Search Japan, Thailand, USA..."
+>
+
+<button class="primary" onclick="searchPlans()">
+Search
+</button>
+
+</div>
+
+</div>
+
+<div class="hero-card">
+
+<div style="opacity:.75">
+DATABASE STATUS
+</div>
+
+<div class="big" id="dbStatus">
+Checking...
+</div>
+
+<div id="dbMessage">
+Connecting to Supabase
+</div>
+
+</div>
+
+</div>
+
+
+<div class="stats">
+
+<div class="stat">
+<div class="muted">TELKU Plans</div>
+<div class="stat-number" id="planCount">0</div>
+</div>
+
+<div class="stat">
+<div class="muted">Customers</div>
+<div class="stat-number" id="customerCount">0</div>
+</div>
+
+<div class="stat">
+<div class="muted">Orders</div>
+<div class="stat-number" id="orderCount">0</div>
+</div>
+
+<div class="stat">
+<div class="muted">eSIM</div>
+<div class="stat-number" id="esimCount">0</div>
+</div>
+
+</div>
+
+
+<div class="section-title">
+<h2>Plans From Database</h2>
+<button class="secondary" onclick="showPage('plans')">
+View All
+</button>
+</div>
+
+<div id="homePlans" class="grid"></div>
+
+</section>
+
+
+<!-- PLANS -->
+
+<section id="plans" class="page">
+
+<div class="section-title">
+
+<h2>TELKU eSIM Plans</h2>
+
+<button class="secondary" onclick="loadPlans()">
+Refresh Database
+</button>
+
+</div>
+
+<div class="notice">
+These plans are loaded directly from
+<strong>telku_plans</strong> in Supabase.
+</div>
+
+<div id="plansGrid" class="grid"></div>
+
+</section>
+
+
+<!-- CHECKOUT -->
+
+<section id="checkout" class="page">
+
+<div class="section-title">
+<h2>Checkout</h2>
+</div>
+
+<div class="form-card">
+
+<div id="selectedPlanBox" class="card"></div>
+
+<br>
+
+<div class="form-group">
+
+<label>Full Name</label>
+
+<input
+id="customerName"
+placeholder="Your full name"
+>
+
+</div>
+
+<div class="form-group">
+
+<label>Email</label>
+
+<input
+id="customerEmail"
+type="email"
+placeholder="you@email.com"
+>
+
+</div>
+
+<div class="form-group">
+
+<label>Payment Method</label>
+
+<select id="paymentMethod">
+
+<option>Credit / Debit Card</option>
+<option>Bank Transfer</option>
+<option>E-Wallet</option>
+
+</select>
+
+</div>
+
+<button
+class="primary"
+style="width:100%"
+onclick="createDatabaseOrder()"
+>
+Create TELKU Order
+</button>
+
+</div>
+
+</section>
+
+
+<!-- SUCCESS -->
+
+<section id="success" class="page">
+
+<div class="success">
+
+<div class="success-icon">
+✓
+</div>
+
+<h1>Order Created</h1>
+
+<p class="muted" style="margin:10px 0 25px">
+The transaction record has been sent to the TELKU database.
+</p>
+
+<div class="card" style="text-align:left">
+
+<p>
+<strong>Customer ID</strong>
+</p>
+
+<p class="muted" id="successCustomer">
+-
+</p>
+
+<br>
+
+<p>
+<strong>Order ID</strong>
+</p>
+
+<p class="muted" id="successOrder">
+-
+</p>
+
+<br>
+
+<p>
+<strong>Payment ID</strong>
+</p>
+
+<p class="muted" id="successPayment">
+-
+</p>
+
+<br>
+
+<p>
+<strong>Invoice ID</strong>
+</p>
+
+<p class="muted" id="successInvoice">
+-
+</p>
+
+<br>
+
+<p>
+<strong>eSIM ID</strong>
+</p>
+
+<p class="muted" id="successEsim">
+-
+</p>
+
+<br>
+
+<span class="status pending">
+PENDING
+</span>
+
+</div>
+
+<br>
+
+<button
+class="primary"
+onclick="showPage('orders')"
+>
+View Orders
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ORDERS -->
+
+<section id="orders" class="page">
+
+<div class="section-title">
+
+<h2>Order History</h2>
+
+<button
+class="secondary"
+onclick="loadOrders()"
+>
+Refresh
+</button>
+
+</div>
+
+<div class="notice">
+Orders shown here are records stored in the TELKU database.
+</div>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+<th>Order ID</th>
+<th>Customer</th>
+<th>Plan</th>
+<th>Total</th>
+<th>Status</th>
+</tr>
+
+</thead>
+
+<tbody id="ordersBody">
+
+<tr>
+<td colspan="5">
+Loading...
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+
+<!-- ESIM -->
+
+<section id="esim" class="page">
+
+<div class="section-title">
+<h2>My eSIM</h2>
+</div>
+
+<div class="esim">
+
+<div style="opacity:.7">
+TELKU eSIM
+</div>
+
+<h2 id="esimCountry">
+No eSIM yet
+</h2>
+
+<br>
+
+<p id="esimPlan">
+Purchase a TELKU plan first.
+</p>
+
+<div class="progress">
+<div></div>
+</div>
+
+<p>
+Used: <strong>3.5 GB</strong>
+</p>
+
+<p>
+Remaining: <strong>6.5 GB</strong>
+</p>
+
+<br>
+
+<p style="opacity:.7">
+eSIM ID
+</p>
+
+<strong id="esimCode">
+-
+</strong>
+
+<br><br>
+
+<button
+class="primary"
+onclick="showPage('qr')"
+>
+View QR
+</button>
+
+</div>
+
+<div class="notice">
+
+Real provider activation QR will be inserted here
+when TELKU is connected to an eSIM provider API.
+
+</div>
+
+</section>
+
+
+<!-- QR -->
+
+<section id="qr" class="page">
+
+<div class="success">
+
+<h2>TELKU eSIM QR</h2>
+
+<p class="muted">
+Demo QR visual — provider activation comes later.
+</p>
+
+<div class="qr"></div>
+
+<strong id="qrCode">
+TELKU-ESIM-DEMO
+</strong>
+
+<div class="notice">
+
+This QR is currently a visual demo.
+It is NOT an actual carrier activation QR.
+
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+
+<footer>
+
+TELKU — Global Digital Connectivity<br>
+
+One eSIM, Connected Across Borders.
+
+</footer>
+
+
+<div class="mobile">
+
+<button onclick="showPage('home')">
+⌂<br>Home
+</button>
+
+<button onclick="showPage('plans')">
+◈<br>Plans
+</button>
+
+<button onclick="showPage('orders')">
+▤<br>Orders
+</button>
+
+<button onclick="showPage('esim')">
+▣<br>eSIM
+</button>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   TELKU V1.6 — SUPABASE CONNECTION
+   ========================================================= */
+
+/*
+   BOSS KU:
+
+   1. SUPABASE_URL:
+      isi dengan URL project Supabase.
+
+   2. SUPABASE_PUBLISHABLE_KEY:
+      paste Publishable Key yang tadi sudah di-copy.
+
+   JANGAN masukkan SUPABASE_SECRET_KEY.
+*/
+
+const SUPABASE_URL =
+"https://xozjhayxttryegynntld.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+"PASTE_YOUR_PUBLISHABLE_KEY_HERE";
+
+
+const { createClient } =
+supabase;
+
+const db =
+createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+);
+
+
+/* =========================================================
+   GLOBAL VARIABLES
+   ========================================================= */
+
+let plans = [];
+
+let selectedPlan = null;
+
+let currentCustomerId = null;
+
+let currentOrderId = null;
+
+
+/* =========================================================
+   PAGE NAVIGATION
+   ========================================================= */
+
+function showPage(page){
+
+    document
+    .querySelectorAll(".page")
+    .forEach(function(section){
+
+        section.classList.remove("active");
+
+    });
+
+    const target =
+    document.getElementById(page);
+
+    if(target){
+
+        target.classList.add("active");
+
+        window.scrollTo({
+            top:0,
+            behavior:"smooth"
+        });
+
+    }
+
+    if(page === "plans"){
+        loadPlans();
+    }
+
+    if(page === "orders"){
+        loadOrders();
+    }
+
+}
+
+
+/* =========================================================
+   DATABASE CONNECTION TEST
+   ========================================================= */
+
+async function testDatabase(){
+
+    const status =
+    document.getElementById("dbStatus");
+
+    const message =
+    document.getElementById("dbMessage");
+
+    status.innerText="...";
+
+    try{
+
+        const { data,error } =
+        await db
+        .from("telku_plans")
+        .select("id")
+        .limit(1);
+
+        if(error){
+            throw error;
+        }
+
+        status.innerText="ONLINE";
+
+        message.innerText=
+        "Supabase connected successfully";
+
+        status.style.color="#54e69a";
+
+    }catch(error){
+
+        console.error(error);
+
+        status.innerText="ERROR";
+
+        message.innerText=
+        "Check Supabase key / RLS policy";
+
+        status.style.color="#ff8b8b";
+
+    }
+
+}
+
+
+/* =========================================================
+   LOAD PLANS
+   ========================================================= */
+
+async function loadPlans(){
+
+    const grid =
+    document.getElementById("plansGrid");
+
+    grid.innerHTML=
+    "<div class='card'>Loading plans...</div>";
+
+    try{
+
+        const { data,error } =
+        await db
+        .from("telku_plans")
+        .select("*")
+        .eq("active",true)
+        .order("price",{ascending:true});
+
+        if(error){
+            throw error;
+        }
+
+        plans=data || [];
+
+        document.getElementById("planCount")
+        .innerText=plans.length;
+
+        renderPlans(plans);
+
+        renderHomePlans(plans.slice(0,4));
+
+    }catch(error){
+
+        console.error(error);
+
+        grid.innerHTML=
+        "<div class='card'>Unable to load plans. Check Supabase RLS.</div>";
+
+    }
+
+}
+
+
+/* =========================================================
+   RENDER PLANS
+   ========================================================= */
+
+function renderPlans(list){
+
+    const grid =
+    document.getElementById("plansGrid");
+
+    if(!list.length){
+
+        grid.innerHTML=
+        "<div class='card'>No plans found.</div>";
+
+        return;
+    }
+
+    grid.innerHTML="";
+
+    list.forEach(function(plan){
+
+        const card =
+        document.createElement("div");
+
+        card.className="card plan";
+
+        card.innerHTML=`
+
+            <span class="badge">
+                ${escapeHTML(plan.country)}
+            </span>
+
+            <div class="flag">
+                ${escapeHTML(plan.flag || "🌐")}
+            </div>
+
+            <h3>
+                ${escapeHTML(plan.country)}
+            </h3>
+
+            <div class="data">
+                ${escapeHTML(plan.data_gb)} GB
+            </div>
+
+            <div class="muted">
+                ${escapeHTML(plan.validity_days)} Days
+            </div>
+
+            <div class="price">
+                ${escapeHTML(plan.currency)}
+                ${Number(plan.price).toFixed(2)}
+            </div>
+
+            <button
+                class="primary"
+                onclick="selectPlan('${plan.id}')"
+            >
+                Select Plan
+            </button>
+        `;
+
+        grid.appendChild(card);
+
+    });
+
+}
+
+
+/* =========================================================
+   HOME PLANS
+   ========================================================= */
+
+function renderHomePlans(list){
+
+    const grid =
+    document.getElementById("homePlans");
+
+    grid.innerHTML="";
+
+    list.forEach(function(plan){
+
+        const card =
+        document.createElement("div");
+
+        card.className="card plan";
+
+        card.innerHTML=`
+
+            <span class="badge">
+                ${escapeHTML(plan.country)}
+            </span>
+
+            <div class="data">
+                ${escapeHTML(plan.data_gb)} GB
+            </div>
+
+            <div class="muted">
+                ${escapeHTML(plan.validity_days)} Days
+            </div>
+
+            <div class="price">
+                $${Number(plan.price).toFixed(2)}
+            </div>
+
+            <button
+                class="primary"
+                onclick="selectPlan('${plan.id}')"
+            >
+                Select
+            </button>
+        `;
+
+        grid.appendChild(card);
+
+    });
+
+}
+
+
+/* =========================================================
+   SELECT PLAN
+   ========================================================= */
+
+function selectPlan(id){
+
+    selectedPlan =
+    plans.find(function(plan){
+
+        return plan.id === id;
+
+    });
+
+    if(!selectedPlan){
+
+        alert("Plan not found.");
+
+        return;
+    }
+
+    document.getElementById(
+        "selectedPlanBox"
+    ).innerHTML=`
+
+        <span class="badge">
+            ${escapeHTML(selectedPlan.country)}
+        </span>
+
+        <h2 style="margin-top:10px">
+            ${escapeHTML(selectedPlan.flag || "🌐")}
+            ${escapeHTML(selectedPlan.country)}
+        </h2>
+
+        <div class="data">
+            ${escapeHTML(selectedPlan.data_gb)} GB
+        </div>
+
+        <div class="muted">
+            ${escapeHTML(selectedPlan.validity_days)} Days
+        </div>
+
+        <div class="price">
+            ${escapeHTML(selectedPlan.currency)}
+            ${Number(selectedPlan.price).toFixed(2)}
+        </div>
+
+    `;
+
+    showPage("checkout");
+
+}
+
+
+/* =========================================================
+   CREATE DATABASE ORDER
+   ========================================================= */
+
+async function createDatabaseOrder(){
+
+    if(!selectedPlan){
+
+        alert("Please select a plan first.");
+
+        return;
+    }
+
+    const name =
+    document.getElementById(
+        "customerName"
+    ).value.trim();
+
+    const email =
+    document.getElementById(
+        "customerEmail"
+    ).value.trim();
+
+    const method =
+    document.getElementById(
+        "paymentMethod"
+    ).value;
+
+    if(!name || !email){
+
+        alert(
+            "Please enter your name and email."
+        );
+
+        return;
+    }
+
+    try{
+
+        /*
+          Generate IDs in browser.
+          This allows us to use them without
+          needing a privileged server key.
+        */
+
+        const customerId =
+        crypto.randomUUID();
+
+        const orderId =
+        crypto.randomUUID();
+
+        const paymentId =
+        crypto.randomUUID();
+
+        const invoiceId =
+        crypto.randomUUID();
+
+        const esimId =
+        crypto.randomUUID();
+
+
+        const customerCode =
+        "TELKU-CUS-"+randomCode();
+
+        const orderCode =
+        "TELKU-"+dateCode()+"-"+randomCode();
+
+        const paymentCode =
+        "PAY-"+randomCode();
+
+        const invoiceCode =
+        "INV-"+randomCode();
+
+        const esimCode =
+        "TELKU-ESIM-"+randomCode();
+
+
+        /* CUSTOMER */
+
+        const customerResult =
+        await db
+        .from("telku_customers")
+        .insert({
+
+            id:customerId,
+
+            customer_code:customerCode,
+
+            full_name:name,
+
+            email:email
+
+        });
+
+        if(customerResult.error){
+
+            throw customerResult.error;
+
+        }
+
+
+        /* ORDER */
+
+        const orderResult =
+        await db
+        .from("telku_orders")
+        .insert({
+
+            id:orderId,
+
+            order_code:orderCode,
+
+            customer_id:customerId,
+
+            plan_id:selectedPlan.id,
+
+            status:"PENDING",
+
+            total:selectedPlan.price,
+
+            currency:selectedPlan.currency
+
+        });
+
+        if(orderResult.error){
+
+            throw orderResult.error;
+
+        }
+
+
+        /* PAYMENT */
+
+        const paymentResult =
+        await db
+        .from("telku_payments")
+        .insert({
+
+            id:paymentId,
+
+            payment_code:paymentCode,
+
+            order_id:orderId,
+
+            method:method,
+
+            status:"PENDING",
+
+            amount:selectedPlan.price,
+
+            currency:selectedPlan.currency
+
+        });
+
+        if(paymentResult.error){
+
+            throw paymentResult.error;
+
+        }
+
+
+        /* INVOICE */
+
+        const invoiceResult =
+        await db
+        .from("telku_invoices")
+        .insert({
+
+            id:invoiceId,
+
+            invoice_code:invoiceCode,
+
+            order_id:orderId,
+
+            status:"ISSUED"
+
+        });
+
+        if(invoiceResult.error){
+
+            throw invoiceResult.error;
+
+        }
+
+
+        /* ESIM */
+
+        const esimResult =
+        await db
+        .from("telku_esims")
+        .insert({
+
+            id:esimId,
+
+            esim_code:esimCode,
+
+            order_id:orderId,
+
+            status:"PENDING"
+
+        });
+
+        if(esimResult.error){
+
+            throw esimResult.error;
+
+        }
+
+
+        currentCustomerId =
+        customerId;
+
+        currentOrderId =
+        orderId;
+
+
+        document.getElementById(
+            "successCustomer"
+        ).innerText=customerCode;
+
+        document.getElementById(
+            "successOrder"
+        ).innerText=orderCode;
+
+        document.getElementById(
+            "successPayment"
+        ).innerText=paymentCode;
+
+        document.getElementById(
+            "successInvoice"
+        ).innerText=invoiceCode;
+
+        document.getElementById(
+            "successEsim"
+        ).innerText=esimCode;
+
+
+        document.getElementById(
+            "esimCountry"
+        ).innerText=
+        selectedPlan.flag+
+        " "+
+        selectedPlan.country;
+
+        document.getElementById(
+            "esimPlan"
+        ).innerText=
+        selectedPlan.data_gb+
+        " GB • "+
+        selectedPlan.validity_days+
+        " Days";
+
+        document.getElementById(
+            "esimCode"
+        ).innerText=
+        esimCode;
+
+        document.getElementById(
+            "qrCode"
+        ).innerText=
+        esimCode;
+
+
+        document.getElementById(
+            "customerCount"
+        ).innerText="1+";
+
+        document.getElementById(
+            "orderCount"
+        ).innerText="1+";
+
+        document.getElementById(
+            "esimCount"
+        ).innerText="1+";
+
+
+        showPage("success");
+
+    }catch(error){
+
+        console.error(error);
+
+        alert(
+            "Database error:\\n\\n"+
+            error.message+
+            "\\n\\n"+
+            "Jika error RLS muncul, kita perlu membuat policy."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   LOAD ORDERS
+   ========================================================= */
+
+async function loadOrders(){
+
+    const body =
+    document.getElementById(
+        "ordersBody"
+    );
+
+    body.innerHTML=`
+
+        <tr>
+            <td colspan="5">
+                Loading database...
+            </td>
+        </tr>
+
+    `;
+
+    try{
+
+        const {data,error} =
+        await db
+        .from("telku_orders")
+        .select(`
+            id,
+            order_code,
+            status,
+            total,
+            currency,
+            created_at,
+            telku_plans (
+                country,
+                data_gb,
+                validity_days
+            ),
+            telku_customers (
+                full_name,
+                email
+            )
+        `)
+        .order(
+            "created_at",
+            {ascending:false}
+        );
+
+        if(error){
+
+            throw error;
+
+        }
+
+        if(!data || !data.length){
+
+            body.innerHTML=`
+
+                <tr>
+                    <td colspan="5">
+                        No orders yet.
+                    </td>
+                </tr>
+
+            `;
+
+            return;
+
+        }
+
+        body.innerHTML="";
+
+        data.forEach(function(order){
+
+            const row =
+            document.createElement("tr");
+
+            row.innerHTML=`
+
+                <td>
+                    ${escapeHTML(order.order_code)}
+                </td>
+
+                <td>
+                    ${escapeHTML(
+                        order.telku_customers?.full_name || "-"
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHTML(
+                        order.telku_plans?.country || "-"
+                    )}
+                    -
+                    ${escapeHTML(
+                        order.telku_plans?.data_gb || "-"
+                    )} GB
+                </td>
+
+                <td>
+                    ${escapeHTML(order.currency)}
+                    ${Number(order.total).toFixed(2)}
+                </td>
+
+                <td>
+                    <span class="status pending">
+                        ${escapeHTML(order.status)}
+                    </span>
+                </td>
+
+            `;
+
+            body.appendChild(row);
+
+        });
+
+    }catch(error){
+
+        console.error(error);
+
+        body.innerHTML=`
+
+            <tr>
+                <td colspan="5">
+                    Cannot read orders.
+                    Check RLS policies.
+                </td>
+            </tr>
+
+        `;
+
+    }
+
+}
+
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+function searchPlans(){
+
+    const value =
+    document
+    .getElementById("searchInput")
+    .value
+    .toLowerCase()
+    .trim();
+
+    if(!value){
+
+        showPage("plans");
+
+        return;
+    }
+
+    const result =
+    plans.filter(function(plan){
+
+        return plan.country
+        .toLowerCase()
+        .includes(value);
+
+    });
+
+    showPage("plans");
+
+    renderPlans(result);
+
+}
+
+
+/* =========================================================
+   HELPERS
+   ========================================================= */
+
+function randomCode(){
+
+    return Math
+    .floor(
+        100000 +
+        Math.random()*900000
+    )
+    .toString();
+
+}
+
+
+function dateCode(){
+
+    const d =
+    new Date();
+
+    return d
+    .toISOString()
+    .slice(0,10)
+    .replaceAll("-","");
+
+}
+
+
+function escapeHTML(value){
+
+    return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+/* =========================================================
+   START
+   ========================================================= */
+
+window.addEventListener(
+    "load",
+    async function(){
+
+        await testDatabase();
+
+        await loadPlans();
+
+    }
+);
+
+</script>
+
+</body>
+</html>
