@@ -1,1 +1,1345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TELKU V1.8 — Customer App</title>
 
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f5f8fc;
+  color:#10233f;
+}
+
+header{
+  background:#071b35;
+  color:white;
+  padding:16px 20px;
+  position:sticky;
+  top:0;
+  z-index:20;
+}
+
+.header{
+  max-width:1100px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  font-size:25px;
+  font-weight:800;
+  letter-spacing:1px;
+}
+
+.logo span{color:#19c9e8}
+
+.status{
+  font-size:12px;
+  background:#0b8f68;
+  padding:7px 12px;
+  border-radius:20px;
+  font-weight:bold;
+}
+
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:24px 18px 90px;
+}
+
+.hero{
+  background:linear-gradient(135deg,#071b35,#0b4773);
+  color:white;
+  padding:30px;
+  border-radius:22px;
+  margin-bottom:22px;
+}
+
+.hero h1{
+  font-size:32px;
+  margin-bottom:10px;
+}
+
+.hero p{
+  color:#d7e8f7;
+  line-height:1.6;
+}
+
+.section{
+  margin-top:24px;
+}
+
+.section h2{
+  margin-bottom:14px;
+  font-size:21px;
+}
+
+.search{
+  width:100%;
+  padding:15px;
+  border:1px solid #d7e0ea;
+  border-radius:14px;
+  margin-bottom:16px;
+  font-size:16px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:15px;
+}
+
+.card{
+  background:white;
+  border-radius:18px;
+  padding:18px;
+  box-shadow:0 5px 20px rgba(0,0,0,.06);
+  border:1px solid #e7edf4;
+}
+
+.country{
+  font-size:19px;
+  font-weight:bold;
+  margin-bottom:8px;
+}
+
+.flag{
+  font-size:32px;
+  margin-bottom:10px;
+}
+
+.plan{
+  background:white;
+  border-radius:18px;
+  padding:18px;
+  border:1px solid #e2e9f1;
+  box-shadow:0 5px 20px rgba(0,0,0,.05);
+}
+
+.plan h3{
+  margin-bottom:8px;
+}
+
+.plan .gb{
+  font-size:28px;
+  font-weight:800;
+  color:#087fa8;
+}
+
+.meta{
+  color:#65758b;
+  font-size:14px;
+  margin:7px 0;
+}
+
+.price{
+  font-size:22px;
+  font-weight:800;
+  margin:12px 0;
+}
+
+button{
+  border:0;
+  border-radius:12px;
+  padding:12px 16px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.primary{
+  background:#0b9fc3;
+  color:white;
+  width:100%;
+}
+
+.dark{
+  background:#071b35;
+  color:white;
+}
+
+.secondary{
+  background:#edf4f8;
+  color:#123;
+}
+
+.hidden{display:none!important}
+
+.panel{
+  background:white;
+  border-radius:20px;
+  padding:22px;
+  box-shadow:0 5px 22px rgba(0,0,0,.06);
+  margin-top:18px;
+}
+
+.row{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  padding:12px 0;
+  border-bottom:1px solid #edf1f5;
+}
+
+.total{
+  font-size:25px;
+  font-weight:800;
+  margin:18px 0;
+}
+
+input{
+  width:100%;
+  padding:13px;
+  border:1px solid #d7e0ea;
+  border-radius:11px;
+  margin:7px 0 14px;
+  font-size:15px;
+}
+
+.pay{
+  display:grid;
+  gap:10px;
+  margin:15px 0;
+}
+
+.pay label{
+  border:1px solid #dce5ed;
+  border-radius:13px;
+  padding:14px;
+  background:#fafcfe;
+}
+
+.success{
+  text-align:center;
+  padding:30px 15px;
+}
+
+.success-icon{
+  width:70px;
+  height:70px;
+  border-radius:50%;
+  background:#dff8ed;
+  color:#087b58;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:0 auto 15px;
+  font-size:35px;
+}
+
+.code{
+  background:#071b35;
+  color:#fff;
+  border-radius:12px;
+  padding:13px;
+  margin:8px 0;
+  font-family:monospace;
+  word-break:break-all;
+}
+
+.qr{
+  width:180px;
+  height:180px;
+  margin:20px auto;
+  border:8px solid white;
+  box-shadow:0 3px 15px rgba(0,0,0,.2);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:
+    repeating-linear-gradient(45deg,#071b35 0 4px,#fff 4px 8px);
+  color:white;
+  font-weight:bold;
+}
+
+.bottom{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:white;
+  border-top:1px solid #ddd;
+  display:flex;
+  justify-content:center;
+  z-index:30;
+}
+
+.bottom button{
+  background:white;
+  color:#18304d;
+  border-radius:0;
+  padding:14px 22px;
+}
+
+.notice{
+  padding:12px 14px;
+  border-radius:12px;
+  background:#eef8fc;
+  color:#075c78;
+  margin-bottom:15px;
+  font-size:14px;
+}
+
+@media(max-width:600px){
+  .hero h1{font-size:26px}
+  .hero{padding:23px}
+  .row{font-size:14px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="header">
+    <div class="logo">TEL<span>KU</span></div>
+    <div id="status" class="status">CONNECTING...</div>
+  </div>
+</header>
+
+<div class="container">
+
+<!-- HOME -->
+<section id="home">
+  <div class="hero">
+    <h1>Stay Connected Across Borders.</h1>
+    <p>
+      Choose your destination, select an eSIM plan,
+      checkout and manage your connectivity in one place.
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>🌍 eSIM Marketplace</h2>
+    <input id="search" class="search"
+      placeholder="Search country..."
+      oninput="renderCountries()">
+    <div id="countries" class="grid"></div>
+  </div>
+</section>
+
+
+<!-- PLANS -->
+<section id="plansSection" class="hidden">
+
+  <div class="panel">
+    <button class="secondary" onclick="showHome()">← Back</button>
+
+    <div style="margin-top:18px">
+      <div id="selectedFlag" class="flag"></div>
+      <h2 id="selectedCountry"></h2>
+      <p class="meta">Choose your preferred eSIM plan.</p>
+    </div>
+  </div>
+
+  <div id="plans" class="grid" style="margin-top:18px"></div>
+
+</section>
+
+
+<!-- CHECKOUT -->
+<section id="checkout" class="hidden">
+
+  <div class="panel">
+    <button class="secondary" onclick="backToPlans()">← Back</button>
+
+    <h2 style="margin-top:18px">Checkout</h2>
+
+    <div class="row">
+      <span>Country</span>
+      <strong id="coCountry"></strong>
+    </div>
+
+    <div class="row">
+      <span>Data</span>
+      <strong id="coData"></strong>
+    </div>
+
+    <div class="row">
+      <span>Validity</span>
+      <strong id="coValidity"></strong>
+    </div>
+
+    <div class="row">
+      <span>Price</span>
+      <strong id="coPrice"></strong>
+    </div>
+
+    <h3 style="margin-top:22px">Customer</h3>
+
+    <label>Full Name</label>
+    <input id="customerName" placeholder="Your full name">
+
+    <label>Email</label>
+    <input id="customerEmail" type="email" placeholder="you@email.com">
+
+    <label>Phone</label>
+    <input id="customerPhone" placeholder="+62...">
+
+    <div class="total" id="checkoutTotal"></div>
+
+    <button class="primary" onclick="goPayment()">
+      Continue to Payment
+    </button>
+  </div>
+
+</section>
+
+
+<!-- PAYMENT -->
+<section id="payment" class="hidden">
+
+  <div class="panel">
+
+    <button class="secondary" onclick="backCheckout()">← Back</button>
+
+    <h2 style="margin-top:18px">Payment</h2>
+
+    <div class="notice">
+      Demo payment mode — no real money will be charged.
+    </div>
+
+    <div class="row">
+      <span>Order</span>
+      <strong id="payOrder"></strong>
+    </div>
+
+    <div class="row">
+      <span>Total</span>
+      <strong id="payTotal"></strong>
+    </div>
+
+    <div class="pay">
+
+      <label>
+        <input type="radio" name="payment" value="CARD" checked>
+        💳 Card
+      </label>
+
+      <label>
+        <input type="radio" name="payment" value="BANK_TRANSFER">
+        🏦 Bank Transfer
+      </label>
+
+      <label>
+        <input type="radio" name="payment" value="EWALLET">
+        📱 e-Wallet
+      </label>
+
+    </div>
+
+    <button class="primary" onclick="processPayment()">
+      Pay Now — Demo
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- SUCCESS -->
+<section id="success" class="hidden">
+
+  <div class="panel success">
+
+    <div class="success-icon">✓</div>
+
+    <h2>Payment Successful</h2>
+
+    <p class="meta">
+      Your TELKU eSIM order has been created.
+    </p>
+
+    <div style="text-align:left;margin-top:22px">
+
+      <div class="row">
+        <span>Order ID</span>
+        <strong id="successOrder"></strong>
+      </div>
+
+      <div class="row">
+        <span>Payment ID</span>
+        <strong id="successPayment"></strong>
+      </div>
+
+      <div class="row">
+        <span>Invoice ID</span>
+        <strong id="successInvoice"></strong>
+      </div>
+
+      <div class="row">
+        <span>eSIM ID</span>
+        <strong id="successEsim"></strong>
+      </div>
+
+    </div>
+
+    <button class="primary" style="margin-top:20px"
+      onclick="showMyEsim()">
+      Open My eSIM
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- MY ESIM -->
+<section id="myEsim" class="hidden">
+
+  <div class="panel">
+
+    <h2>📱 My eSIM</h2>
+
+    <div class="notice">
+      Your eSIM is ready in demo mode.
+    </div>
+
+    <div class="row">
+      <span>eSIM ID</span>
+      <strong id="myEsimId"></strong>
+    </div>
+
+    <div class="row">
+      <span>Country</span>
+      <strong id="myEsimCountry"></strong>
+    </div>
+
+    <div class="row">
+      <span>Plan</span>
+      <strong id="myEsimPlan"></strong>
+    </div>
+
+    <div class="row">
+      <span>Status</span>
+      <strong>READY</strong>
+    </div>
+
+    <div class="qr">
+      TELKU<br>eSIM QR
+    </div>
+
+    <div class="code" id="qrPayload"></div>
+
+    <button class="primary" onclick="showHome()">
+      Back to Marketplace
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- ORDERS -->
+<section id="orders" class="hidden">
+
+  <div class="panel">
+
+    <h2>🧾 My Orders</h2>
+
+    <div id="ordersList"></div>
+
+  </div>
+
+</section>
+
+</div>
+
+
+<div class="bottom">
+
+  <button onclick="showHome()">🏠 Home</button>
+
+  <button onclick="showOrders()">🧾 Orders</button>
+
+  <button onclick="showMyEsim()">📱 My eSIM</button>
+
+</div>
+
+
+<script>
+
+const SUPABASE_URL =
+"https://xozjhayxttryegynntld.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+"PASTE_YOUR_SUPABASE_PUBLISHABLE_KEY_HERE";
+
+
+let plans = [];
+let selectedCountry = "";
+let selectedFlag = "";
+let selectedPlan = null;
+let currentOrder = null;
+
+
+/* DEMO FALLBACK */
+
+const demoPlans = [
+ {country:"Japan",flag:"🇯🇵",data_gb:1,validity_days:7,price:3.99,currency:"USD",plan_code:"JP-1GB-7D"},
+ {country:"Japan",flag:"🇯🇵",data_gb:3,validity_days:15,price:6.99,currency:"USD",plan_code:"JP-3GB-15D"},
+ {country:"Japan",flag:"🇯🇵",data_gb:5,validity_days:30,price:9.99,currency:"USD",plan_code:"JP-5GB-30D"},
+ {country:"Japan",flag:"🇯🇵",data_gb:10,validity_days:30,price:14.99,currency:"USD",plan_code:"JP-10GB-30D"},
+ {country:"Japan",flag:"🇯🇵",data_gb:20,validity_days:30,price:19.99,currency:"USD",plan_code:"JP-20GB-30D"},
+ {country:"Thailand",flag:"🇹🇭",data_gb:5,validity_days:30,price:7.99,currency:"USD",plan_code:"TH-5GB-30D"},
+ {country:"Thailand",flag:"🇹🇭",data_gb:10,validity_days:30,price:9.99,currency:"USD",plan_code:"TH-10GB-30D"},
+ {country:"Singapore",flag:"🇸🇬",data_gb:5,validity_days:30,price:9.99,currency:"USD",plan_code:"SG-5GB-30D"},
+ {country:"USA",flag:"🇺🇸",data_gb:10,validity_days:30,price:14.99,currency:"USD",plan_code:"US-10GB-30D"},
+ {country:"Europe",flag:"🇪🇺",data_gb:20,validity_days:30,price:19.99,currency:"USD",plan_code:"EU-20GB-30D"}
+];
+
+
+/* SUPABASE */
+
+async function supabaseFetch(path, options={}){
+
+  return fetch(
+    SUPABASE_URL + path,
+    {
+      ...options,
+      headers:{
+        "apikey":SUPABASE_PUBLISHABLE_KEY,
+        "Authorization":"Bearer "+SUPABASE_PUBLISHABLE_KEY,
+        "Content-Type":"application/json",
+        ...(options.headers || {})
+      }
+    }
+  );
+
+}
+
+
+/* STATUS */
+
+function online(){
+
+  const el=document.getElementById("status");
+
+  el.textContent="ONLINE";
+  el.style.background="#0b8f68";
+
+}
+
+
+function demo(){
+
+  const el=document.getElementById("status");
+
+  el.textContent="DEMO";
+  el.style.background="#d88b00";
+
+}
+
+
+/* LOAD PLANS */
+
+async function loadPlans(){
+
+  try{
+
+    if(
+      !SUPABASE_PUBLISHABLE_KEY ||
+      SUPABASE_PUBLISHABLE_KEY.includes("PASTE_YOUR")
+    ){
+
+      plans=demoPlans;
+      demo();
+      renderCountries();
+      return;
+    }
+
+
+    const response=await supabaseFetch(
+      "/rest/v1/telku_plans?select=*&active=eq.true&order=country,data_gb"
+    );
+
+
+    if(!response.ok){
+
+      throw new Error("Unable to read telku_plans");
+
+    }
+
+
+    const data=await response.json();
+
+
+    if(!data.length){
+
+      throw new Error("No plans");
+
+    }
+
+
+    plans=data;
+
+    online();
+
+    renderCountries();
+
+  }catch(error){
+
+    console.log(error);
+
+    plans=demoPlans;
+
+    demo();
+
+    renderCountries();
+
+  }
+
+}
+
+
+/* COUNTRY */
+
+function renderCountries(){
+
+  const search=
+    document.getElementById("search").value.toLowerCase();
+
+  const box=document.getElementById("countries");
+
+  const map={};
+
+  plans.forEach(p=>{
+
+    if(!map[p.country]){
+
+      map[p.country]={
+        country:p.country,
+        flag:p.flag || "🌍",
+        count:0
+      };
+
+    }
+
+    map[p.country].count++;
+
+  });
+
+
+  const countries=Object.values(map)
+    .filter(c=>
+      c.country.toLowerCase().includes(search)
+    );
+
+
+  box.innerHTML="";
+
+
+  countries.forEach(c=>{
+
+    const div=document.createElement("div");
+
+    div.className="card";
+
+    div.innerHTML=`
+      <div class="flag">${c.flag}</div>
+      <div class="country">${c.country}</div>
+      <div class="meta">${c.count} eSIM plans available</div>
+      <button class="primary"
+        onclick="openCountry('${escapeQuotes(c.country)}','${c.flag}')">
+        View Plans
+      </button>
+    `;
+
+    box.appendChild(div);
+
+  });
+
+}
+
+
+function escapeQuotes(text){
+
+  return text.replace(/'/g,"\\'");
+
+}
+
+
+/* COUNTRY DETAIL */
+
+function openCountry(country,flag){
+
+  selectedCountry=country;
+  selectedFlag=flag;
+
+  document.getElementById("home").classList.add("hidden");
+  document.getElementById("plansSection").classList.remove("hidden");
+  document.getElementById("checkout").classList.add("hidden");
+  document.getElementById("payment").classList.add("hidden");
+  document.getElementById("success").classList.add("hidden");
+  document.getElementById("myEsim").classList.add("hidden");
+  document.getElementById("orders").classList.add("hidden");
+
+  document.getElementById("selectedFlag").textContent=flag;
+  document.getElementById("selectedCountry").textContent=country;
+
+  renderPlans();
+
+}
+
+
+function renderPlans(){
+
+  const box=document.getElementById("plans");
+
+  const filtered=plans.filter(
+    p=>p.country===selectedCountry
+  );
+
+  box.innerHTML="";
+
+
+  filtered.forEach((p,index)=>{
+
+    const div=document.createElement("div");
+
+    div.className="plan";
+
+    div.innerHTML=`
+      <h3>${p.flag || selectedFlag} ${p.country}</h3>
+
+      <div class="gb">
+        ${p.data_gb} GB
+      </div>
+
+      <div class="meta">
+        Data Package
+      </div>
+
+      <div class="meta">
+        📅 ${p.validity_days} Days
+      </div>
+
+      <div class="price">
+        ${p.currency || "USD"} ${Number(p.price).toFixed(2)}
+      </div>
+
+      <button class="primary"
+        onclick="selectPlan(${plans.indexOf(p)})">
+        Choose Plan
+      </button>
+    `;
+
+    box.appendChild(div);
+
+  });
+
+}
+
+
+/* SELECT PLAN */
+
+function selectPlan(index){
+
+  selectedPlan=plans[index];
+
+  document.getElementById("plansSection")
+    .classList.add("hidden");
+
+  document.getElementById("checkout")
+    .classList.remove("hidden");
+
+  document.getElementById("coCountry").textContent=
+    selectedPlan.country;
+
+  document.getElementById("coData").textContent=
+    selectedPlan.data_gb+" GB";
+
+  document.getElementById("coValidity").textContent=
+    selectedPlan.validity_days+" days";
+
+  document.getElementById("coPrice").textContent=
+    selectedPlan.currency+" "+
+    Number(selectedPlan.price).toFixed(2);
+
+  document.getElementById("checkoutTotal").textContent=
+    "Total: "+
+    selectedPlan.currency+" "+
+    Number(selectedPlan.price).toFixed(2);
+
+}
+
+
+/* PAYMENT */
+
+function goPayment(){
+
+  const name=document.getElementById("customerName").value.trim();
+  const email=document.getElementById("customerEmail").value.trim();
+
+  if(!name || !email){
+
+    alert("Please enter your name and email.");
+
+    return;
+
+  }
+
+
+  currentOrder={
+    order_code:createCode("TELORD"),
+    payment_code:createCode("TELPAY"),
+    invoice_code:createCode("TELINV"),
+    esim_code:createCode("TELESIM"),
+    name:name,
+    email:email,
+    phone:document.getElementById("customerPhone").value.trim(),
+    plan:selectedPlan,
+    total:Number(selectedPlan.price),
+    currency:selectedPlan.currency || "USD"
+  };
+
+
+  document.getElementById("checkout")
+    .classList.add("hidden");
+
+  document.getElementById("payment")
+    .classList.remove("hidden");
+
+  document.getElementById("payOrder").textContent=
+    currentOrder.order_code;
+
+  document.getElementById("payTotal").textContent=
+    currentOrder.currency+" "+
+    currentOrder.total.toFixed(2);
+
+}
+
+
+function createCode(prefix){
+
+  const time=Date.now().toString().slice(-8);
+
+  const random=Math.random()
+    .toString(36)
+    .substring(2,6)
+    .toUpperCase();
+
+  return prefix+"-"+time+"-"+random;
+
+}
+
+
+/* PROCESS PAYMENT */
+
+async function processPayment(){
+
+  const method=
+    document.querySelector(
+      'input[name="payment"]:checked'
+    ).value;
+
+
+  currentOrder.payment_method=method;
+
+
+  await saveTransaction();
+
+
+  document.getElementById("payment")
+    .classList.add("hidden");
+
+  document.getElementById("success")
+    .classList.remove("hidden");
+
+
+  document.getElementById("successOrder")
+    .textContent=currentOrder.order_code;
+
+  document.getElementById("successPayment")
+    .textContent=currentOrder.payment_code;
+
+  document.getElementById("successInvoice")
+    .textContent=currentOrder.invoice_code;
+
+  document.getElementById("successEsim")
+    .textContent=currentOrder.esim_code;
+
+
+  saveLocalOrder();
+
+}
+
+
+/* SAVE TRANSACTION */
+
+async function saveTransaction(){
+
+  try{
+
+    if(
+      !SUPABASE_PUBLISHABLE_KEY ||
+      SUPABASE_PUBLISHABLE_KEY.includes("PASTE_YOUR")
+    ){
+
+      console.log("Demo mode");
+
+      return;
+
+    }
+
+
+    /* CUSTOMER */
+
+    const customerPayload={
+      customer_code:createCode("TELCUS"),
+      full_name:currentOrder.name,
+      email:currentOrder.email,
+      phone:currentOrder.phone || null,
+      country:currentOrder.plan.country
+    };
+
+
+    const customerResponse=
+      await supabaseFetch(
+        "/rest/v1/telku_customers",
+        {
+          method:"POST",
+          headers:{
+            "Prefer":"return=representation"
+          },
+          body:JSON.stringify(customerPayload)
+        }
+      );
+
+
+    let customer=null;
+
+    if(customerResponse.ok){
+
+      const customerData=
+        await customerResponse.json();
+
+      customer=customerData[0];
+
+    }
+
+
+    /* ORDER */
+
+    const orderPayload={
+      order_code:currentOrder.order_code,
+      customer_id:customer ? customer.id : null,
+      plan_id:currentOrder.plan.id || null,
+      status:"PAID",
+      total:currentOrder.total,
+      currency:currentOrder.currency
+    };
+
+
+    const orderResponse=
+      await supabaseFetch(
+        "/rest/v1/telku_orders",
+        {
+          method:"POST",
+          headers:{
+            "Prefer":"return=representation"
+          },
+          body:JSON.stringify(orderPayload)
+        }
+      );
+
+
+    let order=null;
+
+    if(orderResponse.ok){
+
+      const orderData=
+        await orderResponse.json();
+
+      order=orderData[0];
+
+    }
+
+
+    /* PAYMENT */
+
+    const paymentPayload={
+      payment_code:currentOrder.payment_code,
+      order_id:order ? order.id : null,
+      method:currentOrder.payment_method,
+      status:"PAID",
+      amount:currentOrder.total,
+      currency:currentOrder.currency
+    };
+
+
+    await supabaseFetch(
+      "/rest/v1/telku_payments",
+      {
+        method:"POST",
+        headers:{
+          "Prefer":"return=minimal"
+        },
+        body:JSON.stringify(paymentPayload)
+      }
+    );
+
+
+    /* INVOICE */
+
+    if(order){
+
+      await supabaseFetch(
+        "/rest/v1/telku_invoices",
+        {
+          method:"POST",
+          headers:{
+            "Prefer":"return=minimal"
+          },
+          body:JSON.stringify({
+            invoice_code:currentOrder.invoice_code,
+            order_id:order.id,
+            status:"ISSUED"
+          })
+        }
+      );
+
+
+      /* eSIM */
+
+      const esimPayload={
+        esim_code:currentOrder.esim_code,
+        order_id:order.id,
+        status:"READY",
+        iccid:"89362"+Date.now().toString().slice(-12),
+        activation_code:"TELKU-"+Math.random().toString(36).substring(2,10).toUpperCase(),
+        qr_payload:"LPA:1$TELKU-DEMO$"+currentOrder.esim_code
+      };
+
+
+      await supabaseFetch(
+        "/rest/v1/telku_esims",
+        {
+          method:"POST",
+          headers:{
+            "Prefer":"return=minimal"
+          },
+          body:JSON.stringify(esimPayload)
+        }
+      );
+
+    }
+
+  }catch(error){
+
+    console.log("Transaction demo fallback:",error);
+
+  }
+
+}
+
+
+/* LOCAL STORAGE */
+
+function saveLocalOrder(){
+
+  const orders=
+    JSON.parse(
+      localStorage.getItem("telku_orders_v18") || "[]"
+    );
+
+  orders.unshift({
+    order_code:currentOrder.order_code,
+    payment_code:currentOrder.payment_code,
+    invoice_code:currentOrder.invoice_code,
+    esim_code:currentOrder.esim_code,
+    country:currentOrder.plan.country,
+    data_gb:currentOrder.plan.data_gb,
+    validity_days:currentOrder.plan.validity_days,
+    price:currentOrder.total,
+    currency:currentOrder.currency,
+    status:"PAID",
+    created_at:new Date().toISOString()
+  });
+
+
+  localStorage.setItem(
+    "telku_orders_v18",
+    JSON.stringify(orders)
+  );
+
+}
+
+
+/* MY ESIM */
+
+function showMyEsim(){
+
+  document.getElementById("home").classList.add("hidden");
+  document.getElementById("plansSection").classList.add("hidden");
+  document.getElementById("checkout").classList.add("hidden");
+  document.getElementById("payment").classList.add("hidden");
+  document.getElementById("success").classList.add("hidden");
+  document.getElementById("orders").classList.add("hidden");
+  document.getElementById("myEsim").classList.remove("hidden");
+
+
+  if(!currentOrder){
+
+    const orders=
+      JSON.parse(
+        localStorage.getItem("telku_orders_v18") || "[]"
+      );
+
+    if(orders.length){
+
+      const o=orders[0];
+
+      document.getElementById("myEsimId").textContent=
+        o.esim_code;
+
+      document.getElementById("myEsimCountry").textContent=
+        o.country;
+
+      document.getElementById("myEsimPlan").textContent=
+        o.data_gb+" GB / "+o.validity_days+" days";
+
+      document.getElementById("qrPayload").textContent=
+        "LPA:1$TELKU-DEMO$"+o.esim_code;
+
+    }
+
+    return;
+
+  }
+
+
+  document.getElementById("myEsimId").textContent=
+    currentOrder.esim_code;
+
+  document.getElementById("myEsimCountry").textContent=
+    currentOrder.plan.country;
+
+  document.getElementById("myEsimPlan").textContent=
+    currentOrder.plan.data_gb+
+    " GB / "+
+    currentOrder.plan.validity_days+
+    " days";
+
+  document.getElementById("qrPayload").textContent=
+    "LPA:1$TELKU-DEMO$"+
+    currentOrder.esim_code;
+
+}
+
+
+/* ORDERS */
+
+function showOrders(){
+
+  document.getElementById("home").classList.add("hidden");
+  document.getElementById("plansSection").classList.add("hidden");
+  document.getElementById("checkout").classList.add("hidden");
+  document.getElementById("payment").classList.add("hidden");
+  document.getElementById("success").classList.add("hidden");
+  document.getElementById("myEsim").classList.add("hidden");
+  document.getElementById("orders").classList.remove("hidden");
+
+
+  const orders=
+    JSON.parse(
+      localStorage.getItem("telku_orders_v18") || "[]"
+    );
+
+
+  const box=document.getElementById("ordersList");
+
+  box.innerHTML="";
+
+
+  if(!orders.length){
+
+    box.innerHTML=
+      `<div class="notice">
+        No orders yet.
+      </div>`;
+
+    return;
+
+  }
+
+
+  orders.forEach(o=>{
+
+    const div=document.createElement("div");
+
+    div.className="card";
+
+    div.style.marginTop="12px";
+
+    div.innerHTML=`
+      <strong>${o.country}</strong>
+
+      <div class="meta">
+        ${o.data_gb} GB · ${o.validity_days} days
+      </div>
+
+      <div class="price">
+        ${o.currency} ${Number(o.price).toFixed(2)}
+      </div>
+
+      <div class="code">
+        ${o.order_code}
+      </div>
+
+      <div class="meta">
+        Status: ${o.status}
+      </div>
+    `;
+
+    box.appendChild(div);
+
+  });
+
+}
+
+
+/* NAVIGATION */
+
+function showHome(){
+
+  document.getElementById("home").classList.remove("hidden");
+  document.getElementById("plansSection").classList.add("hidden");
+  document.getElementById("checkout").classList.add("hidden");
+  document.getElementById("payment").classList.add("hidden");
+  document.getElementById("success").classList.add("hidden");
+  document.getElementById("myEsim").classList.add("hidden");
+  document.getElementById("orders").classList.add("hidden");
+
+}
+
+
+function backToPlans(){
+
+  document.getElementById("checkout").classList.add("hidden");
+  document.getElementById("plansSection").classList.remove("hidden");
+
+}
+
+
+function backCheckout(){
+
+  document.getElementById("payment").classList.add("hidden");
+  document.getElementById("checkout").classList.remove("hidden");
+
+}
+
+
+/* START */
+
+loadPlans();
+
+</script>
+
+</body>
+</html>
