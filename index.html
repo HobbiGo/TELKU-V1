@@ -1,1 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#071B3A">
+<title>TELKU — Global Digital Connectivity</title>
 
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+:root{
+  --navy:#071B3A;
+  --blue:#00AEEF;
+  --cyan:#18D8FF;
+  --light:#F4F8FC;
+  --text:#10233F;
+  --muted:#718096;
+  --white:#FFFFFF;
+  --green:#18B981;
+  --border:#E4ECF4;
+  --shadow:0 10px 30px rgba(7,27,58,.08);
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--light);
+  color:var(--text);
+}
+
+/* HEADER */
+header{
+  background:var(--white);
+  border-bottom:1px solid var(--border);
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+
+.navbar{
+  max-width:1250px;
+  margin:auto;
+  height:76px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 25px;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.logo-e{
+  width:39px;
+  height:45px;
+  border:3px solid var(--cyan);
+  border-radius:9px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--cyan);
+  font-size:22px;
+  font-weight:bold;
+  position:relative;
+}
+
+.logo-e:before,
+.logo-e:after{
+  content:"";
+  position:absolute;
+  width:5px;
+  height:5px;
+  background:var(--cyan);
+  border-radius:50%;
+}
+
+.logo-e:before{left:-7px;top:10px;}
+.logo-e:after{right:-7px;bottom:10px;}
+
+.logo-text{
+  font-size:26px;
+  font-weight:800;
+  letter-spacing:2px;
+  color:var(--navy);
+}
+
+.logo-sub{
+  font-size:7px;
+  color:var(--muted);
+  letter-spacing:1px;
+}
+
+.nav-actions{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.language{
+  padding:9px 13px;
+  border:1px solid var(--border);
+  border-radius:20px;
+  background:white;
+  cursor:pointer;
+}
+
+.account{
+  background:var(--navy);
+  color:white;
+  border:none;
+  border-radius:22px;
+  padding:10px 18px;
+  cursor:pointer;
+}
+
+/* MAIN */
+main{
+  max-width:1250px;
+  margin:auto;
+  padding:30px 25px 100px;
+}
+
+.hero{
+  background:linear-gradient(120deg,#071B3A,#0B315E);
+  border-radius:25px;
+  padding:45px;
+  color:white;
+  display:grid;
+  grid-template-columns:1.4fr .6fr;
+  gap:30px;
+  overflow:hidden;
+  position:relative;
+}
+
+.hero h1{
+  font-size:42px;
+  line-height:1.1;
+  margin-bottom:15px;
+}
+
+.hero h1 span{
+  color:var(--cyan);
+}
+
+.hero p{
+  color:#C9D7E8;
+  max-width:600px;
+  line-height:1.6;
+}
+
+.search-box{
+  margin-top:25px;
+  background:white;
+  border-radius:14px;
+  padding:7px;
+  display:flex;
+  max-width:620px;
+}
+
+.search-box input{
+  flex:1;
+  border:none;
+  outline:none;
+  padding:14px;
+  font-size:15px;
+}
+
+.search-box button{
+  background:var(--blue);
+  border:none;
+  color:white;
+  padding:0 22px;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.hero-card{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.signal-circle{
+  width:190px;
+  height:190px;
+  border:1px solid rgba(24,216,255,.3);
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 0 60px rgba(24,216,255,.12);
+}
+
+.signal-inner{
+  width:125px;
+  height:125px;
+  border:2px solid var(--cyan);
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:48px;
+}
+
+/* SECTION */
+.section{
+  margin-top:30px;
+}
+
+.section-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:18px;
+}
+
+.section-title h2{
+  font-size:22px;
+}
+
+.section-title button{
+  border:none;
+  background:none;
+  color:var(--blue);
+  cursor:pointer;
+}
+
+/* COUNTRIES */
+.country-grid{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:14px;
+}
+
+.country{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:20px 10px;
+  text-align:center;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.country:hover{
+  transform:translateY(-3px);
+  box-shadow:var(--shadow);
+}
+
+.flag{
+  font-size:32px;
+  margin-bottom:8px;
+}
+
+.country small{
+  color:var(--muted);
+}
+
+/* DASHBOARD */
+.dashboard-grid{
+  display:grid;
+  grid-template-columns:1.5fr .8fr;
+  gap:20px;
+}
+
+.card{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:24px;
+  box-shadow:var(--shadow);
+}
+
+.connection{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:22px;
+}
+
+.connection-left{
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+
+.big-flag{
+  font-size:42px;
+}
+
+.status{
+  color:var(--green);
+  font-size:13px;
+  font-weight:bold;
+}
+
+.data-number{
+  font-size:34px;
+  font-weight:800;
+  color:var(--navy);
+}
+
+.progress{
+  height:10px;
+  background:#EAF1F7;
+  border-radius:10px;
+  overflow:hidden;
+  margin:12px 0 8px;
+}
+
+.progress-bar{
+  width:74%;
+  height:100%;
+  background:linear-gradient(90deg,var(--blue),var(--cyan));
+}
+
+.usage-info{
+  display:flex;
+  justify-content:space-between;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.actions{
+  display:flex;
+  gap:10px;
+  margin-top:20px;
+}
+
+.btn{
+  padding:11px 17px;
+  border-radius:10px;
+  border:none;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.btn-primary{
+  background:var(--navy);
+  color:white;
+}
+
+.btn-outline{
+  background:white;
+  border:1px solid var(--border);
+  color:var(--navy);
+}
+
+/* QUICK */
+.quick-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+.quick{
+  border:1px solid var(--border);
+  border-radius:13px;
+  padding:17px;
+  cursor:pointer;
+}
+
+.quick-icon{
+  font-size:25px;
+  margin-bottom:7px;
+}
+
+.quick strong{
+  display:block;
+  margin-bottom:4px;
+}
+
+.quick small{
+  color:var(--muted);
+}
+
+/* PLANS */
+.plan-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+}
+
+.plan{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:20px;
+  position:relative;
+}
+
+.plan .country-name{
+  font-weight:bold;
+  margin-bottom:15px;
+}
+
+.plan h3{
+  font-size:25px;
+  color:var(--navy);
+}
+
+.plan-info{
+  color:var(--muted);
+  font-size:13px;
+  margin:7px 0 17px;
+}
+
+.price{
+  font-size:23px;
+  font-weight:bold;
+  margin-bottom:15px;
+}
+
+.buy{
+  width:100%;
+  background:var(--blue);
+  color:white;
+  border:none;
+  padding:12px;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.badge{
+  position:absolute;
+  right:15px;
+  top:15px;
+  font-size:10px;
+  background:#E7FAFF;
+  color:#008CB9;
+  padding:5px 8px;
+  border-radius:10px;
+}
+
+/* FOOTER */
+footer{
+  background:var(--navy);
+  color:white;
+  padding:35px 25px;
+}
+
+.footer-inner{
+  max-width:1250px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+}
+
+.footer-text{
+  color:#AFC0D4;
+  font-size:13px;
+  margin-top:8px;
+}
+
+/* MOBILE NAV */
+.mobile-nav{
+  display:none;
+}
+
+/* MODAL */
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.55);
+  z-index:500;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.modal-box{
+  background:white;
+  width:100%;
+  max-width:430px;
+  border-radius:20px;
+  padding:25px;
+}
+
+.modal-box h2{
+  margin-bottom:10px;
+}
+
+.modal-box p{
+  color:var(--muted);
+  line-height:1.5;
+  margin-bottom:20px;
+}
+
+.close{
+  float:right;
+  border:none;
+  background:none;
+  font-size:22px;
+  cursor:pointer;
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .hero{
+    grid-template-columns:1fr;
+  }
+
+  .hero-card{
+    display:none;
+  }
+
+  .country-grid{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .plan-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:600px){
+  header{
+    position:relative;
+  }
+
+  .navbar{
+    height:65px;
+    padding:0 16px;
+  }
+
+  .logo-text{
+    font-size:21px;
+  }
+
+  .logo-sub{
+    display:none;
+  }
+
+  .account{
+    display:none;
+  }
+
+  main{
+    padding:16px 14px 90px;
+  }
+
+  .hero{
+    border-radius:18px;
+    padding:25px 20px;
+  }
+
+  .hero h1{
+    font-size:30px;
+  }
+
+  .search-box{
+    display:flex;
+  }
+
+  .search-box button{
+    padding:0 14px;
+  }
+
+  .country-grid{
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+  }
+
+  .country{
+    padding:14px 5px;
+  }
+
+  .flag{
+    font-size:27px;
+  }
+
+  .dashboard-grid{
+    grid-template-columns:1fr;
+  }
+
+  .data-number{
+    font-size:28px;
+  }
+
+  .plan-grid{
+    grid-template-columns:1fr;
+  }
+
+  .footer-inner{
+    flex-direction:column;
+  }
+
+  .mobile-nav{
+    display:flex;
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    height:68px;
+    background:white;
+    border-top:1px solid var(--border);
+    z-index:200;
+    justify-content:space-around;
+    align-items:center;
+    box-shadow:0 -5px 20px rgba(0,0,0,.08);
+  }
+
+  .mobile-nav button{
+    border:none;
+    background:none;
+    color:var(--muted);
+    font-size:11px;
+    cursor:pointer;
+  }
+
+  .mobile-nav button span{
+    display:block;
+    font-size:22px;
+    margin-bottom:2px;
+  }
+
+  .nav-actions .language{
+    display:none;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="navbar">
+
+    <div class="logo">
+      <div class="logo-e">E</div>
+      <div>
+        <div class="logo-text">TELKU</div>
+        <div class="logo-sub">E SIMCARD INTERNATIONAL DIGITAL</div>
+      </div>
+    </div>
+
+    <div class="nav-actions">
+      <button class="language" onclick="showMessage('Language selection will be available in the next version.')">
+        🌐 EN
+      </button>
+      <button class="account" onclick="showMessage('Account module — coming next.')">
+        👤 Account
+      </button>
+    </div>
+
+  </div>
+</header>
+
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero">
+
+    <div>
+      <h1>Global Connectivity<br><span>Without Borders.</span></h1>
+
+      <p>
+        TELKU connects travelers to mobile data networks around the world
+        through digital eSIM connectivity partners.
+      </p>
+
+      <div class="search-box">
+        <input
+          id="countrySearch"
+          type="text"
+          placeholder="Where are you going?"
+          onkeyup="searchCountry()"
+        >
+        <button onclick="searchCountry()">Search</button>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <div class="signal-circle">
+        <div class="signal-inner">📶</div>
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- COUNTRIES -->
+  <section class="section">
+
+    <div class="section-title">
+      <h2>🌎 Popular Destinations</h2>
+      <button onclick="showMessage('Explore all countries — coming next.')">
+        View All →
+      </button>
+    </div>
+
+    <div class="country-grid" id="countryGrid">
+
+      <div class="country" data-name="japan" onclick="selectCountry('Japan')">
+        <div class="flag">🇯🇵</div>
+        <strong>Japan</strong>
+        <small>From $9.90</small>
+      </div>
+
+      <div class="country" data-name="thailand" onclick="selectCountry('Thailand')">
+        <div class="flag">🇹🇭</div>
+        <strong>Thailand</strong>
+        <small>From $6.90</small>
+      </div>
+
+      <div class="country" data-name="singapore" onclick="selectCountry('Singapore')">
+        <div class="flag">🇸🇬</div>
+        <strong>Singapore</strong>
+        <small>From $7.90</small>
+      </div>
+
+      <div class="country" data-name="usa america" onclick="selectCountry('USA')">
+        <div class="flag">🇺🇸</div>
+        <strong>USA</strong>
+        <small>From $9.90</small>
+      </div>
+
+      <div class="country" data-name="uk england" onclick="selectCountry('UK')">
+        <div class="flag">🇬🇧</div>
+        <strong>UK</strong>
+        <small>From $8.90</small>
+      </div>
+
+      <div class="country" data-name="france" onclick="selectCountry('France')">
+        <div class="flag">🇫🇷</div>
+        <strong>France</strong>
+        <small>From $8.90</small>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- MY TELKU -->
+  <section class="section">
+
+    <div class="section-title">
+      <h2>📶 My TELKU</h2>
+      <button onclick="showMessage('Opening full My TELKU dashboard...')">
+        Open Dashboard →
+      </button>
+    </div>
+
+    <div class="dashboard-grid">
+
+      <div class="card">
+
+        <div class="connection">
+
+          <div class="connection-left">
+            <div class="big-flag">🇯🇵</div>
+
+            <div>
+              <strong>Japan</strong>
+              <div class="status">● Connected</div>
+            </div>
+          </div>
+
+          <div>
+            <small>Network</small><br>
+            <strong>Partner Network</strong>
+          </div>
+
+        </div>
+
+        <div class="data-number">7.4 GB <span style="font-size:14px;color:#718096;font-weight:normal;">remaining</span></div>
+
+        <div class="progress">
+          <div class="progress-bar"></div>
+        </div>
+
+        <div class="usage-info">
+          <span>Used: 2.6 GB</span>
+          <span>Total: 10 GB</span>
+        </div>
+
+        <div class="actions">
+          <button class="btn btn-primary" onclick="showUsage()">📊 View Usage</button>
+          <button class="btn btn-outline" onclick="topUp()">＋ Top Up</button>
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <h3 style="margin-bottom:18px;">Quick Actions</h3>
+
+        <div class="quick-grid">
+
+          <div class="quick" onclick="showMessage('Order History module — coming next.')">
+            <div class="quick-icon">🛒</div>
+            <strong>Orders</strong>
+            <small>View purchases</small>
+          </div>
+
+          <div class="quick" onclick="showMessage('eSIM installation guide — coming next.')">
+            <div class="quick-icon">📱</div>
+            <strong>Install</strong>
+            <small>Install eSIM</small>
+          </div>
+
+          <div class="quick" onclick="showUsage()">
+            <div class="quick-icon">📊</div>
+            <strong>Usage</strong>
+            <small>Data monitoring</small>
+          </div>
+
+          <div class="quick" onclick="showMessage('Support center — coming next.')">
+            <div class="quick-icon">💬</div>
+            <strong>Support</strong>
+            <small>Need help?</small>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- PLANS -->
+  <section class="section">
+
+    <div class="section-title">
+      <h2>⭐ Recommended Plans</h2>
+      <button onclick="showMessage('All TELKU plans will appear here.')">
+        View All →
+      </button>
+    </div>
+
+    <div class="plan-grid">
+
+      <div class="plan">
+        <div class="badge">POPULAR</div>
+        <div class="country-name">🇯🇵 Japan</div>
+        <h3>10 GB</h3>
+        <div class="plan-info">30 Days • Data Only</div>
+        <div class="price">$14.90</div>
+        <button class="buy" onclick="buyPlan('Japan 10GB / 30 Days','$14.90')">
+          BUY NOW
+        </button>
+      </div>
+
+      <div class="plan">
+        <div class="country-name">🇹🇭 Thailand</div>
+        <h3>10 GB</h3>
+        <div class="plan-info">30 Days • Data Only</div>
+        <div class="price">$10.90</div>
+        <button class="buy" onclick="buyPlan('Thailand 10GB / 30 Days','$10.90')">
+          BUY NOW
+        </button>
+      </div>
+
+      <div class="plan">
+        <div class="country-name">🇸🇬 Singapore</div>
+        <h3>10 GB</h3>
+        <div class="plan-info">30 Days • Data Only</div>
+        <div class="price">$11.90</div>
+        <button class="buy" onclick="buyPlan('Singapore 10GB / 30 Days','$11.90')">
+          BUY NOW
+        </button>
+      </div>
+
+      <div class="plan">
+        <div class="badge">BEST VALUE</div>
+        <div class="country-name">🇺🇸 USA</div>
+        <h3>10 GB</h3>
+        <div class="plan-info">30 Days • Data Only</div>
+        <div class="price">$14.90</div>
+        <button class="buy" onclick="buyPlan('USA 10GB / 30 Days','$14.90')">
+          BUY NOW
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+
+<footer>
+  <div class="footer-inner">
+
+    <div>
+      <strong style="font-size:22px;">TELKU</strong>
+      <div class="footer-text">
+        Global Digital Connectivity Platform
+      </div>
+    </div>
+
+    <div class="footer-text">
+      One eSIM. Connected Across Borders.
+    </div>
+
+  </div>
+</footer>
+
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav">
+
+  <button onclick="scrollToTop()">
+    <span>⌂</span>
+    Home
+  </button>
+
+  <button onclick="document.querySelector('.country-grid').scrollIntoView({behavior:'smooth'})">
+    <span>🌎</span>
+    Explore
+  </button>
+
+  <button onclick="document.querySelector('.plan-grid').scrollIntoView({behavior:'smooth'})">
+    <span>🛒</span>
+    Plans
+  </button>
+
+  <button onclick="document.querySelector('.dashboard-grid').scrollIntoView({behavior:'smooth'})">
+    <span>📶</span>
+    My TELKU
+  </button>
+
+  <button onclick="showMessage('Account module — coming next.')">
+    <span>👤</span>
+    Account
+  </button>
+
+</div>
+
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+
+  <div class="modal-box">
+
+    <button class="close" onclick="closeModal()">×</button>
+
+    <h2 id="modalTitle">TELKU</h2>
+
+    <p id="modalText"></p>
+
+    <button class="btn btn-primary" onclick="closeModal()">
+      OK
+    </button>
+
+  </div>
+
+</div>
+
+
+<script>
+
+function showMessage(text){
+
+  document.getElementById("modalTitle").innerText="TELKU";
+
+  document.getElementById("modalText").innerText=text;
+
+  document.getElementById("modal").style.display="flex";
+}
+
+
+function closeModal(){
+
+  document.getElementById("modal").style.display="none";
+}
+
+
+function selectCountry(country){
+
+  showMessage(
+    "You selected " +
+    country +
+    ". TELKU plans for this destination will appear here."
+  );
+}
+
+
+function searchCountry(){
+
+  const search =
+    document.getElementById("countrySearch")
+    .value
+    .toLowerCase();
+
+  const countries =
+    document.querySelectorAll(".country");
+
+  countries.forEach(country => {
+
+    const name =
+      country.dataset.name;
+
+    if(name.includes(search)){
+      country.style.display="";
+    }else{
+      country.style.display="none";
+    }
+
+  });
+
+}
+
+
+function showUsage(){
+
+  showMessage(
+    "DATA USAGE\n\n" +
+    "Japan — Partner Network\n" +
+    "Total: 10 GB\n" +
+    "Used: 2.6 GB\n" +
+    "Remaining: 7.4 GB\n" +
+    "Validity: 30 Days\n\n" +
+    "Real-time usage will connect to the provider API in a future version."
+  );
+
+}
+
+
+function topUp(){
+
+  showMessage(
+    "TOP UP\n\n" +
+    "Top-up functionality will allow customers to add more data to their TELKU eSIM."
+  );
+
+}
+
+
+function buyPlan(plan,price){
+
+  showMessage(
+    "CHECKOUT\n\n" +
+    "Selected Plan:\n" +
+    plan +
+    "\n\nPrice: " +
+    price +
+    "\n\n" +
+    "Payment and real eSIM activation will be connected in the next development stage."
+  );
+
+}
+
+
+function scrollToTop(){
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+window.onclick=function(event){
+
+  const modal =
+    document.getElementById("modal");
+
+  if(event.target===modal){
+    closeModal();
+  }
+
+};
+
+</script>
+
+</body>
+</html>
