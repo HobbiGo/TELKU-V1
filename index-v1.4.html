@@ -1,1 +1,2493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TELKU V1.4 — Global Digital Connectivity</title>
 
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+  background:#f4f8fb;
+  color:#10243e;
+}
+
+button{
+  border:0;
+  cursor:pointer;
+}
+
+.header{
+  background:#fff;
+  border-bottom:1px solid #e5edf4;
+  position:sticky;
+  top:0;
+  z-index:20;
+}
+
+.nav{
+  max-width:1200px;
+  margin:auto;
+  padding:15px 22px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+}
+
+.logo-area{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.sim-logo{
+  width:42px;
+  height:48px;
+  background:#09cfe8;
+  border-radius:8px 8px 12px 12px;
+  position:relative;
+  clip-path:polygon(0 0,72% 0,100% 28%,100% 100%,0 100%);
+}
+
+.sim-logo:before{
+  content:"";
+  position:absolute;
+  width:17px;
+  height:13px;
+  border:2px solid #fff;
+  left:12px;
+  top:16px;
+  border-radius:3px;
+}
+
+.sim-logo:after{
+  content:"";
+  position:absolute;
+  width:4px;
+  height:4px;
+  background:#fff;
+  left:18px;
+  top:21px;
+  border-radius:50%;
+}
+
+.logo-text{
+  font-size:27px;
+  font-weight:800;
+  letter-spacing:2px;
+  color:#102b4a;
+}
+
+.logo-text span{
+  color:#08cfe6;
+}
+
+.logo-sub{
+  font-size:8px;
+  color:#718096;
+  letter-spacing:1.7px;
+  margin-top:2px;
+}
+
+.nav-links{
+  display:flex;
+  gap:8px;
+}
+
+.nav-links button{
+  background:transparent;
+  padding:10px 12px;
+  color:#53657b;
+  border-radius:9px;
+}
+
+.nav-links button:hover{
+  background:#eefaff;
+  color:#05aeca;
+}
+
+.lang{
+  padding:9px 12px;
+  border:1px solid #dce8f0;
+  border-radius:9px;
+  background:#fff;
+}
+
+.container{
+  max-width:1200px;
+  margin:auto;
+  padding:28px 22px 50px;
+}
+
+.hero{
+  background:linear-gradient(135deg,#072743,#0c4568);
+  color:white;
+  border-radius:24px;
+  padding:38px;
+  display:grid;
+  grid-template-columns:1.5fr 1fr;
+  gap:30px;
+  overflow:hidden;
+}
+
+.hero h1{
+  font-size:40px;
+  line-height:1.08;
+  margin:10px 0 15px;
+}
+
+.hero p{
+  color:#d9edf6;
+  line-height:1.6;
+}
+
+.badge{
+  display:inline-block;
+  background:#0bd1e8;
+  color:#07304a;
+  padding:8px 13px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:bold;
+}
+
+.hero-card{
+  background:rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:18px;
+  padding:24px;
+}
+
+.hero-card h3{
+  margin-bottom:15px;
+}
+
+.hero-stat{
+  display:flex;
+  justify-content:space-between;
+  padding:12px 0;
+  border-bottom:1px solid rgba(255,255,255,.12);
+}
+
+.hero-stat:last-child{
+  border-bottom:0;
+}
+
+.section{
+  margin-top:30px;
+}
+
+.section-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:16px;
+}
+
+.section-title h2{
+  font-size:23px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+}
+
+.card{
+  background:white;
+  border:1px solid #e4edf3;
+  border-radius:18px;
+  padding:20px;
+  box-shadow:0 5px 20px rgba(18,55,80,.04);
+}
+
+.card:hover{
+  box-shadow:0 10px 30px rgba(18,55,80,.09);
+}
+
+.country-card{
+  cursor:pointer;
+  transition:.2s;
+}
+
+.country-card:hover{
+  transform:translateY(-3px);
+}
+
+.flag{
+  font-size:34px;
+  margin-bottom:12px;
+}
+
+.country-card h3{
+  margin-bottom:5px;
+}
+
+.muted{
+  color:#718096;
+  font-size:13px;
+}
+
+.price{
+  font-size:23px;
+  font-weight:bold;
+  margin:10px 0;
+  color:#0a2c4c;
+}
+
+.primary{
+  background:#08cce5;
+  color:#07304a;
+  padding:12px 17px;
+  border-radius:10px;
+  font-weight:bold;
+}
+
+.secondary{
+  background:#edf5f9;
+  color:#23445f;
+  padding:11px 16px;
+  border-radius:10px;
+  font-weight:bold;
+}
+
+.danger{
+  background:#fff0f0;
+  color:#c23b3b;
+  padding:10px 15px;
+  border-radius:9px;
+}
+
+.full{
+  width:100%;
+}
+
+.plan-grid{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:15px;
+}
+
+.plan-card{
+  background:#fff;
+  border:1px solid #e1eaf0;
+  border-radius:16px;
+  padding:19px;
+}
+
+.plan-card strong{
+  font-size:21px;
+}
+
+.plan-card .days{
+  color:#708399;
+  font-size:13px;
+  margin:5px 0;
+}
+
+.plan-card .plan-price{
+  font-size:21px;
+  font-weight:bold;
+  margin:12px 0;
+}
+
+.panel{
+  background:white;
+  border:1px solid #e2ebf1;
+  border-radius:20px;
+  padding:24px;
+  margin-top:22px;
+}
+
+.hidden{
+  display:none !important;
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+}
+
+.field{
+  margin-bottom:15px;
+}
+
+.field label{
+  display:block;
+  font-size:13px;
+  font-weight:bold;
+  margin-bottom:7px;
+  color:#52677b;
+}
+
+.field input,
+.field select{
+  width:100%;
+  padding:13px;
+  border:1px solid #d9e5ed;
+  border-radius:10px;
+  outline:none;
+}
+
+.field input:focus{
+  border-color:#09cde5;
+}
+
+.order-box{
+  background:#f6fbfd;
+  border:1px solid #dcecf2;
+  border-radius:15px;
+  padding:18px;
+}
+
+.order-row{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  padding:10px 0;
+  border-bottom:1px solid #e4edf1;
+}
+
+.order-row:last-child{
+  border-bottom:0;
+}
+
+.success{
+  text-align:center;
+  padding:30px 15px;
+}
+
+.success-icon{
+  width:72px;
+  height:72px;
+  border-radius:50%;
+  background:#dff9f2;
+  color:#08a77e;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:38px;
+  margin:0 auto 18px;
+}
+
+.id-box{
+  background:#eefbff;
+  border:1px dashed #0ac6df;
+  border-radius:12px;
+  padding:15px;
+  margin:16px auto;
+  max-width:550px;
+}
+
+.qr-section{
+  text-align:center;
+}
+
+.qr-box{
+  width:250px;
+  height:250px;
+  margin:20px auto;
+  background:white;
+  border:10px solid white;
+  border-radius:12px;
+  box-shadow:0 5px 25px rgba(0,0,0,.12);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+
+.qr-inner{
+  width:215px;
+  height:215px;
+  position:relative;
+  background:
+    repeating-linear-gradient(90deg,#111 0 5px,#fff 5px 10px),
+    repeating-linear-gradient(0deg,transparent 0 7px,#111 7px 11px);
+  opacity:.9;
+}
+
+.qr-inner:before,
+.qr-inner:after{
+  content:"";
+  position:absolute;
+  width:52px;
+  height:52px;
+  background:white;
+  border:10px solid #111;
+}
+
+.qr-inner:before{
+  top:5px;
+  left:5px;
+}
+
+.qr-inner:after{
+  bottom:5px;
+  right:5px;
+}
+
+.qr-center{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  width:48px;
+  height:48px;
+  background:#fff;
+  border:6px solid #08cce5;
+  border-radius:9px;
+  z-index:3;
+}
+
+.qr-center span{
+  display:block;
+  text-align:center;
+  font-size:8px;
+  font-weight:bold;
+  color:#0c3552;
+  margin-top:12px;
+}
+
+.qr-note{
+  max-width:500px;
+  margin:0 auto 20px;
+  background:#fff9e9;
+  border:1px solid #f4df9c;
+  color:#765b16;
+  padding:13px;
+  border-radius:10px;
+  font-size:12px;
+}
+
+.invoice{
+  max-width:750px;
+  margin:auto;
+  background:#fff;
+  border:1px solid #dfe9ef;
+  border-radius:18px;
+  padding:30px;
+}
+
+.invoice-header{
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  border-bottom:2px solid #eef2f5;
+  padding-bottom:20px;
+  margin-bottom:20px;
+}
+
+.invoice-logo{
+  font-size:28px;
+  font-weight:800;
+  letter-spacing:2px;
+}
+
+.invoice-logo span{
+  color:#08cce5;
+}
+
+.invoice-table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:20px;
+}
+
+.invoice-table th,
+.invoice-table td{
+  text-align:left;
+  padding:12px 8px;
+  border-bottom:1px solid #e6edf1;
+}
+
+.invoice-total{
+  text-align:right;
+  font-size:22px;
+  font-weight:bold;
+  margin-top:20px;
+}
+
+.status{
+  display:inline-block;
+  padding:6px 10px;
+  border-radius:20px;
+  font-size:11px;
+  font-weight:bold;
+}
+
+.paid{
+  background:#e0faf1;
+  color:#087d5e;
+}
+
+.active{
+  background:#e4f8ff;
+  color:#047d99;
+}
+
+.history-table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+.history-table th,
+.history-table td{
+  padding:13px 9px;
+  text-align:left;
+  border-bottom:1px solid #e7edf1;
+  font-size:13px;
+}
+
+.stat-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+}
+
+.stat{
+  background:white;
+  border:1px solid #e1eaf0;
+  border-radius:16px;
+  padding:19px;
+}
+
+.stat-number{
+  font-size:25px;
+  font-weight:bold;
+  margin-top:7px;
+}
+
+.esim-card{
+  background:linear-gradient(135deg,#07304e,#087695);
+  color:white;
+  border-radius:20px;
+  padding:25px;
+}
+
+.esim-card .remaining{
+  font-size:34px;
+  font-weight:bold;
+  margin:15px 0;
+}
+
+.progress{
+  height:9px;
+  background:rgba(255,255,255,.22);
+  border-radius:10px;
+  overflow:hidden;
+}
+
+.progress-bar{
+  height:100%;
+  width:28%;
+  background:#08d4ea;
+}
+
+.bottom-nav{
+  display:none;
+}
+
+footer{
+  background:#08263f;
+  color:#c9dae6;
+  padding:28px 20px;
+  text-align:center;
+  margin-top:40px;
+  font-size:13px;
+}
+
+.toast{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  background:#082c46;
+  color:#fff;
+  padding:14px 18px;
+  border-radius:10px;
+  display:none;
+  z-index:100;
+  box-shadow:0 8px 30px rgba(0,0,0,.2);
+}
+
+@media(max-width:900px){
+  .hero{
+    grid-template-columns:1fr;
+  }
+
+  .grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .plan-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .stat-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .nav-links{
+    display:none;
+  }
+}
+
+@media(max-width:600px){
+  .container{
+    padding:18px 14px 80px;
+  }
+
+  .nav{
+    padding:12px 14px;
+  }
+
+  .logo-text{
+    font-size:22px;
+  }
+
+  .sim-logo{
+    width:35px;
+    height:40px;
+  }
+
+  .hero{
+    padding:25px 20px;
+    border-radius:19px;
+  }
+
+  .hero h1{
+    font-size:30px;
+  }
+
+  .grid,
+  .plan-grid,
+  .stat-grid,
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .panel{
+    padding:18px;
+  }
+
+  .history-table{
+    min-width:700px;
+  }
+
+  .table-scroll{
+    overflow-x:auto;
+  }
+
+  .bottom-nav{
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    background:white;
+    border-top:1px solid #dfe9ef;
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    z-index:50;
+  }
+
+  .bottom-nav button{
+    background:white;
+    padding:10px 4px;
+    font-size:10px;
+    color:#566b7e;
+  }
+
+  .bottom-nav button span{
+    display:block;
+    font-size:19px;
+    margin-bottom:3px;
+  }
+
+  .invoice{
+    padding:20px;
+  }
+
+  .invoice-header{
+    flex-direction:column;
+  }
+
+  .qr-box{
+    width:220px;
+    height:220px;
+  }
+
+  .qr-inner{
+    width:190px;
+    height:190px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+  <div class="nav">
+
+    <div class="logo-area">
+      <div class="sim-logo"></div>
+
+      <div>
+        <div class="logo-text">T<span>E</span>LKU</div>
+        <div class="logo-sub">E SIMCARD INTERNATIONAL DIGITAL</div>
+      </div>
+    </div>
+
+    <div class="nav-links">
+      <button onclick="showSection('home')">Home</button>
+      <button onclick="showSection('countries')">Countries</button>
+      <button onclick="showSection('plans')">Plans</button>
+      <button onclick="showSection('esim')">My eSIM</button>
+      <button onclick="showSection('usage')">Usage</button>
+      <button onclick="showSection('history')">History</button>
+    </div>
+
+    <select class="lang">
+      <option>EN</option>
+      <option>ID</option>
+      <option>JP</option>
+      <option>TH</option>
+    </select>
+
+  </div>
+</header>
+
+
+<main class="container">
+
+<!-- HOME -->
+
+<section id="home">
+
+  <div class="hero">
+
+    <div>
+      <span class="badge">GLOBAL DIGITAL CONNECTIVITY</span>
+
+      <h1>Stay Connected<br>Across Borders.</h1>
+
+      <p>
+        TELKU provides simple global eSIM connectivity
+        for travelers, businesses and digital nomads.
+      </p>
+
+      <div style="margin-top:22px;">
+        <button class="primary" onclick="showSection('countries')">
+          Explore Countries
+        </button>
+      </div>
+    </div>
+
+    <div class="hero-card">
+
+      <h3>🌍 TELKU Global Network</h3>
+
+      <div class="hero-stat">
+        <span>Destinations</span>
+        <strong>200+</strong>
+      </div>
+
+      <div class="hero-stat">
+        <span>eSIM Activation</span>
+        <strong>Instant*</strong>
+      </div>
+
+      <div class="hero-stat">
+        <span>Connectivity</span>
+        <strong>Global</strong>
+      </div>
+
+      <small style="color:#b8d3df;">
+        *Provider-dependent
+      </small>
+
+    </div>
+
+  </div>
+
+
+  <div class="section">
+
+    <div class="section-title">
+      <h2>Popular Destinations</h2>
+      <button class="secondary" onclick="showSection('countries')">
+        View All
+      </button>
+    </div>
+
+    <div class="grid">
+
+      <div class="card country-card" onclick="selectCountry('Japan','🇯🇵')">
+        <div class="flag">🇯🇵</div>
+        <h3>Japan</h3>
+        <div class="muted">Asia Pacific</div>
+      </div>
+
+      <div class="card country-card" onclick="selectCountry('Thailand','🇹🇭')">
+        <div class="flag">🇹🇭</div>
+        <h3>Thailand</h3>
+        <div class="muted">Southeast Asia</div>
+      </div>
+
+      <div class="card country-card" onclick="selectCountry('Singapore','🇸🇬')">
+        <div class="flag">🇸🇬</div>
+        <h3>Singapore</h3>
+        <div class="muted">Southeast Asia</div>
+      </div>
+
+      <div class="card country-card" onclick="selectCountry('USA','🇺🇸')">
+        <div class="flag">🇺🇸</div>
+        <h3>USA</h3>
+        <div class="muted">North America</div>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="section">
+
+    <div class="section-title">
+      <h2>Current eSIM</h2>
+    </div>
+
+    <div class="esim-card">
+
+      <div style="display:flex;justify-content:space-between;gap:20px;">
+        <div>
+          <div style="opacity:.75;font-size:12px;">
+            ACTIVE eSIM
+          </div>
+
+          <h2 style="margin-top:6px;">
+            🇯🇵 TELKU Japan
+          </h2>
+        </div>
+
+        <span class="status active">
+          CONNECTED
+        </span>
+      </div>
+
+      <div class="remaining">
+        2.8 GB
+      </div>
+
+      <div style="opacity:.8;font-size:13px;">
+        remaining from 10 GB
+      </div>
+
+      <div class="progress" style="margin-top:12px;">
+        <div class="progress-bar"></div>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;margin-top:18px;font-size:13px;">
+        <span>7.2 GB used</span>
+        <span>23 days remaining</span>
+      </div>
+
+      <div style="margin-top:20px;">
+        <button class="primary" onclick="showSection('esim')">
+          Manage eSIM
+        </button>
+
+        <button class="secondary" onclick="showSection('usage')" style="margin-left:6px;">
+          Usage
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- COUNTRIES -->
+
+<section id="countries" class="hidden">
+
+  <div class="section-title">
+    <h2>🌍 Choose Destination</h2>
+  </div>
+
+  <div class="panel">
+
+    <div class="field">
+      <label>Search country</label>
+      <input
+        id="countrySearch"
+        placeholder="Example: Japan"
+        oninput="searchCountry()"
+      >
+    </div>
+
+  </div>
+
+  <div id="countryList" class="grid" style="margin-top:18px;">
+
+    <div class="card country-card country-item" data-name="Japan"
+         onclick="selectCountry('Japan','🇯🇵')">
+      <div class="flag">🇯🇵</div>
+      <h3>Japan</h3>
+      <p class="muted">Tokyo • Osaka • Kyoto</p>
+      <button class="primary" style="margin-top:15px;">View Plans</button>
+    </div>
+
+    <div class="card country-card country-item" data-name="Thailand"
+         onclick="selectCountry('Thailand','🇹🇭')">
+      <div class="flag">🇹🇭</div>
+      <h3>Thailand</h3>
+      <p class="muted">Bangkok • Phuket • Chiang Mai</p>
+      <button class="primary" style="margin-top:15px;">View Plans</button>
+    </div>
+
+    <div class="card country-card country-item" data-name="Singapore"
+         onclick="selectCountry('Singapore','🇸🇬')">
+      <div class="flag">🇸🇬</div>
+      <h3>Singapore</h3>
+      <p class="muted">Singapore</p>
+      <button class="primary" style="margin-top:15px;">View Plans</button>
+    </div>
+
+    <div class="card country-card country-item" data-name="USA"
+         onclick="selectCountry('USA','🇺🇸')">
+      <div class="flag">🇺🇸</div>
+      <h3>USA</h3>
+      <p class="muted">New York • LA • Miami</p>
+      <button class="primary" style="margin-top:15px;">View Plans</button>
+    </div>
+
+    <div class="card country-card country-item" data-name="Europe"
+         onclick="selectCountry('Europe','🇪🇺')">
+      <div class="flag">🇪🇺</div>
+      <h3>Europe</h3>
+      <p class="muted">Multiple European countries</p>
+      <button class="primary" style="margin-top:15px;">View Plans</button>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- PLANS -->
+
+<section id="plans" class="hidden">
+
+  <div class="section-title">
+    <h2 id="plansTitle">📶 TELKU Plans</h2>
+  </div>
+
+  <div class="panel">
+
+    <div style="font-size:30px;" id="selectedFlag">
+      🌍
+    </div>
+
+    <h2 id="selectedCountry">
+      Select a destination
+    </h2>
+
+    <p class="muted">
+      Choose your data package.
+    </p>
+
+  </div>
+
+  <div class="plan-grid" style="margin-top:18px;">
+
+    <div class="plan-card">
+      <strong>1 GB</strong>
+      <div class="days">7 Days</div>
+      <div class="plan-price">$3.99</div>
+      <button class="primary full"
+        onclick="selectPlan('1 GB','7 Days',3.99)">
+        Select
+      </button>
+    </div>
+
+    <div class="plan-card">
+      <strong>3 GB</strong>
+      <div class="days">15 Days</div>
+      <div class="plan-price">$6.99</div>
+      <button class="primary full"
+        onclick="selectPlan('3 GB','15 Days',6.99)">
+        Select
+      </button>
+    </div>
+
+    <div class="plan-card">
+      <strong>5 GB</strong>
+      <div class="days">30 Days</div>
+      <div class="plan-price">$9.99</div>
+      <button class="primary full"
+        onclick="selectPlan('5 GB','30 Days',9.99)">
+        Select
+      </button>
+    </div>
+
+    <div class="plan-card">
+      <strong>10 GB</strong>
+      <div class="days">30 Days</div>
+      <div class="plan-price">$14.99</div>
+      <button class="primary full"
+        onclick="selectPlan('10 GB','30 Days',14.99)">
+        Select
+      </button>
+    </div>
+
+    <div class="plan-card">
+      <strong>20 GB</strong>
+      <div class="days">30 Days</div>
+      <div class="plan-price">$19.99</div>
+      <button class="primary full"
+        onclick="selectPlan('20 GB','30 Days',19.99)">
+        Select
+      </button>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- CHECKOUT -->
+
+<section id="checkout" class="hidden">
+
+  <div class="section-title">
+    <h2>🛒 Checkout</h2>
+  </div>
+
+  <div class="panel">
+
+    <div class="form-grid">
+
+      <div>
+
+        <div class="field">
+          <label>Full Name</label>
+          <input id="customerName" placeholder="Your name">
+        </div>
+
+        <div class="field">
+          <label>Email</label>
+          <input id="customerEmail" type="email"
+                 placeholder="you@email.com">
+        </div>
+
+      </div>
+
+      <div class="order-box">
+
+        <h3>Order Summary</h3>
+
+        <div class="order-row">
+          <span>Destination</span>
+          <strong id="checkoutCountry">-</strong>
+        </div>
+
+        <div class="order-row">
+          <span>Plan</span>
+          <strong id="checkoutPlan">-</strong>
+        </div>
+
+        <div class="order-row">
+          <span>Validity</span>
+          <strong id="checkoutDays">-</strong>
+        </div>
+
+        <div class="order-row">
+          <span>Total</span>
+          <strong id="checkoutPrice">$0.00</strong>
+        </div>
+
+      </div>
+
+    </div>
+
+    <button class="primary" onclick="goPayment()">
+      Continue to Payment
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- PAYMENT -->
+
+<section id="payment" class="hidden">
+
+  <div class="section-title">
+    <h2>💳 Payment</h2>
+  </div>
+
+  <div class="panel">
+
+    <div class="order-box">
+
+      <h3>Payment Summary</h3>
+
+      <div class="order-row">
+        <span>Order ID</span>
+        <strong id="paymentOrderId">-</strong>
+      </div>
+
+      <div class="order-row">
+        <span>Plan</span>
+        <strong id="paymentPlan">-</strong>
+      </div>
+
+      <div class="order-row">
+        <span>Total</span>
+        <strong id="paymentTotal">$0.00</strong>
+      </div>
+
+    </div>
+
+    <div class="field" style="margin-top:20px;">
+      <label>Payment Method</label>
+
+      <select id="paymentMethod">
+        <option>Credit / Debit Card</option>
+        <option>Bank Transfer</option>
+        <option>e-Wallet</option>
+      </select>
+    </div>
+
+    <button class="primary" onclick="completePayment()">
+      Pay Now
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- SUCCESS -->
+
+<section id="success" class="hidden">
+
+  <div class="panel success">
+
+    <div class="success-icon">
+      ✓
+    </div>
+
+    <h1>Payment Successful</h1>
+
+    <p class="muted" style="margin-top:8px;">
+      Your TELKU order has been successfully created.
+    </p>
+
+    <div class="id-box">
+
+      <div class="muted">ORDER ID</div>
+
+      <h2 id="successOrderId">
+        TELKU-000000
+      </h2>
+
+      <div style="margin-top:12px;" class="muted">
+        PAYMENT ID
+      </div>
+
+      <strong id="successPaymentId">
+        PAY-000000
+      </strong>
+
+    </div>
+
+    <div style="display:flex;justify-content:center;gap:8px;flex-wrap:wrap;">
+
+      <button class="primary" onclick="showSection('invoice')">
+        📄 View Invoice
+      </button>
+
+      <button class="secondary" onclick="showSection('qr')">
+        ◉ View eSIM QR
+      </button>
+
+      <button class="secondary" onclick="showSection('esim')">
+        My eSIM
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- INVOICE -->
+
+<section id="invoice" class="hidden">
+
+  <div class="section-title">
+    <h2>📄 Invoice</h2>
+
+    <button class="secondary" onclick="downloadInvoice()">
+      Download / Print
+    </button>
+  </div>
+
+  <div class="invoice" id="invoiceContent">
+
+    <div class="invoice-header">
+
+      <div>
+        <div class="invoice-logo">
+          T<span>E</span>LKU
+        </div>
+
+        <div class="muted">
+          Global Digital Connectivity
+        </div>
+      </div>
+
+      <div style="text-align:right;">
+        <strong>INVOICE</strong>
+        <div class="muted" id="invoiceNumber">
+          INV-000000
+        </div>
+        <div class="muted" id="invoiceDate">
+          -
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="form-grid">
+
+      <div>
+        <div class="muted">BILL TO</div>
+        <strong id="invoiceCustomer">-</strong>
+        <div id="invoiceEmail">-</div>
+      </div>
+
+      <div>
+        <div class="muted">ORDER ID</div>
+        <strong id="invoiceOrderId">-</strong>
+
+        <div class="muted" style="margin-top:8px;">
+          PAYMENT ID
+        </div>
+
+        <strong id="invoicePaymentId">-</strong>
+      </div>
+
+    </div>
+
+
+    <table class="invoice-table">
+
+      <thead>
+        <tr>
+          <th>Description</th>
+          <th>Validity</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <tr>
+          <td id="invoiceDescription">
+            TELKU eSIM
+          </td>
+
+          <td id="invoiceDays">
+            -
+          </td>
+
+          <td id="invoiceAmount">
+            $0.00
+          </td>
+        </tr>
+
+      </tbody>
+
+    </table>
+
+
+    <div class="invoice-total">
+      Total: <span id="invoiceTotal">$0.00</span>
+    </div>
+
+
+    <div style="margin-top:20px;">
+      <span class="status paid">
+        PAID
+      </span>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- QR -->
+
+<section id="qr" class="hidden">
+
+  <div class="section-title">
+    <h2>◉ eSIM QR Code</h2>
+  </div>
+
+  <div class="panel qr-section">
+
+    <div style="font-size:14px;color:#718096;">
+      TELKU eSIM
+    </div>
+
+    <h2 id="qrCountry">
+      🇯🇵 Japan
+    </h2>
+
+    <p class="muted" id="qrPlan">
+      10 GB / 30 Days
+    </p>
+
+
+    <div class="qr-box">
+
+      <div class="qr-inner">
+
+        <div class="qr-center">
+          <span>TELKU</span>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <h3>
+      Scan QR Code to Install eSIM
+    </h3>
+
+    <div class="qr-note">
+
+      ⚠️ <strong>V1.4 Demo QR</strong><br>
+
+      This QR is a visual demo.
+      Real eSIM activation will be connected to
+      the TELKU eSIM provider API in a future version.
+
+    </div>
+
+
+    <div class="id-box">
+
+      <div class="muted">
+        eSIM ID
+      </div>
+
+      <strong id="qrEsimId">
+        TELKU-ESIM-000001
+      </strong>
+
+      <div class="muted" style="margin-top:10px;">
+        ORDER ID
+      </div>
+
+      <strong id="qrOrderId">
+        TELKU-000000
+      </strong>
+
+    </div>
+
+
+    <div style="display:flex;justify-content:center;gap:8px;flex-wrap:wrap;">
+
+      <button class="primary" onclick="downloadQR()">
+        Download QR
+      </button>
+
+      <button class="secondary" onclick="showSection('invoice')">
+        View Invoice
+      </button>
+
+      <button class="secondary" onclick="showSection('esim')">
+        My eSIM
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- MY ESIM -->
+
+<section id="esim" class="hidden">
+
+  <div class="section-title">
+    <h2>📱 My eSIM</h2>
+  </div>
+
+  <div class="esim-card">
+
+    <div style="display:flex;justify-content:space-between;">
+
+      <div>
+        <div style="opacity:.7;font-size:12px;">
+          TELKU eSIM
+        </div>
+
+        <h2 id="esimCountry">
+          🇯🇵 Japan
+        </h2>
+      </div>
+
+      <span class="status active">
+        ACTIVE
+      </span>
+
+    </div>
+
+
+    <div class="remaining">
+      <span id="esimRemaining">10 GB</span>
+    </div>
+
+    <div style="opacity:.8;">
+      available data
+    </div>
+
+
+    <div class="progress" style="margin-top:12px;">
+      <div class="progress-bar" style="width:100%;"></div>
+    </div>
+
+
+    <div style="margin-top:15px;font-size:13px;">
+      <span id="esimPlan">
+        10 GB / 30 Days
+      </span>
+    </div>
+
+
+    <div style="margin-top:8px;font-size:13px;">
+      eSIM ID:
+      <strong id="esimId">
+        TELKU-ESIM-000001
+      </strong>
+    </div>
+
+
+    <div style="margin-top:20px;display:flex;gap:7px;flex-wrap:wrap;">
+
+      <button class="primary" onclick="showSection('qr')">
+        ◉ Show QR
+      </button>
+
+      <button class="secondary" onclick="showSection('usage')">
+        Usage
+      </button>
+
+      <button class="secondary" onclick="showSection('topup')">
+        Top Up
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- USAGE -->
+
+<section id="usage" class="hidden">
+
+  <div class="section-title">
+    <h2>📊 Usage Dashboard</h2>
+  </div>
+
+  <div class="stat-grid">
+
+    <div class="stat">
+      <div class="muted">Total Data</div>
+      <div class="stat-number" id="usageTotal">
+        10 GB
+      </div>
+    </div>
+
+    <div class="stat">
+      <div class="muted">Used</div>
+      <div class="stat-number">
+        0 GB
+      </div>
+    </div>
+
+    <div class="stat">
+      <div class="muted">Remaining</div>
+      <div class="stat-number" id="usageRemaining">
+        10 GB
+      </div>
+    </div>
+
+    <div class="stat">
+      <div class="muted">Validity</div>
+      <div class="stat-number">
+        30 Days
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="panel">
+
+    <h3>Network Status</h3>
+
+    <div style="margin-top:15px;display:flex;justify-content:space-between;">
+      <span>Partner Network</span>
+      <span class="status active">CONNECTED</span>
+    </div>
+
+    <div style="margin-top:15px;">
+      <button class="primary" onclick="showSection('topup')">
+        + Top Up Data
+      </button>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- TOP UP -->
+
+<section id="topup" class="hidden">
+
+  <div class="section-title">
+    <h2>➕ Top Up Data</h2>
+  </div>
+
+  <div class="plan-grid">
+
+    <div class="plan-card">
+      <strong>1 GB</strong>
+      <div class="days">Additional Data</div>
+      <div class="plan-price">$2.99</div>
+      <button class="primary full" onclick="topUp('1 GB',2.99)">
+        Top Up
+      </button>
+    </div>
+
+    <div class="plan-card">
+      <strong>3 GB</strong>
+      <div class="days">Additional Data</div>
+      <div class="plan-price">$5.99</div>
+      <button class="primary full" onclick="topUp('3 GB',5.99)">
+        Top Up
+      </button>
+    </div>
+
+    <div class="plan-card">
+      <strong>5 GB</strong>
+      <div class="days">Additional Data</div>
+      <div class="plan-price">$8.99</div>
+      <button class="primary full" onclick="topUp('5 GB',8.99)">
+        Top Up
+      </button>
+    </div>
+
+    <div class="plan-card">
+      <strong>10 GB</strong>
+      <div class="days">Additional Data</div>
+      <div class="plan-price">$13.99</div>
+      <button class="primary full" onclick="topUp('10 GB',13.99)">
+        Top Up
+      </button>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- HISTORY -->
+
+<section id="history" class="hidden">
+
+  <div class="section-title">
+    <h2>🧾 Order History</h2>
+  </div>
+
+  <div class="panel">
+
+    <div class="table-scroll">
+
+      <table class="history-table">
+
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Destination</th>
+            <th>Plan</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody id="historyBody">
+
+          <tr>
+            <td colspan="6" style="text-align:center;">
+              No orders yet.
+            </td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ORDER DETAIL -->
+
+<section id="orderDetail" class="hidden">
+
+  <div class="section-title">
+    <h2>📦 Order Detail</h2>
+  </div>
+
+  <div class="panel">
+
+    <div class="order-box">
+
+      <div class="order-row">
+        <span>Order ID</span>
+        <strong id="detailOrderId">-</strong>
+      </div>
+
+      <div class="order-row">
+        <span>Payment ID</span>
+        <strong id="detailPaymentId">-</strong>
+      </div>
+
+      <div class="order-row">
+        <span>Customer</span>
+        <strong id="detailCustomer">-</strong>
+      </div>
+
+      <div class="order-row">
+        <span>Destination</span>
+        <strong id="detailCountry">-</strong>
+      </div>
+
+      <div class="order-row">
+        <span>Plan</span>
+        <strong id="detailPlan">-</strong>
+      </div>
+
+      <div class="order-row">
+        <span>Amount</span>
+        <strong id="detailAmount">-</strong>
+      </div>
+
+      <div class="order-row">
+        <span>Status</span>
+        <span class="status paid">PAID</span>
+      </div>
+
+    </div>
+
+    <div style="margin-top:18px;display:flex;gap:8px;flex-wrap:wrap;">
+
+      <button class="primary" onclick="showSection('invoice')">
+        📄 Invoice
+      </button>
+
+      <button class="secondary" onclick="showSection('qr')">
+        ◉ eSIM QR
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ACCOUNT -->
+
+<section id="account" class="hidden">
+
+  <div class="section-title">
+    <h2>👤 Customer Account</h2>
+  </div>
+
+  <div class="panel">
+
+    <div class="field">
+      <label>Full Name</label>
+      <input id="accountName" placeholder="Your name">
+    </div>
+
+    <div class="field">
+      <label>Email</label>
+      <input id="accountEmail" placeholder="you@email.com">
+    </div>
+
+    <button class="primary" onclick="saveAccount()">
+      Save Profile
+    </button>
+
+  </div>
+
+</section>
+
+</main>
+
+
+<!-- MOBILE NAV -->
+
+<div class="bottom-nav">
+
+  <button onclick="showSection('home')">
+    <span>⌂</span>
+    Home
+  </button>
+
+  <button onclick="showSection('plans')">
+    <span>◈</span>
+    Plans
+  </button>
+
+  <button onclick="showSection('esim')">
+    <span>▣</span>
+    eSIM
+  </button>
+
+  <button onclick="showSection('usage')">
+    <span>◔</span>
+    Usage
+  </button>
+
+  <button onclick="showSection('history')">
+    <span>☰</span>
+    History
+  </button>
+
+</div>
+
+
+<footer>
+
+  <strong>TELKU</strong> — Global Digital Connectivity
+
+  <br><br>
+
+  Connectivity through partner networks.
+
+  <br>
+
+  TELKU V1.4 Demo
+
+</footer>
+
+
+<div class="toast" id="toast">
+  Done
+</div>
+
+
+<script>
+
+/* =========================================
+   TELKU V1.4
+   PAYMENT + INVOICE + QR + HISTORY
+========================================= */
+
+let currentCountry = "Japan";
+let currentFlag = "🇯🇵";
+
+let selectedPlan = {
+  data:"10 GB",
+  days:"30 Days",
+  price:14.99
+};
+
+let orders = [];
+
+let currentOrder = null;
+
+
+/* =========================================
+   SECTION NAVIGATION
+========================================= */
+
+function showSection(id){
+
+  const sections = document.querySelectorAll("main section");
+
+  sections.forEach(section=>{
+    section.classList.add("hidden");
+  });
+
+  const target = document.getElementById(id);
+
+  if(target){
+    target.classList.remove("hidden");
+  }
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+}
+
+
+/* =========================================
+   TOAST
+========================================= */
+
+function toast(message){
+
+  const el = document.getElementById("toast");
+
+  el.innerText = message;
+
+  el.style.display = "block";
+
+  setTimeout(()=>{
+    el.style.display = "none";
+  },2500);
+}
+
+
+/* =========================================
+   COUNTRY
+========================================= */
+
+function selectCountry(country,flag){
+
+  currentCountry = country;
+  currentFlag = flag;
+
+  document.getElementById("selectedCountry").innerText =
+    country;
+
+  document.getElementById("selectedFlag").innerText =
+    flag;
+
+  document.getElementById("plansTitle").innerText =
+    flag + " " + country + " eSIM Plans";
+
+  showSection("plans");
+}
+
+
+/* =========================================
+   COUNTRY SEARCH
+========================================= */
+
+function searchCountry(){
+
+  const input =
+    document.getElementById("countrySearch")
+    .value
+    .toLowerCase();
+
+  const items =
+    document.querySelectorAll(".country-item");
+
+  items.forEach(item=>{
+
+    const name =
+      item.dataset.name.toLowerCase();
+
+    if(name.includes(input)){
+      item.style.display = "";
+    }else{
+      item.style.display = "none";
+    }
+
+  });
+
+}
+
+
+/* =========================================
+   SELECT PLAN
+========================================= */
+
+function selectPlan(data,days,price){
+
+  selectedPlan = {
+    data:data,
+    days:days,
+    price:price
+  };
+
+  document.getElementById("checkoutCountry").innerText =
+    currentFlag + " " + currentCountry;
+
+  document.getElementById("checkoutPlan").innerText =
+    data;
+
+  document.getElementById("checkoutDays").innerText =
+    days;
+
+  document.getElementById("checkoutPrice").innerText =
+    "$" + price.toFixed(2);
+
+  showSection("checkout");
+}
+
+
+/* =========================================
+   PAYMENT
+========================================= */
+
+function goPayment(){
+
+  const name =
+    document.getElementById("customerName").value.trim();
+
+  const email =
+    document.getElementById("customerEmail").value.trim();
+
+  if(!name || !email){
+
+    alert("Please enter your name and email.");
+
+    return;
+  }
+
+  const orderId =
+    generateOrderId();
+
+  document.getElementById("paymentOrderId").innerText =
+    orderId;
+
+  document.getElementById("paymentPlan").innerText =
+    currentCountry + " • " + selectedPlan.data;
+
+  document.getElementById("paymentTotal").innerText =
+    "$" + selectedPlan.price.toFixed(2);
+
+  showSection("payment");
+}
+
+
+/* =========================================
+   COMPLETE PAYMENT
+========================================= */
+
+function completePayment(){
+
+  const name =
+    document.getElementById("customerName").value.trim();
+
+  const email =
+    document.getElementById("customerEmail").value.trim();
+
+  const paymentMethod =
+    document.getElementById("paymentMethod").value;
+
+  const orderId =
+    generateOrderId();
+
+  const paymentId =
+    generatePaymentId();
+
+  const invoiceNumber =
+    generateInvoiceNumber();
+
+  const esimId =
+    generateEsimId();
+
+  const order = {
+
+    orderId:orderId,
+
+    paymentId:paymentId,
+
+    invoiceNumber:invoiceNumber,
+
+    esimId:esimId,
+
+    customer:name,
+
+    email:email,
+
+    country:currentCountry,
+
+    flag:currentFlag,
+
+    data:selectedPlan.data,
+
+    days:selectedPlan.days,
+
+    price:selectedPlan.price,
+
+    paymentMethod:paymentMethod,
+
+    status:"PAID",
+
+    date:new Date().toLocaleString()
+
+  };
+
+  orders.push(order);
+
+  currentOrder = order;
+
+  updateSuccess();
+
+  updateInvoice();
+
+  updateQR();
+
+  updateEsim();
+
+  updateHistory();
+
+  showSection("success");
+
+  toast("Payment successful!");
+
+}
+
+
+/* =========================================
+   ID GENERATORS
+========================================= */
+
+function randomNumber(length){
+
+  let result="";
+
+  const chars="0123456789";
+
+  for(let i=0;i<length;i++){
+
+    result +=
+      chars[Math.floor(Math.random()*chars.length)];
+
+  }
+
+  return result;
+}
+
+
+function generateOrderId(){
+
+  const d = new Date();
+
+  const date =
+    d.getFullYear() +
+    String(d.getMonth()+1).padStart(2,"0") +
+    String(d.getDate()).padStart(2,"0");
+
+  return "TELKU-" + date + "-" + randomNumber(6);
+}
+
+
+function generatePaymentId(){
+
+  return "PAY-" + randomNumber(8);
+}
+
+
+function generateInvoiceNumber(){
+
+  return "INV-" + randomNumber(8);
+}
+
+
+function generateEsimId(){
+
+  return "TELKU-ESIM-" + randomNumber(8);
+}
+
+
+/* =========================================
+   SUCCESS
+========================================= */
+
+function updateSuccess(){
+
+  if(!currentOrder) return;
+
+  document.getElementById("successOrderId").innerText =
+    currentOrder.orderId;
+
+  document.getElementById("successPaymentId").innerText =
+    currentOrder.paymentId;
+
+}
+
+
+/* =========================================
+   INVOICE
+========================================= */
+
+function updateInvoice(){
+
+  if(!currentOrder) return;
+
+  document.getElementById("invoiceNumber").innerText =
+    currentOrder.invoiceNumber;
+
+  document.getElementById("invoiceDate").innerText =
+    currentOrder.date;
+
+  document.getElementById("invoiceCustomer").innerText =
+    currentOrder.customer;
+
+  document.getElementById("invoiceEmail").innerText =
+    currentOrder.email;
+
+  document.getElementById("invoiceOrderId").innerText =
+    currentOrder.orderId;
+
+  document.getElementById("invoicePaymentId").innerText =
+    currentOrder.paymentId;
+
+  document.getElementById("invoiceDescription").innerText =
+    currentOrder.flag + " " +
+    currentOrder.country +
+    " eSIM — " +
+    currentOrder.data;
+
+  document.getElementById("invoiceDays").innerText =
+    currentOrder.days;
+
+  document.getElementById("invoiceAmount").innerText =
+    "$" + currentOrder.price.toFixed(2);
+
+  document.getElementById("invoiceTotal").innerText =
+    "$" + currentOrder.price.toFixed(2);
+
+}
+
+
+/* =========================================
+   QR
+========================================= */
+
+function updateQR(){
+
+  if(!currentOrder) return;
+
+  document.getElementById("qrCountry").innerText =
+    currentOrder.flag + " " + currentOrder.country;
+
+  document.getElementById("qrPlan").innerText =
+    currentOrder.data +
+    " / " +
+    currentOrder.days;
+
+  document.getElementById("qrEsimId").innerText =
+    currentOrder.esimId;
+
+  document.getElementById("qrOrderId").innerText =
+    currentOrder.orderId;
+
+}
+
+
+/* =========================================
+   eSIM
+========================================= */
+
+function updateEsim(){
+
+  if(!currentOrder) return;
+
+  document.getElementById("esimCountry").innerText =
+    currentOrder.flag + " " + currentOrder.country;
+
+  document.getElementById("esimRemaining").innerText =
+    currentOrder.data;
+
+  document.getElementById("esimPlan").innerText =
+    currentOrder.data +
+    " / " +
+    currentOrder.days;
+
+  document.getElementById("esimId").innerText =
+    currentOrder.esimId;
+
+  document.getElementById("usageTotal").innerText =
+    currentOrder.data;
+
+  document.getElementById("usageRemaining").innerText =
+    currentOrder.data;
+
+}
+
+
+/* =========================================
+   HISTORY
+========================================= */
+
+function updateHistory(){
+
+  const body =
+    document.getElementById("historyBody");
+
+  body.innerHTML = "";
+
+  if(orders.length === 0){
+
+    body.innerHTML = `
+      <tr>
+        <td colspan="6" style="text-align:center;">
+          No orders yet.
+        </td>
+      </tr>
+    `;
+
+    return;
+  }
+
+
+  orders.slice().reverse().forEach(order=>{
+
+    const tr =
+      document.createElement("tr");
+
+    tr.innerHTML = `
+
+      <td>
+        <strong>${order.orderId}</strong>
+      </td>
+
+      <td>
+        ${order.flag} ${order.country}
+      </td>
+
+      <td>
+        ${order.data} / ${order.days}
+      </td>
+
+      <td>
+        $${order.price.toFixed(2)}
+      </td>
+
+      <td>
+        <span class="status paid">
+          ${order.status}
+        </span>
+      </td>
+
+      <td>
+        <button class="secondary"
+          onclick="openOrder('${order.orderId}')">
+          View
+        </button>
+      </td>
+
+    `;
+
+    body.appendChild(tr);
+
+  });
+
+}
+
+
+/* =========================================
+   OPEN ORDER
+========================================= */
+
+function openOrder(orderId){
+
+  const order =
+    orders.find(o=>o.orderId===orderId);
+
+  if(!order) return;
+
+  currentOrder = order;
+
+  document.getElementById("detailOrderId").innerText =
+    order.orderId;
+
+  document.getElementById("detailPaymentId").innerText =
+    order.paymentId;
+
+  document.getElementById("detailCustomer").innerText =
+    order.customer;
+
+  document.getElementById("detailCountry").innerText =
+    order.flag + " " + order.country;
+
+  document.getElementById("detailPlan").innerText =
+    order.data + " / " + order.days;
+
+  document.getElementById("detailAmount").innerText =
+    "$" + order.price.toFixed(2);
+
+  updateInvoice();
+  updateQR();
+  updateEsim();
+
+  showSection("orderDetail");
+
+}
+
+
+/* =========================================
+   TOP UP
+========================================= */
+
+function topUp(data,price){
+
+  if(!currentOrder){
+
+    alert("Please purchase an eSIM first.");
+
+    return;
+  }
+
+  const id =
+    "TOPUP-" + randomNumber(8);
+
+  alert(
+    "TOP UP DEMO\n\n" +
+    "Top Up ID: " + id +
+    "\nData: " + data +
+    "\nAmount: $" + price.toFixed(2) +
+    "\n\nReal payment/provider API will be connected later."
+  );
+
+}
+
+
+/* =========================================
+   DOWNLOAD QR
+========================================= */
+
+function downloadQR(){
+
+  if(!currentOrder){
+
+    alert("No eSIM available.");
+
+    return;
+  }
+
+  const qrText =
+    "TELKU DEMO ESIM\n" +
+    "eSIM ID: " + currentOrder.esimId +
+    "\nOrder ID: " + currentOrder.orderId +
+    "\nCountry: " + currentOrder.country +
+    "\nPlan: " + currentOrder.data +
+    "\nValidity: " + currentOrder.days;
+
+  const blob =
+    new Blob(
+      [qrText],
+      {type:"text/plain"}
+    );
+
+  const url =
+    URL.createObjectURL(blob);
+
+  const a =
+    document.createElement("a");
+
+  a.href = url;
+
+  a.download =
+    currentOrder.esimId + ".txt";
+
+  a.click();
+
+  URL.revokeObjectURL(url);
+
+  toast("Demo QR information saved.");
+
+}
+
+
+/* =========================================
+   PRINT / DOWNLOAD INVOICE
+========================================= */
+
+function downloadInvoice(){
+
+  if(!currentOrder){
+
+    alert("No invoice available.");
+
+    return;
+  }
+
+  window.print();
+
+}
+
+
+/* =========================================
+   ACCOUNT
+========================================= */
+
+function saveAccount(){
+
+  const name =
+    document.getElementById("accountName").value;
+
+  const email =
+    document.getElementById("accountEmail").value;
+
+  if(!name || !email){
+
+    alert("Please complete your profile.");
+
+    return;
+  }
+
+  toast("Profile saved.");
+
+}
+
+
+/* =========================================
+   INITIALIZATION
+========================================= */
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+  updateHistory();
+
+  showSection("home");
+
+});
+
+</script>
+
+</body>
+</html>
