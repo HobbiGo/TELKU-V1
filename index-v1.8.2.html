@@ -3,212 +3,126 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>TELKU V1.8.2</title>
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
+*{box-sizing:border-box}
 body{
+  margin:0;
   font-family:Arial,Helvetica,sans-serif;
   background:#f4f7fb;
   color:#172033;
 }
-
 header{
-  background:linear-gradient(135deg,#0b5cff,#003bb5);
+  background:linear-gradient(135deg,#0b5cff,#00a8ff);
   color:white;
-  padding:20px;
-  position:sticky;
-  top:0;
-  z-index:10;
+  padding:22px 18px;
 }
-
 .logo{
-  font-size:28px;
+  font-size:30px;
   font-weight:800;
-  letter-spacing:1px;
 }
-
-.subtitle{
-  font-size:12px;
-  opacity:.85;
+.tag{
+  opacity:.9;
   margin-top:4px;
 }
-
 .container{
-  max-width:720px;
+  max-width:900px;
   margin:auto;
-  padding:18px;
+  padding:20px;
 }
-
 .card{
   background:white;
   border-radius:18px;
   padding:20px;
-  margin-bottom:16px;
-  box-shadow:0 5px 20px rgba(0,0,0,.06);
+  margin-bottom:18px;
+  box-shadow:0 5px 20px rgba(0,0,0,.07);
 }
-
 h2{
-  font-size:20px;
-  margin-bottom:15px;
+  margin-top:0;
 }
-
-h3{
-  margin-bottom:8px;
-}
-
 label{
   display:block;
-  font-size:13px;
-  font-weight:bold;
-  margin-bottom:6px;
+  font-weight:700;
+  margin:14px 0 6px;
 }
-
 input,select{
   width:100%;
   padding:13px;
-  border:1px solid #d8dfeb;
+  border:1px solid #d7deea;
   border-radius:10px;
-  margin-bottom:14px;
   font-size:15px;
-  background:white;
 }
-
 button{
   width:100%;
   border:0;
-  padding:14px;
   border-radius:12px;
+  padding:14px;
+  margin-top:16px;
   background:#0b5cff;
   color:white;
-  font-size:15px;
-  font-weight:bold;
+  font-size:16px;
+  font-weight:700;
   cursor:pointer;
 }
-
-button:disabled{
-  opacity:.5;
+button:hover{
+  opacity:.92;
 }
-
-.secondary{
-  background:#eef3ff;
-  color:#0b5cff;
+button.secondary{
+  background:#172033;
 }
-
 .plan{
-  border:2px solid #e4e9f2;
-  border-radius:15px;
+  border:1px solid #dce4f0;
+  border-radius:14px;
   padding:16px;
-  margin-bottom:12px;
+  margin:10px 0;
   cursor:pointer;
-  transition:.2s;
 }
-
 .plan:hover{
   border-color:#0b5cff;
 }
-
 .plan.selected{
-  border-color:#0b5cff;
-  background:#f1f6ff;
+  border:2px solid #0b5cff;
+  background:#eef5ff;
 }
-
-.plan-top{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-}
-
-.plan-code{
-  font-weight:bold;
-  color:#0b5cff;
-}
-
-.price{
+.plan-title{
+  font-weight:800;
   font-size:18px;
-  font-weight:bold;
 }
-
-.meta{
-  font-size:13px;
-  color:#657084;
-  margin-top:7px;
-}
-
-.summary-row{
-  display:flex;
-  justify-content:space-between;
-  padding:8px 0;
-  border-bottom:1px solid #edf0f5;
-}
-
-.total{
+.price{
+  color:#0b5cff;
   font-size:20px;
-  font-weight:bold;
-  margin-top:10px;
+  font-weight:800;
+  margin-top:6px;
 }
-
+.small{
+  color:#687386;
+  font-size:13px;
+}
+.status{
+  padding:12px;
+  border-radius:10px;
+  background:#eef3f8;
+  margin-top:15px;
+  white-space:pre-wrap;
+  word-break:break-word;
+}
+.success{
+  background:#e9f9ef;
+  color:#16733c;
+}
+.error{
+  background:#fff0f0;
+  color:#b42318;
+}
 .hidden{
   display:none;
 }
-
-.success{
-  text-align:center;
-  padding:20px 0;
-}
-
-.success-icon{
-  width:70px;
-  height:70px;
-  border-radius:50%;
-  background:#18a957;
-  color:white;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  margin:0 auto 15px;
-  font-size:34px;
-}
-
-.loading{
-  text-align:center;
-  padding:20px;
-  color:#667085;
-}
-
-.error{
-  background:#fff1f1;
-  color:#c62828;
-  padding:13px;
-  border-radius:10px;
-  margin-bottom:15px;
-  font-size:13px;
-  white-space:pre-wrap;
-}
-
-.info{
-  background:#eef6ff;
-  color:#1557a6;
-  padding:13px;
-  border-radius:10px;
-  margin-bottom:15px;
-  font-size:13px;
-}
-
-.badge{
-  display:inline-block;
-  padding:5px 9px;
-  border-radius:20px;
-  background:#edf3ff;
-  color:#0b5cff;
-  font-size:11px;
-  font-weight:bold;
+.order-box{
+  background:#f8fafc;
+  padding:15px;
+  border-radius:12px;
+  margin-top:15px;
 }
 </style>
 </head>
@@ -217,300 +131,165 @@ button:disabled{
 
 <header>
   <div class="logo">TELKU</div>
-  <div class="subtitle">Global Connectivity • eSIM • Travel</div>
+  <div class="tag">Global Connectivity • eSIM • Travel</div>
 </header>
 
 <div class="container">
 
   <!-- CUSTOMER -->
-  <section class="card" id="customerSection">
-    <h2>Customer Information</h2>
-
-    <div id="customerError"></div>
+  <div class="card">
+    <h2>👤 Customer Information</h2>
 
     <label>Full Name</label>
-    <input
-      id="fullName"
-      type="text"
-      placeholder="Enter your full name"
-    >
+    <input id="fullName" type="text" placeholder="Your full name">
 
     <label>Email</label>
-    <input
-      id="email"
-      type="email"
-      placeholder="Enter your email"
-    >
+    <input id="email" type="email" placeholder="you@email.com">
 
     <label>Phone</label>
-    <input
-      id="phone"
-      type="tel"
-      placeholder="Enter your phone number"
-    >
+    <input id="phone" type="text" placeholder="+62xxxxxxxxxx">
 
     <button onclick="loadCountries()">
       Continue
     </button>
-  </section>
-
+  </div>
 
   <!-- COUNTRY -->
-  <section class="card hidden" id="countrySection">
-
-    <h2>Select Country</h2>
-
-    <div id="countryError"></div>
-
-    <label>Destination Country</label>
+  <div id="countrySection" class="card hidden">
+    <h2>🌎 Choose Country</h2>
 
     <select id="countrySelect" onchange="loadPlans()">
-      <option value="">Loading countries...</option>
+      <option value="">Select country</option>
     </select>
 
-  </section>
-
+    <div id="countryStatus" class="status"></div>
+  </div>
 
   <!-- PLANS -->
-  <section class="card hidden" id="plansSection">
+  <div id="planSection" class="card hidden">
+    <h2>📶 eSIM Plans</h2>
 
-    <h2>Available eSIM Plans</h2>
+    <div id="plans"></div>
 
-    <div id="plansError"></div>
-
-    <div id="plansContainer">
-      <div class="loading">
-        Loading plans...
-      </div>
-    </div>
-
-  </section>
-
-
-  <!-- PAYMENT -->
-  <section class="card hidden" id="paymentSection">
-
-    <h2>Checkout</h2>
-
-    <div id="paymentError"></div>
-
-    <div class="info">
-      Review your eSIM order before continuing to payment.
-    </div>
-
-    <div class="summary-row">
-      <span>Customer</span>
-      <strong id="summaryCustomer">-</strong>
-    </div>
-
-    <div class="summary-row">
-      <span>Country</span>
-      <strong id="summaryCountry">-</strong>
-    </div>
-
-    <div class="summary-row">
-      <span>Plan</span>
-      <strong id="summaryPlan">-</strong>
-    </div>
-
-    <div class="summary-row">
-      <span>Data</span>
-      <strong id="summaryData">-</strong>
-    </div>
-
-    <div class="summary-row">
-      <span>Validity</span>
-      <strong id="summaryValidity">-</strong>
-    </div>
-
-    <div class="summary-row total">
-      <span>Total</span>
-      <strong id="summaryTotal">-</strong>
-    </div>
-
-    <br>
-
-    <label>Payment Method</label>
-
-    <select id="paymentMethod">
-      <option value="bank_transfer">Bank Transfer</option>
-      <option value="credit_card">Credit Card</option>
-      <option value="qris">QRIS</option>
-    </select>
-
-    <button id="payButton" onclick="processPayment()">
-      Pay Now
+    <button onclick="createOrder()">
+      Continue to Order
     </button>
 
-  </section>
+    <div id="planStatus" class="status"></div>
+  </div>
 
+  <!-- ORDER -->
+  <div id="orderSection" class="card hidden">
+    <h2>🧾 Order Created</h2>
 
-  <!-- SUCCESS -->
-  <section class="card hidden" id="successSection">
-
-    <div class="success">
-
-      <div class="success-icon">
-        ✓
-      </div>
-
-      <h2>Payment Successful</h2>
-
-      <p style="margin-bottom:18px;color:#667085;">
-        Your TELKU eSIM order has been created.
-      </p>
-
-      <div class="summary-row">
-        <span>Order</span>
-        <strong id="successOrder">-</strong>
-      </div>
-
-      <div class="summary-row">
-        <span>Payment</span>
-        <strong id="successPayment">-</strong>
-      </div>
-
-      <div class="summary-row">
-        <span>Invoice</span>
-        <strong id="successInvoice">-</strong>
-      </div>
-
-      <div class="summary-row">
-        <span>eSIM</span>
-        <strong id="successEsim">-</strong>
-      </div>
+    <div class="order-box">
+      <div><b>Order Code</b></div>
+      <div id="orderCode"></div>
 
       <br>
 
-      <button class="secondary" onclick="location.reload()">
-        Buy Another eSIM
-      </button>
+      <div><b>Customer</b></div>
+      <div id="orderCustomer"></div>
 
+      <br>
+
+      <div><b>Country</b></div>
+      <div id="orderCountry"></div>
+
+      <br>
+
+      <div><b>Plan</b></div>
+      <div id="orderPlan"></div>
+
+      <br>
+
+      <div><b>Total</b></div>
+      <div id="orderTotal"></div>
+
+      <br>
+
+      <div><b>Status</b></div>
+      <div>Pending</div>
     </div>
 
-  </section>
+    <button class="secondary" onclick="location.reload()">
+      New Order
+    </button>
+  </div>
 
 </div>
 
-
 <script>
 
-/* =========================================================
-   TELKU V1.8.2
-   CUSTOMER APP
-   ========================================================= */
-
-
-/* =========================
-   SUPABASE CONFIG
-   ========================= */
+/* =====================================================
+   TELKU SUPABASE CONFIG
+===================================================== */
 
 const SUPABASE_URL =
   "https://xozjhayxttryegynntld.supabase.co";
-
-/*
-  IMPORTANT:
-  Paste your existing Supabase Publishable Key here.
-*/
 
 const SUPABASE_KEY =
   "sb_publishable_oe2mqFxqjRqkx7IxO2dk8w_3UGaVsRr";
 
 
-/* =========================
-   GLOBAL VARIABLES
-   ========================= */
-
-let countries = [];
-
-let plans = [];
-
-let selectedPlan = null;
+/* =====================================================
+   GLOBAL STATE
+===================================================== */
 
 let currentCustomer = null;
-
-let currentOrder = null;
-
-let currentPayment = null;
-
-let currentInvoice = null;
-
-let currentEsim = null;
+let selectedPlan = null;
 
 
-/* =========================
+/* =====================================================
    SUPABASE REQUEST
-   ========================= */
+===================================================== */
 
 async function supabaseRequest(
-  table,
+  endpoint,
   options = {}
 ){
 
-  const method =
-    options.method || "GET";
+  const response = await fetch(
+    SUPABASE_URL + "/rest/v1/" + endpoint,
+    {
+      ...options,
 
-  const body =
-    options.body || null;
+      headers:{
+        "apikey":SUPABASE_KEY,
+        "Authorization":"Bearer " + SUPABASE_KEY,
+        "Content-Type":"application/json",
+        "Prefer":options.method === "POST"
+          ? "return=representation"
+          : "return=minimal",
 
-  const query =
-    options.query || "";
+        ...(options.headers || {})
+      }
+    }
+  );
 
-  const url =
-    `${SUPABASE_URL}/rest/v1/${table}${query}`;
+  const text = await response.text();
 
-  const headers = {
-
-    "apikey": SUPABASE_KEY,
-
-    "Authorization":
-      `Bearer ${SUPABASE_KEY}`,
-
-    "Content-Type":
-      "application/json",
-
-    "Prefer":
-      options.prefer ||
-      "return=representation"
-
-  };
-
-  const response =
-    await fetch(url,{
-      method,
-      headers,
-      body:
-        body
-          ? JSON.stringify(body)
-          : undefined
-    });
-
-  const text =
-    await response.text();
-
-  let data = null;
+  let data;
 
   try{
-    data =
-      text
-        ? JSON.parse(text)
-        : null;
-  }
-  catch{
+    data = text ? JSON.parse(text) : null;
+  }catch{
     data = text;
   }
 
   if(!response.ok){
 
-    let message =
-      data?.message ||
-      data?.error ||
-      data?.hint ||
-      text ||
-      `HTTP ${response.status}`;
-
     throw new Error(
-      `HTTP ${response.status} - ${message}`
+      "HTTP " +
+      response.status +
+      " - " +
+      (
+        data?.message ||
+        data?.error_description ||
+        data?.hint ||
+        text ||
+        "Supabase error"
+      )
     );
   }
 
@@ -518,32 +297,33 @@ async function supabaseRequest(
 }
 
 
-/* =========================
-   RANDOM CODE
-   ========================= */
+/* =====================================================
+   HELPERS
+===================================================== */
 
-function randomCode(prefix){
+function makeCode(prefix){
 
-  const time =
-    Date.now()
-      .toString()
-      .slice(-8);
+  const now = new Date();
+
+  const stamp =
+    now.getFullYear().toString() +
+    String(now.getMonth()+1).padStart(2,"0") +
+    String(now.getDate()).padStart(2,"0") +
+    String(now.getHours()).padStart(2,"0") +
+    String(now.getMinutes()).padStart(2,"0") +
+    String(now.getSeconds()).padStart(2,"0");
 
   const random =
-    Math.floor(
-      1000 +
-      Math.random()*9000
-    );
+    Math.random()
+      .toString(36)
+      .substring(2,7)
+      .toUpperCase();
 
-  return `${prefix}-${time}-${random}`;
+  return prefix + "-" + stamp + "-" + random;
 }
 
 
-/* =========================
-   FORMAT MONEY
-   ========================= */
-
-function formatMoney(value){
+function rupiah(value){
 
   return new Intl.NumberFormat(
     "id-ID",
@@ -557,1181 +337,460 @@ function formatMoney(value){
 }
 
 
-/* =========================
-   ERROR DISPLAY
-   ========================= */
+/* =====================================================
+   CREATE CUSTOMER
+===================================================== */
 
-function showError(
-  elementId,
-  message
-){
+async function createCustomer(){
 
-  const element =
-    document.getElementById(
-      elementId
+  const fullName =
+    document.getElementById("fullName").value.trim();
+
+  const email =
+    document.getElementById("email").value.trim();
+
+  const phone =
+    document.getElementById("phone").value.trim();
+
+
+  if(!fullName || !email || !phone){
+
+    throw new Error(
+      "Please complete Full Name, Email and Phone."
     );
-
-  if(!element) return;
-
-  element.innerHTML =
-    `<div class="error">${message}</div>`;
-}
-
-
-/* =========================
-   CLEAR ERROR
-   ========================= */
-
-function clearError(elementId){
-
-  const element =
-    document.getElementById(
-      elementId
-    );
-
-  if(element){
-    element.innerHTML = "";
   }
 
+
+  const customerCode =
+    makeCode("CUS");
+
+
+  const result =
+    await supabaseRequest(
+      "telku_customer",
+      {
+        method:"POST",
+
+        body:JSON.stringify({
+          customer_code:customerCode,
+          full_name:fullName,
+          email:email,
+          phone:phone
+        })
+      }
+    );
+
+
+  if(!result || !result[0]){
+
+    throw new Error(
+      "Customer was not returned by Supabase."
+    );
+  }
+
+
+  currentCustomer = result[0];
+
+  return currentCustomer;
 }
 
 
-/* =========================
+/* =====================================================
    LOAD COUNTRIES
-   ========================= */
+===================================================== */
 
 async function loadCountries(){
 
-  clearError("customerError");
-  clearError("countryError");
+  const status =
+    document.getElementById("countryStatus");
 
-  const name =
-    document
-      .getElementById("fullName")
-      .value
-      .trim();
+  status.className = "status";
 
-  const email =
-    document
-      .getElementById("email")
-      .value
-      .trim();
-
-  const phone =
-    document
-      .getElementById("phone")
-      .value
-      .trim();
-
-
-  if(!name){
-
-    showError(
-      "customerError",
-      "Please enter your full name."
-    );
-
-    return;
-  }
-
-
-  if(!email){
-
-    showError(
-      "customerError",
-      "Please enter your email."
-    );
-
-    return;
-  }
-
-
-  if(!phone){
-
-    showError(
-      "customerError",
-      "Please enter your phone number."
-    );
-
-    return;
-  }
+  status.textContent =
+    "Connecting to TELKU...";
 
 
   try{
 
-    await getOrCreateCustomer();
+    await createCustomer();
 
 
-    const data =
+    const plans =
       await supabaseRequest(
-        "telku_plans",
-        {
-          query:
-            "?select=country,flag"
-        }
+        "telku_plans?select=id,plan_code,country,flag,data_gb,validity_days,price&order=country.asc,price.asc"
       );
 
 
-    const map =
-      new Map();
+    if(!plans || plans.length === 0){
+
+      throw new Error(
+        "No plans found in telku_plans."
+      );
+    }
 
 
-    data.forEach(row => {
+    const countrySelect =
+      document.getElementById("countrySelect");
 
-      if(
-        row.country &&
-        !map.has(row.country)
-      ){
+    countrySelect.innerHTML =
+      '<option value="">Select country</option>';
 
-        map.set(
-          row.country,
-          row.flag || ""
-        );
+
+    const countries = {};
+
+
+    plans.forEach(plan => {
+
+      if(!countries[plan.country]){
+
+        countries[plan.country] = {
+          country:plan.country,
+          flag:plan.flag || ""
+        };
 
       }
 
     });
 
 
-    countries =
-      Array.from(
-        map.entries()
-      ).map(
-        ([country,flag]) => ({
-          country,
-          flag
-        })
-      );
+    Object.values(countries)
+      .forEach(country => {
 
+        const option =
+          document.createElement("option");
 
-    const select =
-      document.getElementById(
-        "countrySelect"
-      );
+        option.value =
+          country.country;
 
+        option.textContent =
+          (country.flag ? country.flag + " " : "") +
+          country.country;
 
-    select.innerHTML =
-      `<option value="">
-        Select country
-      </option>`;
+        countrySelect.appendChild(option);
 
-
-    countries.forEach(item => {
-
-      const option =
-        document.createElement(
-          "option"
-        );
-
-      option.value =
-        item.country;
-
-      option.textContent =
-        `${item.flag || ""} ${item.country}`.trim();
-
-      select.appendChild(option);
-
-    });
-
-
-    document
-      .getElementById(
-        "countrySection"
-      )
-      .classList
-      .remove("hidden");
-
-
-    document
-      .getElementById(
-        "countrySection"
-      )
-      .scrollIntoView({
-        behavior:"smooth"
       });
 
 
-  }
-  catch(error){
+    document
+      .getElementById("countrySection")
+      .classList.remove("hidden");
 
-    showError(
-      "customerError",
-      error.message
-    );
+
+    status.className =
+      "status success";
+
+    status.textContent =
+      "Connected successfully.\n" +
+      "Customer created: " +
+      currentCustomer.customer_code;
+
+
+  }catch(error){
+
+    status.className =
+      "status error";
+
+    status.textContent =
+      "ERROR:\n" + error.message;
 
     console.error(error);
-
   }
 
 }
 
 
-/* =========================
+/* =====================================================
    LOAD PLANS
-   ========================= */
+===================================================== */
 
 async function loadPlans(){
 
-  clearError("plansError");
-
   const country =
-    document
-      .getElementById(
-        "countrySelect"
-      )
-      .value;
+    document.getElementById("countrySelect").value;
+
+  const plansContainer =
+    document.getElementById("plans");
+
+  const status =
+    document.getElementById("planStatus");
+
+
+  plansContainer.innerHTML = "";
+
+  selectedPlan = null;
 
 
   if(!country){
 
     document
-      .getElementById(
-        "plansSection"
-      )
-      .classList
-      .add("hidden");
+      .getElementById("planSection")
+      .classList.add("hidden");
 
     return;
   }
 
 
-  const container =
-    document.getElementById(
-      "plansContainer"
-    );
+  status.className =
+    "status";
 
-
-  container.innerHTML =
-    `<div class="loading">
-      Loading plans...
-    </div>`;
-
-
-  document
-    .getElementById(
-      "plansSection"
-    )
-    .classList
-    .remove("hidden");
+  status.textContent =
+    "Loading plans...";
 
 
   try{
 
-    plans =
-      await supabaseRequest(
-        "telku_plans",
-        {
-          query:
-            `?country=eq.${encodeURIComponent(country)}` +
-            `&select=id,plan_code,country,flag,data_gb,validity_days,price` +
-            `&order=price.asc`
-        }
+    const endpoint =
+      "telku_plans" +
+      "?country=eq." +
+      encodeURIComponent(country) +
+      "&select=id,plan_code,country,flag,data_gb,validity_days,price" +
+      "&order=price.asc";
+
+
+    const plans =
+      await supabaseRequest(endpoint);
+
+
+    if(!plans || plans.length === 0){
+
+      throw new Error(
+        "No eSIM plans available for " +
+        country
       );
-
-
-    if(!plans.length){
-
-      container.innerHTML =
-        `<div class="info">
-          No eSIM plans available for this country.
-        </div>`;
-
-      return;
     }
 
 
-    container.innerHTML = "";
+    plans.forEach(plan => {
+
+      const div =
+        document.createElement("div");
+
+      div.className =
+        "plan";
 
 
-    plans.forEach(
-      (plan,index) => {
+      div.innerHTML = `
 
-        const div =
-          document.createElement(
-            "div"
+        <div class="plan-title">
+          ${plan.flag || ""} ${plan.plan_code}
+        </div>
+
+        <div class="small">
+          ${plan.data_gb} GB •
+          ${plan.validity_days} Days
+        </div>
+
+        <div class="price">
+          ${rupiah(plan.price)}
+        </div>
+
+      `;
+
+
+      div.onclick = function(){
+
+        document
+          .querySelectorAll(".plan")
+          .forEach(x =>
+            x.classList.remove("selected")
           );
 
-        div.className =
-          "plan";
+        div.classList.add("selected");
+
+        selectedPlan = plan;
+
+        status.className =
+          "status success";
+
+        status.textContent =
+          "Selected: " +
+          plan.plan_code;
+
+      };
 
 
-        div.innerHTML = `
+      plansContainer.appendChild(div);
 
-          <div class="plan-top">
-
-            <div>
-
-              <div class="plan-code">
-                ${plan.flag || ""} ${plan.plan_code}
-              </div>
-
-              <div class="meta">
-                ${plan.data_gb} GB
-                •
-                ${plan.validity_days} Days
-              </div>
-
-            </div>
-
-            <div class="price">
-              ${formatMoney(plan.price)}
-            </div>
-
-          </div>
-
-        `;
-
-
-        div.onclick =
-          () => selectPlan(
-            plan,
-            div
-          );
-
-
-        container.appendChild(div);
-
-        if(index === 0){
-
-          selectPlan(
-            plan,
-            div
-          );
-
-        }
-
-      }
-    );
-
-
-  }
-  catch(error){
-
-    showError(
-      "plansError",
-      error.message
-    );
-
-    console.error(error);
-
-  }
-
-}
-
-
-/* =========================
-   SELECT PLAN
-   ========================= */
-
-function selectPlan(
-  plan,
-  element
-){
-
-  selectedPlan =
-    plan;
-
-
-  document
-    .querySelectorAll(".plan")
-    .forEach(
-      el =>
-        el.classList
-          .remove("selected")
-    );
-
-
-  element
-    .classList
-    .add("selected");
-
-
-  showPayment();
-
-}
-
-
-/* =========================
-   SHOW PAYMENT
-   ========================= */
-
-function showPayment(){
-
-  if(!selectedPlan){
-    return;
-  }
-
-
-  document
-    .getElementById(
-      "summaryCustomer"
-    )
-    .textContent =
-      currentCustomer?.full_name || "-";
-
-
-  document
-    .getElementById(
-      "summaryCountry"
-    )
-    .textContent =
-      selectedPlan.country;
-
-
-  document
-    .getElementById(
-      "summaryPlan"
-    )
-    .textContent =
-      selectedPlan.plan_code;
-
-
-  document
-    .getElementById(
-      "summaryData"
-    )
-    .textContent =
-      `${selectedPlan.data_gb} GB`;
-
-
-  document
-    .getElementById(
-      "summaryValidity"
-    )
-    .textContent =
-      `${selectedPlan.validity_days} Days`;
-
-
-  document
-    .getElementById(
-      "summaryTotal"
-    )
-    .textContent =
-      formatMoney(
-        selectedPlan.price
-      );
-
-
-  document
-    .getElementById(
-      "paymentSection"
-    )
-    .classList
-    .remove("hidden");
-
-
-  document
-    .getElementById(
-      "paymentSection"
-    )
-    .scrollIntoView({
-      behavior:"smooth"
     });
 
-}
 
-
-/* =========================
-   GET OR CREATE CUSTOMER
-   ========================= */
-
-async function getOrCreateCustomer(){
-
-  const name =
     document
-      .getElementById(
-        "fullName"
-      )
-      .value
-      .trim();
-
-  const email =
-    document
-      .getElementById(
-        "email"
-      )
-      .value
-      .trim();
-
-  const phone =
-    document
-      .getElementById(
-        "phone"
-      )
-      .value
-      .trim();
+      .getElementById("planSection")
+      .classList.remove("hidden");
 
 
-  const existing =
-    await supabaseRequest(
-      "telku_customer",
-      {
-        query:
-          `?email=eq.${encodeURIComponent(email)}` +
-          `&select=id,customer_code,full_name,email,phone,country,created_at` +
-          `&limit=1`
-      }
-    );
+    status.textContent =
+      plans.length +
+      " plan(s) available.";
 
 
-  if(existing && existing.length){
+  }catch(error){
 
-    currentCustomer =
-      existing[0];
+    status.className =
+      "status error";
 
-    return currentCustomer;
+    status.textContent =
+      "ERROR:\n" + error.message;
+
+    console.error(error);
   }
 
-
-  const customerCode =
-    randomCode("CUS");
-
-
-  const inserted =
-    await supabaseRequest(
-      "telku_customer",
-      {
-        method:"POST",
-
-        body:{
-          customer_code:
-            customerCode,
-
-          full_name:
-            name,
-
-          email:
-            email,
-
-          phone:
-            phone,
-
-          country:
-            selectedPlan?.country || null
-        }
-      }
-    );
-
-
-  currentCustomer =
-    Array.isArray(inserted)
-      ? inserted[0]
-      : inserted;
-
-
-  return currentCustomer;
-
 }
 
 
-/* =========================
+/* =====================================================
    CREATE ORDER
-   ========================= */
+===================================================== */
 
 async function createOrder(){
 
+  const status =
+    document.getElementById("planStatus");
+
+
   if(!currentCustomer){
-    await getOrCreateCustomer();
-  }
 
+    status.className =
+      "status error";
 
-  if(!selectedPlan){
-    throw new Error(
-      "No eSIM plan selected."
-    );
-  }
+    status.textContent =
+      "Customer session is missing.";
 
-
-  /*
-    IMPORTANT V1.8.2 FIX:
-
-    telku_orders uses:
-    customer_id
-
-    NOT:
-    cust_id
-  */
-
-
-  const orderCode =
-    randomCode("ORD");
-
-
-  const orderData = {
-
-    order_code:
-      orderCode,
-
-    customer_id:
-      currentCustomer.id,
-
-    plan_id:
-      selectedPlan.id,
-
-    status:
-      "pending",
-
-    total:
-      Number(selectedPlan.price),
-
-    currency:
-      "IDR"
-
-  };
-
-
-  console.log(
-    "STEP 2 ORDER DATA:",
-    orderData
-  );
-
-
-  const inserted =
-    await supabaseRequest(
-      "telku_orders",
-      {
-        method:"POST",
-        body:orderData
-      }
-    );
-
-
-  currentOrder =
-    Array.isArray(inserted)
-      ? inserted[0]
-      : inserted;
-
-
-  if(!currentOrder?.id){
-
-    throw new Error(
-      "Order was created but no order ID was returned."
-    );
-
-  }
-
-
-  return currentOrder;
-
-}
-
-
-/* =========================
-   CREATE PAYMENT
-   ========================= */
-
-async function createPayment(){
-
-  if(!currentOrder?.id){
-
-    throw new Error(
-      "Order ID is missing."
-    );
-
-  }
-
-
-  const paymentCode =
-    randomCode("PAY");
-
-
-  const method =
-    document
-      .getElementById(
-        "paymentMethod"
-      )
-      .value;
-
-
-  const paymentData = {
-
-    payment_code:
-      paymentCode,
-
-    order_id:
-      currentOrder.id,
-
-    method:
-      method,
-
-    status:
-      "paid",
-
-    amount:
-      Number(selectedPlan.price),
-
-    currency:
-      "IDR"
-
-  };
-
-
-  console.log(
-    "STEP 3 PAYMENT DATA:",
-    paymentData
-  );
-
-
-  const inserted =
-    await supabaseRequest(
-      "telku_payments",
-      {
-        method:"POST",
-        body:paymentData
-      }
-    );
-
-
-  currentPayment =
-    Array.isArray(inserted)
-      ? inserted[0]
-      : inserted;
-
-
-  return currentPayment;
-
-}
-
-
-/* =========================
-   CREATE INVOICE
-   ========================= */
-
-async function createInvoice(){
-
-  if(!currentOrder?.id){
-
-    throw new Error(
-      "Order ID is missing."
-    );
-
-  }
-
-
-  const invoiceCode =
-    randomCode("INV");
-
-
-  const invoiceData = {
-
-    invoice_code:
-      invoiceCode,
-
-    order_id:
-      currentOrder.id,
-
-    status:
-      "issued",
-
-    issued_at:
-      new Date().toISOString()
-
-  };
-
-
-  console.log(
-    "STEP 4 INVOICE DATA:",
-    invoiceData
-  );
-
-
-  const inserted =
-    await supabaseRequest(
-      "telku_invoices",
-      {
-        method:"POST",
-        body:invoiceData
-      }
-    );
-
-
-  currentInvoice =
-    Array.isArray(inserted)
-      ? inserted[0]
-      : inserted;
-
-
-  return currentInvoice;
-
-}
-
-
-/* =========================
-   CREATE ESIM
-   ========================= */
-
-async function createEsim(){
-
-  if(!currentOrder?.id){
-
-    throw new Error(
-      "Order ID is missing."
-    );
-
-  }
-
-
-  const esimCode =
-    randomCode("ESIM");
-
-
-  const esimData = {
-
-    esim_code:
-      esimCode,
-
-    order_id:
-      currentOrder.id,
-
-    status:
-      "active"
-
-  };
-
-
-  console.log(
-    "STEP 5 ESIM DATA:",
-    esimData
-  );
-
-
-  const inserted =
-    await supabaseRequest(
-      "telku_esims",
-      {
-        method:"POST",
-        body:esimData
-      }
-    );
-
-
-  currentEsim =
-    Array.isArray(inserted)
-      ? inserted[0]
-      : inserted;
-
-
-  return currentEsim;
-
-}
-
-
-/* =========================
-   UPDATE ORDER PAID
-   ========================= */
-
-async function markOrderPaid(){
-
-  if(!currentOrder?.id){
     return;
   }
 
 
-  const updated =
-    await supabaseRequest(
-      "telku_orders",
-      {
-        method:"PATCH",
+  if(!selectedPlan){
 
-        query:
-          `?id=eq.${encodeURIComponent(
-            currentOrder.id
-          )}`,
+    status.className =
+      "status error";
 
-        body:{
-          status:
-            "paid"
+    status.textContent =
+      "Please select an eSIM plan first.";
+
+    return;
+  }
+
+
+  status.className =
+    "status";
+
+  status.textContent =
+    "Creating order...";
+
+
+  try{
+
+    const orderCode =
+      makeCode("ORD");
+
+
+    const orderPayload = {
+
+      order_code:orderCode,
+
+      customer_id:
+        currentCustomer.id,
+
+      plan_id:
+        selectedPlan.id,
+
+      status:"pending",
+
+      total:
+        Number(selectedPlan.price),
+
+      currency:"IDR"
+
+    };
+
+
+    console.log(
+      "ORDER PAYLOAD:",
+      orderPayload
+    );
+
+
+    const result =
+      await supabaseRequest(
+        "telku_orders",
+        {
+          method:"POST",
+          body:JSON.stringify(orderPayload)
         }
-      }
-    );
-
-
-  if(
-    Array.isArray(updated) &&
-    updated.length
-  ){
-
-    currentOrder =
-      updated[0];
-
-  }
-
-}
-
-
-/* =========================
-   SAVE TRANSACTION
-   ========================= */
-
-async function saveTransaction(){
-
-  /*
-    STEP 1
-    CUSTOMER
-  */
-
-  try{
-
-    await getOrCreateCustomer();
-
-  }
-  catch(error){
-
-    throw new Error(
-      `STEP 1 CUSTOMER ERROR:\n${error.message}`
-    );
-
-  }
-
-
-  /*
-    STEP 2
-    ORDER
-  */
-
-  try{
-
-    await createOrder();
-
-  }
-  catch(error){
-
-    throw new Error(
-      `STEP 2 ORDER ERROR:\n${error.message}`
-    );
-
-  }
-
-
-  /*
-    STEP 3
-    PAYMENT
-  */
-
-  try{
-
-    await createPayment();
-
-  }
-  catch(error){
-
-    throw new Error(
-      `STEP 3 PAYMENT ERROR:\n${error.message}`
-    );
-
-  }
-
-
-  /*
-    STEP 4
-    INVOICE
-  */
-
-  try{
-
-    await createInvoice();
-
-  }
-  catch(error){
-
-    throw new Error(
-      `STEP 4 INVOICE ERROR:\n${error.message}`
-    );
-
-  }
-
-
-  /*
-    STEP 5
-    ESIM
-  */
-
-  try{
-
-    await createEsim();
-
-  }
-  catch(error){
-
-    throw new Error(
-      `STEP 5 ESIM ERROR:\n${error.message}`
-    );
-
-  }
-
-
-  /*
-    STEP 6
-    ORDER PAID
-  */
-
-  try{
-
-    await markOrderPaid();
-
-  }
-  catch(error){
-
-    throw new Error(
-      `STEP 6 ORDER UPDATE ERROR:\n${error.message}`
-    );
-
-  }
-
-
-  return true;
-
-}
-
-
-/* =========================
-   PROCESS PAYMENT
-   ========================= */
-
-async function processPayment(){
-
-  clearError(
-    "paymentError"
-  );
-
-
-  if(!currentCustomer){
-
-    try{
-      await getOrCreateCustomer();
-    }
-    catch(error){
-
-      showError(
-        "paymentError",
-        `CUSTOMER ERROR:\n${error.message}`
       );
 
-      return;
 
+    if(!result || !result[0]){
+
+      throw new Error(
+        "Order was not returned by Supabase."
+      );
     }
 
-  }
+
+    const order =
+      result[0];
 
 
-  if(!selectedPlan){
-
-    showError(
-      "paymentError",
-      "Please select an eSIM plan."
-    );
-
-    return;
-
-  }
-
-
-  const button =
     document.getElementById(
-      "payButton"
-    );
+      "orderCode"
+    ).textContent =
+      order.order_code;
 
 
-  button.disabled =
-    true;
-
-  button.textContent =
-    "Processing...";
-
-
-  try{
-
-    await saveTransaction();
+    document.getElementById(
+      "orderCustomer"
+    ).textContent =
+      currentCustomer.full_name;
 
 
-    document
-      .getElementById(
-        "successOrder"
-      )
-      .textContent =
-        currentOrder?.order_code ||
-        "-";
+    document.getElementById(
+      "orderCountry"
+    ).textContent =
+      selectedPlan.country;
 
 
-    document
-      .getElementById(
-        "successPayment"
-      )
-      .textContent =
-        currentPayment?.payment_code ||
-        "-";
+    document.getElementById(
+      "orderPlan"
+    ).textContent =
+      selectedPlan.plan_code +
+      " — " +
+      selectedPlan.data_gb +
+      " GB / " +
+      selectedPlan.validity_days +
+      " Days";
 
 
-    document
-      .getElementById(
-        "successInvoice"
-      )
-      .textContent =
-        currentInvoice?.invoice_code ||
-        "-";
+    document.getElementById(
+      "orderTotal"
+    ).textContent =
+      rupiah(order.total);
 
 
     document
-      .getElementById(
-        "successEsim"
-      )
-      .textContent =
-        currentEsim?.esim_code ||
-        "-";
+      .getElementById("orderSection")
+      .classList.remove("hidden");
 
 
     document
-      .getElementById(
-        "successSection"
-      )
-      .classList
-      .remove("hidden");
+      .getElementById("planSection")
+      .classList.add("hidden");
 
 
-    document
-      .getElementById(
-        "successSection"
-      )
-      .scrollIntoView({
-        behavior:"smooth"
-      });
+  }catch(error){
 
+    status.className =
+      "status error";
 
-  }
-  catch(error){
+    status.textContent =
+      "STEP 2 ERROR:\n" +
+      error.message;
 
-    console.error(
-      "TELKU TRANSACTION ERROR:",
-      error
-    );
-
-
-    showError(
-      "paymentError",
-      error.message
-    );
-
-  }
-  finally{
-
-    button.disabled =
-      false;
-
-    button.textContent =
-      "Pay Now";
-
+    console.error(error);
   }
 
 }
-
-
-/* =========================
-   START
-   ========================= */
-
-console.log(
-  "TELKU V1.8.2 loaded"
-);
 
 </script>
 
