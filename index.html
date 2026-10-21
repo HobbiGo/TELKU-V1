@@ -4,736 +4,743 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="theme-color" content="#07111f">
+<meta name="apple-mobile-web-app-capable" content="yes">
 <title>TELKU V1.8</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
 :root{
- --bg:#07111f;
- --bg2:#0b1728;
- --card:#101f33;
- --card2:#13263d;
- --line:#20364f;
- --text:#f5f8fc;
- --muted:#91a4ba;
- --blue:#35a8ff;
- --cyan:#39e0d0;
- --green:#39d98a;
- --orange:#ffb84d;
- --red:#ff6174;
+  --bg:#07111f;
+  --bg2:#0b1728;
+  --card:#101f33;
+  --card2:#142941;
+  --line:#203957;
+  --text:#f5f9ff;
+  --muted:#91a6bf;
+  --blue:#3b82f6;
+  --cyan:#22d3ee;
+  --green:#22c55e;
+  --orange:#f59e0b;
+  --red:#ef4444;
+  --radius:18px;
 }
-
-html{scroll-behavior:smooth}
 
 body{
- font-family:Arial,Helvetica,sans-serif;
- background:
- radial-gradient(circle at 15% 0%,rgba(53,168,255,.15),transparent 28%),
- radial-gradient(circle at 90% 10%,rgba(57,224,208,.10),transparent 25%),
- var(--bg);
- color:var(--text);
- min-height:100vh;
+  font-family:Arial,Helvetica,sans-serif;
+  background:linear-gradient(180deg,#07111f,#091827);
+  color:var(--text);
+  min-height:100vh;
 }
 
-button,input{font:inherit}
+button,
+input,
+select{
+  font:inherit;
+}
 
-button{cursor:pointer}
+button{
+  cursor:pointer;
+}
 
 .app{
- max-width:1180px;
- margin:auto;
- min-height:100vh;
+  max-width:480px;
+  min-height:100vh;
+  margin:auto;
+  background:var(--bg);
+  position:relative;
+  padding-bottom:85px;
 }
 
 /* HEADER */
-
 .header{
- position:sticky;
- top:0;
- z-index:100;
- background:rgba(7,17,31,.94);
- backdrop-filter:blur(15px);
- border-bottom:1px solid var(--line);
+  position:sticky;
+  top:0;
+  z-index:50;
+  padding:16px;
+  background:rgba(7,17,31,.94);
+  backdrop-filter:blur(15px);
+  border-bottom:1px solid rgba(255,255,255,.05);
 }
 
-.header-inner{
- height:72px;
- display:flex;
- align-items:center;
- justify-content:space-between;
- padding:0 22px;
+.header-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
 }
 
 .logo{
- display:flex;
- align-items:center;
- gap:10px;
- font-size:24px;
- font-weight:900;
- letter-spacing:-1px;
- cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
 
 .logo-mark{
- width:39px;
- height:39px;
- border-radius:12px;
- display:flex;
- align-items:center;
- justify-content:center;
- background:linear-gradient(135deg,var(--blue),var(--cyan));
- color:#04111d;
- font-weight:900;
+  width:42px;
+  height:42px;
+  border-radius:13px;
+  background:linear-gradient(135deg,var(--blue),var(--cyan));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:21px;
+  font-weight:900;
+  box-shadow:0 8px 25px rgba(34,211,238,.18);
+}
+
+.logo-text{
+  font-size:23px;
+  font-weight:900;
+  letter-spacing:.5px;
+}
+
+.logo-sub{
+  color:var(--muted);
+  font-size:10px;
+  margin-top:2px;
 }
 
 .header-actions{
- display:flex;
- gap:10px;
- align-items:center;
-}
-
-.icon-btn,
-.profile-btn{
- border:1px solid var(--line);
- background:var(--card);
- color:white;
- border-radius:12px;
+  display:flex;
+  gap:8px;
 }
 
 .icon-btn{
- width:42px;
- height:42px;
+  width:40px;
+  height:40px;
+  border:1px solid var(--line);
+  background:var(--card);
+  color:white;
+  border-radius:13px;
 }
 
-.profile-btn{
- padding:11px 15px;
+/* PAGES */
+.page{
+  display:none;
+  padding:18px 16px 25px;
 }
 
-/* MAIN */
-
-main{
- padding:28px 22px 100px;
+.page.active{
+  display:block;
 }
-
-.page{display:none}
-.page.active{display:block}
-
-/* HERO */
 
 .hero{
- border:1px solid var(--line);
- border-radius:28px;
- padding:44px;
- background:
- linear-gradient(135deg,rgba(53,168,255,.17),rgba(57,224,208,.05)),
- var(--card);
- position:relative;
- overflow:hidden;
-}
-
-.hero:after{
- content:"";
- position:absolute;
- width:300px;
- height:300px;
- border-radius:50%;
- right:-120px;
- top:-130px;
- background:rgba(53,168,255,.12);
+  padding:8px 0 18px;
 }
 
 .hero h1{
- position:relative;
- z-index:2;
- font-size:48px;
- line-height:1.04;
- max-width:680px;
- margin-bottom:18px;
+  font-size:30px;
+  line-height:1.15;
+  margin-bottom:8px;
 }
 
 .hero p{
- position:relative;
- z-index:2;
- color:var(--muted);
- max-width:670px;
- font-size:17px;
- line-height:1.65;
-}
-
-.hero-buttons{
- position:relative;
- z-index:2;
- display:flex;
- gap:12px;
- margin-top:27px;
-}
-
-/* BUTTON */
-
-.btn{
- border:0;
- border-radius:13px;
- padding:13px 18px;
- font-weight:800;
- transition:.2s;
-}
-
-.btn:hover{transform:translateY(-1px)}
-
-.btn-primary{
- color:#03111e;
- background:linear-gradient(135deg,var(--blue),var(--cyan));
-}
-
-.btn-secondary{
- color:white;
- background:var(--card2);
- border:1px solid var(--line);
-}
-
-.btn-danger{
- color:#ff8090;
- background:rgba(255,97,116,.10);
- border:1px solid rgba(255,97,116,.25);
-}
-
-/* SECTION */
-
-.section{margin-top:34px}
-
-.section-head{
- display:flex;
- justify-content:space-between;
- align-items:center;
- gap:15px;
- margin-bottom:17px;
-}
-
-.section-head h2{font-size:24px}
-
-.section-head span{
- color:var(--muted);
- font-size:13px;
+  color:var(--muted);
+  line-height:1.5;
 }
 
 /* SEARCH */
+.search-box{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:5px 12px;
+  margin:10px 0 18px;
+}
 
-.search-box{margin:20px 0}
+.search-box span{
+  font-size:19px;
+}
 
 .search-box input{
- width:100%;
- padding:15px 17px;
- border-radius:14px;
- border:1px solid var(--line);
- background:var(--card);
- color:white;
- outline:none;
+  width:100%;
+  background:none;
+  border:0;
+  outline:none;
+  color:white;
+  padding:12px 2px;
 }
 
-.search-box input:focus{
- border-color:var(--blue);
+.search-box input::placeholder{
+  color:#70859d;
 }
 
-/* GRID */
-
-.grid{
- display:grid;
- grid-template-columns:repeat(3,1fr);
- gap:16px;
+/* QUICK */
+.quick-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:9px;
+  margin-bottom:22px;
 }
 
-.card{
- background:var(--card);
- border:1px solid var(--line);
- border-radius:18px;
- padding:20px;
+.quick{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:15px;
+  padding:13px 5px;
+  text-align:center;
+}
+
+.quick-icon{
+  font-size:22px;
+  margin-bottom:7px;
+}
+
+.quick span{
+  color:var(--muted);
+  font-size:10px;
+}
+
+/* SECTION */
+.section-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:22px 0 12px;
+}
+
+.section-title h2{
+  font-size:19px;
+}
+
+.section-title button{
+  border:0;
+  background:none;
+  color:var(--cyan);
+  font-size:12px;
+}
+
+/* COUNTRY */
+.country-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
 }
 
 .country-card{
- cursor:pointer;
- transition:.2s;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:17px;
+  padding:15px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  cursor:pointer;
+  transition:.2s;
 }
 
 .country-card:hover{
- border-color:var(--blue);
- transform:translateY(-2px);
+  border-color:var(--blue);
+  transform:translateY(-2px);
 }
 
-.country-top{
- display:flex;
- align-items:center;
- gap:13px;
+.flag{
+  font-size:30px;
 }
-
-.flag{font-size:35px}
 
 .country-name{
- font-size:18px;
- font-weight:800;
+  font-weight:700;
+  font-size:14px;
 }
 
-.country-code{
- color:var(--muted);
- font-size:13px;
- margin-top:4px;
+.country-meta{
+  color:var(--muted);
+  font-size:10px;
+  margin-top:4px;
 }
 
-/* PLAN */
+/* BANNER */
+.banner{
+  background:linear-gradient(135deg,#1252a2,#0a819b);
+  border-radius:21px;
+  padding:20px;
+  margin:8px 0 20px;
+  overflow:hidden;
+  position:relative;
+}
 
-.plan-card{position:relative}
+.banner:after{
+  content:"";
+  position:absolute;
+  width:150px;
+  height:150px;
+  right:-50px;
+  top:-55px;
+  border-radius:50%;
+  background:rgba(255,255,255,.1);
+}
 
-.plan-badge{
- display:inline-block;
- padding:5px 9px;
- border-radius:8px;
- background:rgba(53,168,255,.12);
- color:var(--blue);
- font-size:11px;
- font-weight:800;
- margin-bottom:13px;
+.banner h2{
+  font-size:22px;
+  margin-bottom:7px;
+}
+
+.banner p{
+  color:#dcefff;
+  font-size:12px;
+  max-width:280px;
+  line-height:1.5;
+}
+
+.btn{
+  border:0;
+  border-radius:13px;
+  padding:12px 17px;
+  font-weight:800;
+  color:white;
+  background:linear-gradient(135deg,var(--blue),#2563eb);
+}
+
+.btn.full{
+  width:100%;
+}
+
+.btn.secondary{
+  background:var(--card2);
+  border:1px solid var(--line);
+}
+
+.btn.green{
+  background:linear-gradient(135deg,#16a34a,#22c55e);
+}
+
+.btn:active{
+  transform:scale(.98);
+}
+
+/* PLANS */
+.filters{
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  padding-bottom:4px;
+  margin-bottom:15px;
+}
+
+.filter{
+  white-space:nowrap;
+  padding:9px 13px;
+  border-radius:20px;
+  border:1px solid var(--line);
+  background:var(--card);
+  color:var(--muted);
+}
+
+.filter.active{
+  background:var(--blue);
+  color:white;
+  border-color:var(--blue);
+}
+
+.plan-list{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.plan-card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:19px;
+  padding:16px;
+}
+
+.plan-top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
 }
 
 .plan-country{
- color:var(--muted);
- font-size:14px;
+  display:flex;
+  align-items:center;
+  gap:9px;
 }
 
-.plan-data{
- font-size:29px;
- font-weight:900;
- margin:8px 0;
+.plan-country .flag{
+  font-size:25px;
 }
 
-.plan-days{
- color:var(--muted);
- margin-bottom:18px;
+.plan-country strong{
+  font-size:15px;
+}
+
+.badge{
+  background:rgba(34,197,94,.13);
+  color:#5ee58a;
+  border-radius:20px;
+  padding:5px 8px;
+  font-size:9px;
+  font-weight:800;
+}
+
+.plan-info{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin:15px 0;
+}
+
+.info-box{
+  background:#0b192a;
+  border-radius:11px;
+  padding:9px;
+}
+
+.info-box small{
+  display:block;
+  color:var(--muted);
+  font-size:9px;
+  margin-bottom:4px;
+}
+
+.info-box strong{
+  font-size:12px;
 }
 
 .plan-bottom{
- display:flex;
- align-items:center;
- justify-content:space-between;
- gap:10px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
 
-.price{
- font-size:20px;
- font-weight:900;
+.price small{
+  display:block;
+  color:var(--muted);
+  font-size:9px;
+}
+
+.price strong{
+  font-size:20px;
+}
+
+.price span{
+  color:var(--muted);
+  font-size:10px;
 }
 
 /* DETAIL */
-
-.detail{
- max-width:820px;
- margin:auto;
+.back{
+  border:0;
+  background:none;
+  color:var(--cyan);
+  margin-bottom:18px;
+  font-size:13px;
 }
 
-.back{
- color:var(--muted);
- cursor:pointer;
- margin-bottom:18px;
+.detail-head{
+  text-align:center;
+  padding:10px 0 20px;
+}
+
+.detail-flag{
+  font-size:55px;
+}
+
+.detail-head h1{
+  margin-top:8px;
+  font-size:25px;
+}
+
+.detail-head p{
+  color:var(--muted);
+  margin-top:6px;
 }
 
 .detail-card{
- background:var(--card);
- border:1px solid var(--line);
- border-radius:24px;
- padding:30px;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:18px;
+  margin-bottom:14px;
 }
 
-.detail-header{
- display:flex;
- align-items:center;
- gap:18px;
+.detail-row{
+  display:flex;
+  justify-content:space-between;
+  padding:12px 0;
+  border-bottom:1px solid rgba(255,255,255,.06);
 }
 
-.detail-flag{font-size:58px}
-
-.detail-header h2{font-size:30px}
-
-.detail-header p{
- color:var(--muted);
- margin-top:5px;
+.detail-row:last-child{
+  border-bottom:0;
 }
 
-.features{
- display:grid;
- grid-template-columns:repeat(2,1fr);
- gap:12px;
- margin:25px 0;
+.detail-row span{
+  color:var(--muted);
 }
 
-.feature{
- background:var(--card2);
- padding:15px;
- border-radius:12px;
- color:#dbe7f4;
+.detail-price{
+  font-size:28px;
+  font-weight:900;
 }
 
 /* CHECKOUT */
-
-.checkout{
- max-width:930px;
- margin:auto;
+.checkout-card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:18px;
+  margin-bottom:14px;
 }
 
-.checkout-grid{
- display:grid;
- grid-template-columns:1.2fr .8fr;
- gap:18px;
+.checkout-card h3{
+  margin-bottom:15px;
 }
 
-.form-group{margin-bottom:17px}
+.form-group{
+  margin-bottom:14px;
+}
 
 .form-group label{
- display:block;
- color:var(--muted);
- font-size:13px;
- margin-bottom:7px;
+  display:block;
+  color:var(--muted);
+  font-size:11px;
+  margin-bottom:7px;
 }
 
-.form-group input{
- width:100%;
- padding:14px;
- border-radius:12px;
- border:1px solid var(--line);
- background:var(--bg2);
- color:white;
- outline:none;
+.form-group input,
+.form-group select{
+  width:100%;
+  padding:13px;
+  border-radius:12px;
+  border:1px solid var(--line);
+  outline:none;
+  background:#0b192a;
+  color:white;
 }
-
-.payment-methods{
- display:grid;
- grid-template-columns:repeat(2,1fr);
- gap:12px;
-}
-
-.payment-option{
- border:1px solid var(--line);
- border-radius:14px;
- padding:17px;
- background:var(--card2);
- cursor:pointer;
-}
-
-.payment-option.selected{
- border-color:var(--blue);
- background:rgba(53,168,255,.10);
-}
-
-.payment-option strong{display:block;margin-bottom:5px}
-
-.payment-option span{
- color:var(--muted);
- font-size:12px;
-}
-
-/* SUMMARY */
-
-.summary-row{
- display:flex;
- justify-content:space-between;
- gap:15px;
- padding:12px 0;
- border-bottom:1px solid var(--line);
-}
-
-.summary-row:last-child{border-bottom:0}
 
 .total{
- font-size:23px;
- font-weight:900;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 0;
+  margin-bottom:10px;
+  border-top:1px solid var(--line);
 }
 
-/* SUCCESS */
-
-.success{
- max-width:650px;
- margin:50px auto;
- text-align:center;
+.total strong{
+  font-size:22px;
 }
 
-.success-icon{
- width:82px;
- height:82px;
- margin:auto;
- border-radius:50%;
- display:flex;
- align-items:center;
- justify-content:center;
- background:rgba(57,217,138,.12);
- color:var(--green);
- font-size:40px;
+/* ACCOUNT */
+.profile-card{
+  background:linear-gradient(135deg,#102d4c,#102033);
+  border:1px solid var(--line);
+  border-radius:21px;
+  padding:20px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-bottom:18px;
 }
 
-.success h1{margin:20px 0 10px}
-
-.success p{
- color:var(--muted);
- line-height:1.6;
+.avatar{
+  width:55px;
+  height:55px;
+  border-radius:50%;
+  background:linear-gradient(135deg,var(--blue),var(--cyan));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:900;
+  font-size:20px;
 }
 
-/* INVOICE */
-
-.invoice{
- max-width:700px;
- margin:auto;
+.profile-card h2{
+  font-size:17px;
 }
 
-.invoice-card{
- background:white;
- color:#162234;
- border-radius:20px;
- padding:30px;
+.profile-card p{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:4px;
 }
 
-.invoice-head{
- display:flex;
- justify-content:space-between;
- gap:20px;
- margin-bottom:25px;
+.menu-list{
+  display:flex;
+  flex-direction:column;
+  gap:9px;
 }
 
-.invoice-logo{
- font-size:27px;
- font-weight:900;
+.menu-item{
+  width:100%;
+  background:var(--card);
+  border:1px solid var(--line);
+  color:white;
+  border-radius:15px;
+  padding:15px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  text-align:left;
 }
 
-.invoice-status{
- color:#15985d;
- font-weight:900;
+.menu-item span:last-child{
+  margin-left:auto;
+  color:var(--muted);
 }
 
-.invoice-row{
- display:flex;
- justify-content:space-between;
- gap:20px;
- padding:13px 0;
- border-bottom:1px solid #e2e7ed;
+/* ORDERS */
+.order-card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:16px;
+  margin-bottom:12px;
 }
 
-.invoice-total{
- display:flex;
- justify-content:space-between;
- padding-top:20px;
- font-size:22px;
- font-weight:900;
-}
-
-/* ESIM */
-
-.esim-card{
- background:linear-gradient(135deg,#112b47,#10243a);
- border:1px solid var(--line);
- border-radius:22px;
- padding:25px;
- position:relative;
- overflow:hidden;
-}
-
-.esim-card:after{
- content:"TELKU";
- position:absolute;
- right:-10px;
- bottom:-12px;
- font-size:82px;
- font-weight:900;
- color:rgba(255,255,255,.025);
-}
-
-.esim-top{
- display:flex;
- justify-content:space-between;
- align-items:center;
+.order-top{
+  display:flex;
+  justify-content:space-between;
 }
 
 .status{
- padding:6px 10px;
- border-radius:8px;
- background:rgba(57,217,138,.12);
- color:var(--green);
- font-size:12px;
- font-weight:800;
+  color:#5ee58a;
+  background:rgba(34,197,94,.1);
+  padding:5px 8px;
+  border-radius:12px;
+  font-size:9px;
 }
 
-.iccid{
- color:var(--muted);
- font-size:13px;
- margin:20px 0 7px;
+.order-card p{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:7px;
 }
 
-.esim-number{
- font-size:23px;
- font-weight:900;
+.order-price{
+  margin-top:13px;
+  font-weight:900;
 }
 
-.usage-bar{
- height:9px;
- background:#1a3048;
- border-radius:20px;
- overflow:hidden;
- margin:10px 0;
+/* EMPTY */
+.empty{
+  text-align:center;
+  padding:45px 20px;
+  color:var(--muted);
 }
 
-.usage-fill{
- height:100%;
- width:35%;
- background:linear-gradient(90deg,var(--blue),var(--cyan));
+.empty-icon{
+  font-size:45px;
+  margin-bottom:12px;
 }
 
-/* QR */
-
-.qr{
- width:220px;
- height:220px;
- background:white;
- margin:25px auto;
- padding:14px;
- display:grid;
- grid-template-columns:repeat(12,1fr);
- grid-template-rows:repeat(12,1fr);
- gap:2px;
-}
-
-.qr span{background:#111}
-
-.qr span:nth-child(3n),
-.qr span:nth-child(5n+2){background:white}
-
-/* ORDERS */
-
-.order{
- display:flex;
- align-items:center;
- justify-content:space-between;
- gap:15px;
- padding:18px;
- background:var(--card);
- border:1px solid var(--line);
- border-radius:16px;
- margin-bottom:12px;
-}
-
-.order-id{font-weight:900}
-
-.order-meta{
- color:var(--muted);
- font-size:13px;
- margin-top:6px;
-}
-
-.order-status{
- color:var(--green);
- font-size:13px;
- font-weight:800;
-}
-
-/* BOTTOM NAV */
-
+/* NAV */
 .bottom-nav{
- position:fixed;
- left:0;
- right:0;
- bottom:0;
- z-index:200;
- background:rgba(7,17,31,.96);
- backdrop-filter:blur(15px);
- border-top:1px solid var(--line);
+  position:fixed;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:min(480px,100%);
+  height:72px;
+  z-index:100;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  background:rgba(8,18,31,.96);
+  border-top:1px solid var(--line);
+  backdrop-filter:blur(16px);
 }
 
-.bottom-nav-inner{
- max-width:700px;
- margin:auto;
- display:grid;
- grid-template-columns:repeat(5,1fr);
-}
-
-.nav-item{
- text-align:center;
- color:var(--muted);
- font-size:11px;
- padding:10px 5px 8px;
- cursor:pointer;
+.nav-btn{
+  border:0;
+  background:none;
+  color:#71859d;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
+  font-size:10px;
 }
 
 .nav-icon{
- display:block;
- font-size:20px;
- margin-bottom:3px;
+  font-size:21px;
 }
 
-.nav-item.active{color:var(--blue)}
+.nav-btn.active{
+  color:#4cc9ff;
+}
 
 /* TOAST */
-
 .toast{
- position:fixed;
- z-index:500;
- right:20px;
- bottom:90px;
- background:#15273c;
- border:1px solid var(--line);
- border-radius:12px;
- padding:14px 18px;
- opacity:0;
- transform:translateY(100px);
- transition:.3s;
+  position:fixed;
+  left:50%;
+  bottom:88px;
+  transform:translateX(-50%) translateY(20px);
+  background:#15283d;
+  border:1px solid #2c4865;
+  color:white;
+  padding:13px 17px;
+  border-radius:13px;
+  opacity:0;
+  pointer-events:none;
+  transition:.3s;
+  z-index:300;
+  width:max-content;
+  max-width:90%;
+  font-size:12px;
 }
 
 .toast.show{
- opacity:1;
- transform:translateY(0);
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
 }
 
-/* MOBILE */
-
-@media(max-width:800px){
-
- .hero{padding:32px 24px}
-
- .hero h1{font-size:38px}
-
- .grid{grid-template-columns:repeat(2,1fr)}
-
- .checkout-grid{grid-template-columns:1fr}
-
+/* MODAL */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.7);
+  z-index:200;
+  display:none;
+  align-items:flex-end;
+  justify-content:center;
 }
 
-@media(max-width:560px){
+.modal.show{
+  display:flex;
+}
 
- main{padding:20px 14px 92px}
+.modal-box{
+  width:min(480px,100%);
+  background:#0c1a2b;
+  border-radius:25px 25px 0 0;
+  padding:22px 18px 30px;
+  border-top:1px solid var(--line);
+}
 
- .header-inner{padding:0 14px}
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:18px;
+}
 
- .logo{font-size:21px}
+.close{
+  border:0;
+  background:var(--card);
+  color:white;
+  width:35px;
+  height:35px;
+  border-radius:10px;
+}
 
- .profile-btn{display:none}
+/* DESKTOP */
+@media(min-width:700px){
+  body{
+    background:#020912;
+  }
 
- .hero{
-  border-radius:20px;
-  padding:26px 20px;
- }
-
- .hero h1{font-size:31px}
-
- .hero-buttons{flex-direction:column}
-
- .grid{grid-template-columns:1fr}
-
- .features{grid-template-columns:1fr}
-
- .payment-methods{grid-template-columns:1fr}
-
- .detail-card{padding:20px}
-
- .order{
-  flex-direction:column;
-  align-items:flex-start;
- }
-
- .invoice-card{padding:20px}
-
+  .app{
+    box-shadow:0 0 80px rgba(0,0,0,.5);
+  }
 }
 </style>
 </head>
@@ -742,1821 +749,1214 @@ main{
 
 <div class="app">
 
+<!-- HEADER -->
 <header class="header">
-<div class="header-inner">
+  <div class="header-row">
+    <div class="logo">
+      <div class="logo-mark">T</div>
+      <div>
+        <div class="logo-text">TELKU</div>
+        <div class="logo-sub">GLOBAL CONNECTIVITY</div>
+      </div>
+    </div>
 
-<div class="logo" onclick="showPage('home')">
- <div class="logo-mark">T</div>
- TELKU
-</div>
-
-<div class="header-actions">
- <button class="icon-btn" onclick="showPage('orders')">🛒</button>
- <button class="profile-btn" onclick="showPage('account')">
- Account
- </button>
-</div>
-
-</div>
+    <div class="header-actions">
+      <button class="icon-btn" onclick="showToast('Notifications coming soon')">🔔</button>
+      <button class="icon-btn" onclick="showPage('account')">👤</button>
+    </div>
+  </div>
 </header>
 
 
-<main>
-
 <!-- HOME -->
-
 <section id="home" class="page active">
 
-<div class="hero">
+  <div class="hero">
+    <h1>Stay Connected<br>Anywhere.</h1>
+    <p>One TELKU eSIM. Connect across countries with simple and flexible data plans.</p>
+  </div>
 
-<h1>Stay Connected Around The World.</h1>
+  <div class="search-box">
+    <span>🔎</span>
+    <input
+      id="homeSearch"
+      type="text"
+      placeholder="Search country or destination..."
+      oninput="searchCountry(this.value)"
+    >
+  </div>
 
-<p>
-TELKU makes international connectivity simple.
-Choose your destination, select an eSIM plan,
-pay securely and activate your connection.
-</p>
+  <div class="quick-grid">
+    <button class="quick" onclick="showPage('countries')">
+      <div class="quick-icon">🌍</div>
+      <span>Countries</span>
+    </button>
 
-<div class="hero-buttons">
+    <button class="quick" onclick="showPage('plans')">
+      <div class="quick-icon">📶</div>
+      <span>eSIM Plans</span>
+    </button>
 
-<button class="btn btn-primary"
-onclick="showPage('countries')">
-Explore Countries
-</button>
+    <button class="quick" onclick="showPage('orders')">
+      <div class="quick-icon">📦</div>
+      <span>My Orders</span>
+    </button>
 
-<button class="btn btn-secondary"
-onclick="showPage('plans')">
-View eSIM Plans
-</button>
+    <button class="quick" onclick="showPage('account')">
+      <div class="quick-icon">👤</div>
+      <span>Account</span>
+    </button>
+  </div>
 
-</div>
+  <div class="banner">
+    <h2>Travel Smarter</h2>
+    <p>Find your destination, choose a plan and stay connected without changing your physical SIM.</p>
+    <br>
+    <button class="btn" onclick="showPage('countries')">Explore Countries</button>
+  </div>
 
-</div>
+  <div class="section-title">
+    <h2>Popular Destinations</h2>
+    <button onclick="showPage('countries')">View all</button>
+  </div>
 
+  <div id="homeCountries" class="country-grid"></div>
 
-<div class="section">
+  <div class="section-title">
+    <h2>Recommended Plans</h2>
+    <button onclick="showPage('plans')">View all</button>
+  </div>
 
-<div class="section-head">
-<h2>Popular Destinations</h2>
-<span>Global connectivity</span>
-</div>
-
-<div class="grid" id="popularCountries"></div>
-
-</div>
+  <div id="homePlans" class="plan-list"></div>
 
 </section>
 
 
 <!-- COUNTRIES -->
-
 <section id="countries" class="page">
 
-<div class="section-head">
-<h2>Search Country</h2>
-<span>Choose your destination</span>
-</div>
+  <div class="hero">
+    <h1>Choose Country</h1>
+    <p>Select your destination to discover available TELKU eSIM plans.</p>
+  </div>
 
-<div class="search-box">
-<input id="countrySearch"
-placeholder="Search country..."
-oninput="renderCountries()">
-</div>
+  <div class="search-box">
+    <span>🔎</span>
+    <input
+      id="countrySearch"
+      type="text"
+      placeholder="Search country..."
+      oninput="renderCountries(this.value)"
+    >
+  </div>
 
-<div class="grid" id="countryList"></div>
+  <div id="countryGrid" class="country-grid"></div>
 
 </section>
 
 
 <!-- PLANS -->
-
 <section id="plans" class="page">
 
-<div class="section-head">
-<h2>eSIM Plans</h2>
-<span id="planSubtitle">All destinations</span>
-</div>
+  <div class="hero">
+    <h1>eSIM Plans</h1>
+    <p>Choose a data plan that matches your journey.</p>
+  </div>
 
-<div class="search-box">
-<input id="planSearch"
-placeholder="Search country or plan..."
-oninput="renderPlans()">
-</div>
+  <div class="filters">
+    <button class="filter active" onclick="filterPlans('all',this)">All</button>
+    <button class="filter" onclick="filterPlans('short',this)">Short Trip</button>
+    <button class="filter" onclick="filterPlans('medium',this)">Medium</button>
+    <button class="filter" onclick="filterPlans('long',this)">Long Stay</button>
+  </div>
 
-<div class="grid" id="planList"></div>
+  <div class="search-box">
+    <span>🔎</span>
+    <input
+      id="planSearch"
+      type="text"
+      placeholder="Search plan or country..."
+      oninput="renderPlans()"
+    >
+  </div>
+
+  <div id="planList" class="plan-list"></div>
 
 </section>
 
 
-<!-- PLAN DETAIL -->
+<!-- DETAIL -->
+<section id="detail" class="page">
 
-<section id="planDetail" class="page">
+  <button class="back" onclick="showPage('plans')">← Back to plans</button>
 
-<div class="detail">
-
-<div class="back" onclick="showPage('plans')">
-← Back to plans
-</div>
-
-<div class="detail-card" id="planDetailContent"></div>
-
-</div>
+  <div id="detailContent"></div>
 
 </section>
 
 
 <!-- CHECKOUT -->
-
 <section id="checkout" class="page">
 
-<div class="checkout">
-
-<div class="back" onclick="showPage('planDetail')">
-← Back
-</div>
-
-<div class="section-head">
-<h2>Checkout</h2>
-<span>Secure order</span>
-</div>
-
-<div class="checkout-grid">
-
-<div class="card">
-
-<div class="form-group">
-<label>Full Name</label>
-<input id="customerName" placeholder="Your name">
-</div>
-
-<div class="form-group">
-<label>Email</label>
-<input id="customerEmail"
-type="email"
-placeholder="you@email.com">
-</div>
-
-<div class="form-group">
-
-<label>Payment Method</label>
-
-<div class="payment-methods">
-
-<div class="payment-option selected"
-onclick="selectPayment(this,'Credit Card')">
-
-<strong>💳 Credit Card</strong>
-<span>Visa / Mastercard</span>
-
-</div>
-
-<div class="payment-option"
-onclick="selectPayment(this,'E-Wallet')">
-
-<strong>📱 E-Wallet</strong>
-<span>Demo payment</span>
-
-</div>
-
-</div>
-
-</div>
-
-<button class="btn btn-primary"
-style="width:100%"
-onclick="createOrder()">
-Continue to Payment
-</button>
-
-</div>
-
-
-<div class="card">
-
-<h3>Order Summary</h3>
-
-<div id="checkoutSummary"></div>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- PAYMENT -->
-
-<section id="payment" class="page">
-
-<div class="detail">
-
-<div class="back" onclick="showPage('checkout')">
-← Back to checkout
-</div>
-
-<div class="card">
-
-<h2>Demo Payment</h2>
-
-<p style="color:var(--muted);margin:10px 0 25px">
-TELKU V1.8 Demo Payment
-</p>
-
-<div id="paymentSummary"></div>
-
-<button class="btn btn-primary"
-style="width:100%;margin-top:25px"
-onclick="completePayment()">
-✓ Pay Now — Demo
-</button>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- SUCCESS -->
-
-<section id="success" class="page">
-
-<div class="success">
-
-<div class="success-icon">✓</div>
-
-<h1>Payment Successful</h1>
-
-<p>
-Your TELKU order has been successfully created.
-Your eSIM is now available in My eSIM.
-</p>
-
-<div style="display:flex;gap:10px;justify-content:center;margin-top:25px;flex-wrap:wrap">
-
-<button class="btn btn-primary"
-onclick="showPage('esim')">
-View My eSIM
-</button>
-
-<button class="btn btn-secondary"
-onclick="showInvoice()">
-View Invoice
-</button>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- INVOICE -->
-
-<section id="invoice" class="page">
-
-<div class="invoice">
-
-<div class="back" onclick="showPage('success')">
-← Back
-</div>
-
-<div class="invoice-card">
-
-<div class="invoice-head">
-
-<div>
-<div class="invoice-logo">TELKU</div>
-<small>Global Connectivity</small>
-</div>
-
-<div class="invoice-status">PAID</div>
-
-</div>
-
-<div id="invoiceContent"></div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- ESIM -->
-
-<section id="esim" class="page">
-
-<div class="section-head">
-<h2>My eSIM</h2>
-<span>Active connection</span>
-</div>
-
-<div id="esimContent"></div>
-
-</section>
-
-
-<!-- QR -->
-
-<section id="qr" class="page">
-
-<div class="detail">
-
-<div class="back" onclick="showPage('esim')">
-← Back to My eSIM
-</div>
-
-<div class="card" style="text-align:center">
-
-<h2>Install eSIM</h2>
-
-<p style="color:var(--muted);margin-top:8px">
-Scan this QR code with your phone.
-</p>
-
-<div class="qr" id="qrCode"></div>
-
-<p style="font-size:13px;color:var(--muted)">
-TELKU eSIM activation profile
-</p>
-
-<div style="margin-top:18px">
-
-<button class="btn btn-secondary"
-onclick="copyActivation()">
-Copy Activation Code
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- USAGE -->
-
-<section id="usage" class="page">
-
-<div class="section-head">
-<h2>Usage</h2>
-<span>Current eSIM</span>
-</div>
-
-<div class="card">
-
-<div style="display:flex;justify-content:space-between;gap:10px">
-<strong>Data Usage</strong>
-<span id="usageText">3.5 GB / 10 GB</span>
-</div>
-
-<div class="usage-bar">
-<div class="usage-fill"></div>
-</div>
-
-<p style="color:var(--muted);font-size:13px">
-6.5 GB remaining
-</p>
-
-</div>
-
-<div class="grid" style="margin-top:18px">
-
-<div class="card">
-<span style="color:var(--muted)">Days Remaining</span>
-<h2 style="margin-top:8px">12 Days</h2>
-</div>
-
-<div class="card">
-<span style="color:var(--muted)">Network</span>
-<h2 style="margin-top:8px">TELKU Global</h2>
-</div>
-
-</div>
-
-</section>
-
-
-<!-- TOP UP -->
-
-<section id="topup" class="page">
-
-<div class="section-head">
-<h2>Top Up</h2>
-<span>Add more data</span>
-</div>
-
-<div class="grid">
-
-<div class="card">
-
-<h3>1 GB</h3>
-
-<p style="color:var(--muted);margin:8px 0 15px">
-Valid for 7 days
-</p>
-
-<strong>Rp 49.000</strong>
-
-<br><br>
-
-<button class="btn btn-primary"
-onclick="topUp('1 GB',49000)">
-Select
-</button>
-
-</div>
-
-
-<div class="card">
-
-<h3>3 GB</h3>
-
-<p style="color:var(--muted);margin:8px 0 15px">
-Valid for 15 days
-</p>
-
-<strong>Rp 99.000</strong>
-
-<br><br>
-
-<button class="btn btn-primary"
-onclick="topUp('3 GB',99000)">
-Select
-</button>
-
-</div>
-
-
-<div class="card">
-
-<h3>5 GB</h3>
-
-<p style="color:var(--muted);margin:8px 0 15px">
-Valid for 30 days
-</p>
-
-<strong>Rp 149.000</strong>
-
-<br><br>
-
-<button class="btn btn-primary"
-onclick="topUp('5 GB',149000)">
-Select
-</button>
-
-</div>
-
-</div>
+  <button class="back" onclick="showPage('detail')">← Back</button>
+
+  <div class="hero">
+    <h1>Checkout</h1>
+    <p>Complete your information to continue.</p>
+  </div>
+
+  <div id="checkoutPlan"></div>
+
+  <div class="checkout-card">
+    <h3>Customer Information</h3>
+
+    <div class="form-group">
+      <label>Full Name</label>
+      <input id="customerName" type="text" placeholder="Enter your name">
+    </div>
+
+    <div class="form-group">
+      <label>Email</label>
+      <input id="customerEmail" type="email" placeholder="Enter your email">
+    </div>
+
+    <div class="form-group">
+      <label>Payment Method</label>
+      <select id="paymentMethod">
+        <option>Credit / Debit Card</option>
+        <option>Bank Transfer</option>
+        <option>E-Wallet</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="checkout-card">
+    <h3>Order Summary</h3>
+    <div id="checkoutSummary"></div>
+
+    <div class="total">
+      <span>Total</span>
+      <strong id="checkoutTotal">$0</strong>
+    </div>
+
+    <button class="btn green full" onclick="completeOrder()">
+      Confirm & Pay
+    </button>
+  </div>
 
 </section>
 
 
 <!-- ORDERS -->
-
 <section id="orders" class="page">
 
-<div class="section-head">
-<h2>My Orders</h2>
-<span>Order history</span>
-</div>
+  <div class="hero">
+    <h1>My Orders</h1>
+    <p>View your TELKU eSIM purchases.</p>
+  </div>
 
-<div id="ordersContent"></div>
+  <div id="ordersList"></div>
 
 </section>
 
 
 <!-- ACCOUNT -->
-
 <section id="account" class="page">
 
-<div class="section-head">
-<h2>Account</h2>
-<span>TELKU customer</span>
-</div>
+  <div class="hero">
+    <h1>My Account</h1>
+    <p>Manage your TELKU profile and travel connectivity.</p>
+  </div>
 
-<div class="card">
+  <div class="profile-card">
+    <div class="avatar">T</div>
+    <div>
+      <h2>TELKU Traveler</h2>
+      <p>Welcome to TELKU Global Connectivity</p>
+    </div>
+  </div>
 
-<div style="display:flex;gap:16px;align-items:center">
+  <div class="menu-list">
 
-<div style="
-width:60px;
-height:60px;
-border-radius:50%;
-background:linear-gradient(135deg,var(--blue),var(--cyan));
-display:flex;
-align-items:center;
-justify-content:center;
-color:#06111e;
-font-size:25px;
-font-weight:900">
-T
-</div>
+    <button class="menu-item" onclick="showToast('Profile settings coming soon')">
+      👤
+      <span>Profile</span>
+      <span>›</span>
+    </button>
 
-<div>
+    <button class="menu-item" onclick="showPage('orders')">
+      📦
+      <span>My Orders</span>
+      <span>›</span>
+    </button>
 
-<h3 id="accountName">TELKU Customer</h3>
+    <button class="menu-item" onclick="showToast('Payment settings coming soon')">
+      💳
+      <span>Payment Methods</span>
+      <span>›</span>
+    </button>
 
-<p id="accountEmail"
-style="color:var(--muted);margin-top:5px">
-customer@telku.com
-</p>
+    <button class="menu-item" onclick="showToast('Help Center coming soon')">
+      💬
+      <span>Help Center</span>
+      <span>›</span>
+    </button>
 
-</div>
+    <button class="menu-item" onclick="showToast('TELKU V1.8')">
+      ⚙️
+      <span>App Version</span>
+      <span>1.8</span>
+    </button>
 
-</div>
-
-</div>
-
-
-<div class="grid" style="margin-top:18px">
-
-<div class="card">
-<strong>Orders</strong>
-<h2 id="orderCount" style="margin-top:8px">0</h2>
-</div>
-
-<div class="card">
-<strong>Active eSIM</strong>
-<h2 style="margin-top:8px">1</h2>
-</div>
-
-</div>
-
-
-<div class="card" style="margin-top:18px">
-
-<h3>Quick Actions</h3>
-
-<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:15px">
-
-<button class="btn btn-secondary"
-onclick="showPage('orders')">
-My Orders
-</button>
-
-<button class="btn btn-secondary"
-onclick="showPage('esim')">
-My eSIM
-</button>
-
-<button class="btn btn-secondary"
-onclick="showPage('topup')">
-Top Up
-</button>
-
-</div>
-
-</div>
+  </div>
 
 </section>
 
-</main>
 
-
-<!-- NAVIGATION -->
-
+<!-- BOTTOM NAV -->
 <nav class="bottom-nav">
 
-<div class="bottom-nav-inner">
+  <button class="nav-btn active" data-page="home" onclick="showPage('home')">
+    <div class="nav-icon">🏠</div>
+    <span>Home</span>
+  </button>
 
-<div class="nav-item active"
-data-page="home"
-onclick="showPage('home')">
-<span class="nav-icon">⌂</span>
-Home
-</div>
+  <button class="nav-btn" data-page="countries" onclick="showPage('countries')">
+    <div class="nav-icon">🌍</div>
+    <span>Explore</span>
+  </button>
 
-<div class="nav-item"
-data-page="countries"
-onclick="showPage('countries')">
-<span class="nav-icon">🌎</span>
-Countries
-</div>
+  <button class="nav-btn" data-page="plans" onclick="showPage('plans')">
+    <div class="nav-icon">📶</div>
+    <span>Plans</span>
+  </button>
 
-<div class="nav-item"
-data-page="plans"
-onclick="showPage('plans')">
-<span class="nav-icon">📶</span>
-Plans
-</div>
-
-<div class="nav-item"
-data-page="esim"
-onclick="showPage('esim')">
-<span class="nav-icon">▣</span>
-My eSIM
-</div>
-
-<div class="nav-item"
-data-page="account"
-onclick="showPage('account')">
-<span class="nav-icon">●</span>
-Account
-</div>
-
-</div>
+  <button class="nav-btn" data-page="account" onclick="showPage('account')">
+    <div class="nav-icon">👤</div>
+    <span>Account</span>
+  </button>
 
 </nav>
 
+</div>
 
+
+<!-- TOAST -->
 <div id="toast" class="toast"></div>
 
 
 <script>
 
 /* =====================================================
-   TELKU V1.8 DATA
-   ===================================================== */
-
-const countries=[
-
- {id:"id",name:"Indonesia",code:"ID",flag:"🇮🇩"},
- {id:"sg",name:"Singapore",code:"SG",flag:"🇸🇬"},
- {id:"my",name:"Malaysia",code:"MY",flag:"🇲🇾"},
- {id:"th",name:"Thailand",code:"TH",flag:"🇹🇭"},
- {id:"jp",name:"Japan",code:"JP",flag:"🇯🇵"},
- {id:"kr",name:"South Korea",code:"KR",flag:"🇰🇷"},
- {id:"au",name:"Australia",code:"AU",flag:"🇦🇺"},
- {id:"us",name:"United States",code:"US",flag:"🇺🇸"},
- {id:"gb",name:"United Kingdom",code:"GB",flag:"🇬🇧"},
- {id:"fr",name:"France",code:"FR",flag:"🇫🇷"},
- {id:"de",name:"Germany",code:"DE",flag:"🇩🇪"},
- {id:"it",name:"Italy",code:"IT",flag:"🇮🇹"}
-
-];
+   TELKU V1.8
+   FRONTEND DEMO DATA
+   SUPABASE READY
+===================================================== */
 
 
-const plans=[
+/* COUNTRY DATA */
 
- {
-  id:"TEL-ID-10",
-  country:"Indonesia",
-  countryCode:"ID",
-  flag:"🇮🇩",
-  data:"10 GB",
-  days:30,
-  price:49000,
-  network:"TELKU Global",
-  type:"Best Value"
- },
+const countries = [
 
- {
-  id:"TEL-SG-10",
-  country:"Singapore",
-  countryCode:"SG",
-  flag:"🇸🇬",
-  data:"10 GB",
-  days:30,
-  price:79000,
-  network:"TELKU Global",
-  type:"Popular"
- },
-
- {
-  id:"TEL-MY-15",
-  country:"Malaysia",
-  countryCode:"MY",
-  flag:"🇲🇾",
-  data:"15 GB",
-  days:30,
-  price:89000,
-  network:"TELKU Global",
-  type:"Best Value"
- },
-
- {
-  id:"TEL-TH-15",
-  country:"Thailand",
-  countryCode:"TH",
-  flag:"🇹🇭",
-  data:"15 GB",
-  days:30,
-  price:99000,
-  network:"TELKU Global",
-  type:"Popular"
- },
-
- {
-  id:"TEL-JP-10",
-  country:"Japan",
-  countryCode:"JP",
-  flag:"🇯🇵",
-  data:"10 GB",
-  days:30,
-  price:119000,
-  network:"TELKU Global",
-  type:"Popular"
- },
-
- {
-  id:"TEL-KR-10",
-  country:"South Korea",
-  countryCode:"KR",
-  flag:"🇰🇷",
-  data:"10 GB",
-  days:30,
-  price:109000,
-  network:"TELKU Global",
-  type:"Popular"
- },
-
- {
-  id:"TEL-AU-10",
-  country:"Australia",
-  countryCode:"AU",
-  flag:"🇦🇺",
-  data:"10 GB",
-  days:30,
-  price:139000,
-  network:"TELKU Global",
-  type:"Premium"
- },
-
- {
-  id:"TEL-US-10",
-  country:"United States",
-  countryCode:"US",
-  flag:"🇺🇸",
-  data:"10 GB",
-  days:30,
-  price:159000,
-  network:"TELKU Global",
-  type:"Premium"
- },
-
- {
-  id:"TEL-GB-10",
-  country:"United Kingdom",
-  countryCode:"GB",
-  flag:"🇬🇧",
-  data:"10 GB",
-  days:30,
-  price:149000,
-  network:"TELKU Global",
-  type:"Premium"
- },
-
- {
-  id:"TEL-FR-10",
-  country:"France",
-  countryCode:"FR",
-  flag:"🇫🇷",
-  data:"10 GB",
-  days:30,
-  price:149000,
-  network:"TELKU Global",
-  type:"Premium"
- },
-
- {
-  id:"TEL-DE-10",
-  country:"Germany",
-  countryCode:"DE",
-  flag:"🇩🇪",
-  data:"10 GB",
-  days:30,
-  price:149000,
-  network:"TELKU Global",
-  type:"Premium"
- },
-
- {
-  id:"TEL-IT-10",
-  country:"Italy",
-  countryCode:"IT",
-  flag:"🇮🇹",
-  data:"10 GB",
-  days:30,
-  price:149000,
-  network:"TELKU Global",
-  type:"Premium"
- }
-
-];
-
-
-let selectedPlan=null;
-let selectedPayment="Credit Card";
-let currentOrder=null;
-
-
-/* =====================================================
-   STORAGE
-   ===================================================== */
-
-function getOrders(){
-
- try{
-  return JSON.parse(localStorage.getItem("telku_orders"))||[];
- }catch(e){
-  return [];
- }
-
-}
-
-
-function saveOrders(orders){
-
- localStorage.setItem(
-  "telku_orders",
-  JSON.stringify(orders)
- );
-
-}
-
-
-function getActiveESIM(){
-
- try{
-  return JSON.parse(
-   localStorage.getItem("telku_esim")
-  )||null;
- }catch(e){
-  return null;
- }
-
-}
-
-
-function saveActiveESIM(esim){
-
- localStorage.setItem(
-  "telku_esim",
-  JSON.stringify(esim)
- );
-
-}
-
-
-/* =====================================================
-   HELPERS
-   ===================================================== */
-
-function money(value){
-
- return new Intl.NumberFormat(
-  "id-ID",
   {
-   style:"currency",
-   currency:"IDR",
-   maximumFractionDigits:0
+    id:"id",
+    name:"Indonesia",
+    flag:"🇮🇩",
+    region:"Asia",
+    popular:true
+  },
+
+  {
+    id:"sg",
+    name:"Singapore",
+    flag:"🇸🇬",
+    region:"Asia",
+    popular:true
+  },
+
+  {
+    id:"my",
+    name:"Malaysia",
+    flag:"🇲🇾",
+    region:"Asia",
+    popular:true
+  },
+
+  {
+    id:"th",
+    name:"Thailand",
+    flag:"🇹🇭",
+    region:"Asia",
+    popular:true
+  },
+
+  {
+    id:"jp",
+    name:"Japan",
+    flag:"🇯🇵",
+    region:"Asia",
+    popular:true
+  },
+
+  {
+    id:"kr",
+    name:"South Korea",
+    flag:"🇰🇷",
+    region:"Asia",
+    popular:true
+  },
+
+  {
+    id:"au",
+    name:"Australia",
+    flag:"🇦🇺",
+    region:"Oceania",
+    popular:false
+  },
+
+  {
+    id:"us",
+    name:"United States",
+    flag:"🇺🇸",
+    region:"North America",
+    popular:false
+  },
+
+  {
+    id:"gb",
+    name:"United Kingdom",
+    flag:"🇬🇧",
+    region:"Europe",
+    popular:false
+  },
+
+  {
+    id:"fr",
+    name:"France",
+    flag:"🇫🇷",
+    region:"Europe",
+    popular:false
+  },
+
+  {
+    id:"it",
+    name:"Italy",
+    flag:"🇮🇹",
+    region:"Europe",
+    popular:false
+  },
+
+  {
+    id:"de",
+    name:"Germany",
+    flag:"🇩🇪",
+    region:"Europe",
+    popular:false
   }
- ).format(value);
 
-}
-
-
-function showToast(message){
-
- const toast=document.getElementById("toast");
-
- toast.textContent=message;
-
- toast.classList.add("show");
-
- setTimeout(()=>{
-  toast.classList.remove("show");
- },2400);
-
-}
+];
 
 
-/* =====================================================
-   PAGE
-   ===================================================== */
+/* PLAN DATA */
+
+const plans = [
+
+  {
+    id:"ID-7",
+    countryId:"id",
+    country:"Indonesia",
+    flag:"🇮🇩",
+    data:"5 GB",
+    days:7,
+    price:5.99,
+    category:"short",
+    speed:"4G/5G"
+  },
+
+  {
+    id:"ID-15",
+    countryId:"id",
+    country:"Indonesia",
+    flag:"🇮🇩",
+    data:"15 GB",
+    days:15,
+    price:10.99,
+    category:"medium",
+    speed:"4G/5G"
+  },
+
+  {
+    id:"SG-7",
+    countryId:"sg",
+    country:"Singapore",
+    flag:"🇸🇬",
+    data:"5 GB",
+    days:7,
+    price:6.99,
+    category:"short",
+    speed:"4G/5G"
+  },
+
+  {
+    id:"SG-15",
+    countryId:"sg",
+    country:"Singapore",
+    flag:"🇸🇬",
+    data:"15 GB",
+    days:15,
+    price:12.99,
+    category:"medium",
+    speed:"4G/5G"
+  },
+
+  {
+    id:"MY-7",
+    countryId:"my",
+    country:"Malaysia",
+    flag:"🇲🇾",
+    data:"5 GB",
+    days:7,
+    price:5.49,
+    category:"short",
+    speed:"4G/5G"
+  },
+
+  {
+    id:"TH-10",
+    countryId:"th",
+    country:"Thailand",
+    flag:"🇹🇭",
+    data:"10 GB",
+    days:10,
+    price:8.99,
+    category:"medium",
+    speed:"4G/5G"
+  },
+
+  {
+    id:"JP-10",
+    countryId:"jp",
+    country:"Japan",
+    flag:"🇯🇵",
+    data:"10 GB",
+    days:10,
+    price:9.99,
+    category:"medium",
+    speed:"4G/5G"
+  },
+
+  {
+    id:"JP-30",
+    countryId:"jp",
+    country:"Japan",
+    flag:"🇯🇵",
+    data:"30 GB",
+    days:30,
+    price:19.99,
+    category:"long",
+    speed:"4G/5G"
+  },
+
+  {
+    id:"KR-10",
+    countryId:"kr",
+    country:"South Korea",
+    flag:"🇰🇷",
+    data:"10 GB",
+    days:10,
+    price:9.49,
+    category:"medium",
+    speed:"4G/5G"
+  },
+
+  {
+    id:"AU-15",
+    countryId:"au",
+    country:"Australia",
+    flag:"🇦🇺",
+    data:"15 GB",
+    days:15,
+    price:14.99,
+    category:"medium",
+    speed:"4G/5G"
+  },
+
+  {
+    id:"US-15",
+    countryId:"us",
+    country:"United States",
+    flag:"🇺🇸",
+    data:"15 GB",
+    days:18,
+    price:17.99,
+    category:"medium",
+    speed:"4G/5G"
+  },
+
+  {
+    id:"EU-30",
+    countryId:"fr",
+    country:"France / Europe",
+    flag:"🇪🇺",
+    data:"30 GB",
+    days:30,
+    price:24.99,
+    category:"long",
+    speed:"4G/5G"
+  }
+
+];
+
+
+/* STATE */
+
+let currentPage = "home";
+let currentPlan = null;
+let activeFilter = "all";
+
+let orders = JSON.parse(
+  localStorage.getItem("telkuOrders") || "[]"
+);
+
+
+/* PAGE NAVIGATION */
 
 function showPage(page){
 
- document.querySelectorAll(".page")
- .forEach(p=>p.classList.remove("active"));
+  document.querySelectorAll(".page").forEach(p=>{
+    p.classList.remove("active");
+  });
 
- const target=document.getElementById(page);
+  const target = document.getElementById(page);
 
- if(target){
+  if(!target) return;
+
   target.classList.add("active");
- }
 
- document.querySelectorAll(".nav-item")
- .forEach(item=>{
-  item.classList.remove("active");
+  currentPage = page;
 
-  if(item.dataset.page===page){
-   item.classList.add("active");
+  document.querySelectorAll(".nav-btn").forEach(btn=>{
+    btn.classList.remove("active");
+
+    if(btn.dataset.page === page){
+      btn.classList.add("active");
+    }
+  });
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+  if(page === "countries"){
+    renderCountries();
   }
- });
 
- window.scrollTo(0,0);
+  if(page === "plans"){
+    renderPlans();
+  }
 
- if(page==="countries")renderCountries();
- if(page==="plans")renderPlans();
- if(page==="orders")renderOrders();
- if(page==="esim")renderESIM();
- if(page==="account")renderAccount();
+  if(page === "orders"){
+    renderOrders();
+  }
 
 }
 
 
-/* =====================================================
-   COUNTRY
-   ===================================================== */
+/* COUNTRY RENDER */
 
-function countryCard(country){
+function renderCountries(search=""){
 
- return `
+  const grid = document.getElementById("countryGrid");
 
- <div class="card country-card"
- onclick="filterCountry('${country.name}')">
+  if(!grid) return;
 
-  <div class="country-top">
+  const q = search.toLowerCase().trim();
 
-   <div class="flag">${country.flag}</div>
+  const filtered = countries.filter(c =>
+    c.name.toLowerCase().includes(q) ||
+    c.region.toLowerCase().includes(q)
+  );
 
-   <div>
+  if(filtered.length === 0){
 
-    <div class="country-name">
-     ${country.name}
+    grid.innerHTML = `
+      <div class="empty" style="grid-column:1/-1">
+        <div class="empty-icon">🌍</div>
+        <div>No country found.</div>
+      </div>
+    `;
+
+    return;
+  }
+
+  grid.innerHTML = filtered.map(c=>`
+
+    <div class="country-card"
+         onclick="selectCountry('${c.id}')">
+
+      <div class="flag">${c.flag}</div>
+
+      <div>
+        <div class="country-name">${c.name}</div>
+        <div class="country-meta">${c.region}</div>
+      </div>
+
     </div>
 
-    <div class="country-code">
-     ${country.code}
+  `).join("");
+
+}
+
+
+/* HOME COUNTRIES */
+
+function renderHomeCountries(){
+
+  const grid = document.getElementById("homeCountries");
+
+  const popular = countries.filter(c=>c.popular).slice(0,6);
+
+  grid.innerHTML = popular.map(c=>`
+
+    <div class="country-card"
+         onclick="selectCountry('${c.id}')">
+
+      <div class="flag">${c.flag}</div>
+
+      <div>
+        <div class="country-name">${c.name}</div>
+        <div class="country-meta">View plans</div>
+      </div>
+
     </div>
 
-   </div>
-
-  </div>
-
- </div>
-
- `;
+  `).join("");
 
 }
 
 
-function renderCountries(){
+/* COUNTRY SELECT */
 
- const search=(
-  document.getElementById("countrySearch")?.value||""
- ).toLowerCase();
+function selectCountry(countryId){
 
- const list=countries.filter(c=>
-  c.name.toLowerCase().includes(search) ||
-  c.code.toLowerCase().includes(search)
- );
+  showPage("plans");
 
- document.getElementById("countryList").innerHTML=
-  list.map(countryCard).join("");
+  const country = countries.find(c=>c.id===countryId);
+
+  if(!country) return;
+
+  const search = document.getElementById("planSearch");
+
+  if(search){
+    search.value = country.name;
+  }
+
+  renderPlans();
+}
+
+
+/* HOME SEARCH */
+
+function searchCountry(value){
+
+  if(!value.trim()) return;
+
+  showPage("countries");
+
+  const input = document.getElementById("countrySearch");
+
+  if(input){
+    input.value = value;
+  }
+
+  renderCountries(value);
 
 }
 
 
-function renderPopular(){
-
- document.getElementById("popularCountries").innerHTML=
-  countries.slice(0,6).map(countryCard).join("");
-
-}
-
-
-function filterCountry(country){
-
- const input=document.getElementById("planSearch");
-
- if(input)input.value=country;
-
- showPage("plans");
-
- renderPlans();
-
-}
-
-
-/* =====================================================
-   PLANS
-   ===================================================== */
-
-function planCard(plan){
-
- return `
-
- <div class="card plan-card">
-
-  <div class="plan-badge">
-   ${plan.type}
-  </div>
-
-  <div class="plan-country">
-   ${plan.flag} ${plan.country}
-  </div>
-
-  <div class="plan-data">
-   ${plan.data}
-  </div>
-
-  <div class="plan-days">
-   Valid for ${plan.days} days
-  </div>
-
-  <div class="plan-bottom">
-
-   <div class="price">
-    ${money(plan.price)}
-   </div>
-
-   <button
-   class="btn btn-primary"
-   onclick="openPlan('${plan.id}')">
-   View
-   </button>
-
-  </div>
-
- </div>
-
- `;
-
-}
-
+/* PLAN RENDER */
 
 function renderPlans(){
 
- const search=(
-  document.getElementById("planSearch")?.value||""
- ).toLowerCase();
+  const list = document.getElementById("planList");
 
- const list=plans.filter(p=>
-  p.country.toLowerCase().includes(search) ||
-  p.id.toLowerCase().includes(search) ||
-  p.data.toLowerCase().includes(search)
- );
+  if(!list) return;
 
- document.getElementById("planList").innerHTML=
-  list.length
-  ? list.map(planCard).join("")
-  : `
-   <div class="card">
-    No plans found.
-   </div>
+  const q = (
+    document.getElementById("planSearch")?.value || ""
+  ).toLowerCase().trim();
+
+  let filtered = plans.filter(plan=>{
+
+    const matchesSearch =
+      plan.country.toLowerCase().includes(q) ||
+      plan.data.toLowerCase().includes(q) ||
+      plan.id.toLowerCase().includes(q);
+
+    const matchesFilter =
+      activeFilter === "all" ||
+      plan.category === activeFilter;
+
+    return matchesSearch && matchesFilter;
+
+  });
+
+  if(filtered.length === 0){
+
+    list.innerHTML = `
+      <div class="empty">
+        <div class="empty-icon">📶</div>
+        <div>No eSIM plan found.</div>
+      </div>
+    `;
+
+    return;
+  }
+
+  list.innerHTML = filtered.map(plan=>planHTML(plan)).join("");
+
+}
+
+
+/* PLAN CARD */
+
+function planHTML(plan){
+
+  return `
+
+    <div class="plan-card">
+
+      <div class="plan-top">
+
+        <div class="plan-country">
+
+          <div class="flag">${plan.flag}</div>
+
+          <div>
+            <strong>${plan.country}</strong>
+            <div class="country-meta">${plan.speed}</div>
+          </div>
+
+        </div>
+
+        <div class="badge">AVAILABLE</div>
+
+      </div>
+
+      <div class="plan-info">
+
+        <div class="info-box">
+          <small>DATA</small>
+          <strong>${plan.data}</strong>
+        </div>
+
+        <div class="info-box">
+          <small>VALIDITY</small>
+          <strong>${plan.days} Days</strong>
+        </div>
+
+        <div class="info-box">
+          <small>NETWORK</small>
+          <strong>${plan.speed}</strong>
+        </div>
+
+      </div>
+
+      <div class="plan-bottom">
+
+        <div class="price">
+          <small>FROM</small>
+          <strong>$${plan.price.toFixed(2)}</strong>
+          <span> USD</span>
+        </div>
+
+        <button class="btn"
+                onclick="openPlan('${plan.id}')">
+          View Plan
+        </button>
+
+      </div>
+
+    </div>
+
   `;
 
 }
 
 
-/* =====================================================
-   PLAN DETAIL
-   ===================================================== */
+/* FILTER */
 
-function openPlan(id){
+function filterPlans(filter, button){
 
- selectedPlan=plans.find(p=>p.id===id);
+  activeFilter = filter;
 
- if(!selectedPlan)return;
+  document.querySelectorAll(".filter").forEach(b=>{
+    b.classList.remove("active");
+  });
 
- const p=selectedPlan;
+  button.classList.add("active");
 
- document.getElementById("planDetailContent").innerHTML=`
-
-  <div class="detail-header">
-
-   <div class="detail-flag">${p.flag}</div>
-
-   <div>
-
-    <h2>${p.country}</h2>
-
-    <p>${p.network}</p>
-
-   </div>
-
-  </div>
-
-  <div style="margin-top:25px">
-
-   <div class="plan-badge">${p.type}</div>
-
-   <div class="plan-data">${p.data}</div>
-
-   <div class="plan-days">
-    Valid for ${p.days} days
-   </div>
-
-   <div class="price">
-    ${money(p.price)}
-   </div>
-
-  </div>
-
-  <div class="features">
-
-   <div class="feature">
-    ✓ High-speed mobile data
-   </div>
-
-   <div class="feature">
-    ✓ Instant digital delivery
-   </div>
-
-   <div class="feature">
-    ✓ No physical SIM required
-   </div>
-
-   <div class="feature">
-    ✓ TELKU global support
-   </div>
-
-  </div>
-
-  <button
-  class="btn btn-primary"
-  style="width:100%"
-  onclick="openCheckout()">
-
-  Buy This eSIM
-
-  </button>
-
- `;
-
- showPage("planDetail");
+  renderPlans();
 
 }
 
 
-/* =====================================================
-   CHECKOUT
-   ===================================================== */
+/* OPEN PLAN */
 
-function openCheckout(){
+function openPlan(planId){
 
- if(!selectedPlan){
-  showToast("Please select a plan first.");
-  return;
- }
+  const plan = plans.find(p=>p.id===planId);
 
- document.getElementById("checkoutSummary").innerHTML=`
+  if(!plan) return;
 
-  <div class="summary-row">
-   <span>Destination</span>
-   <strong>
-    ${selectedPlan.flag} ${selectedPlan.country}
-   </strong>
-  </div>
+  currentPlan = plan;
 
-  <div class="summary-row">
-   <span>Plan</span>
-   <strong>${selectedPlan.data}</strong>
-  </div>
+  const container = document.getElementById("detailContent");
 
-  <div class="summary-row">
-   <span>Validity</span>
-   <strong>${selectedPlan.days} days</strong>
-  </div>
+  container.innerHTML = `
 
-  <div class="summary-row">
-   <span>Price</span>
-   <strong>${money(selectedPlan.price)}</strong>
-  </div>
+    <div class="detail-head">
 
-  <div class="summary-row">
-   <span>Total</span>
-   <strong class="total">
-    ${money(selectedPlan.price)}
-   </strong>
-  </div>
+      <div class="detail-flag">${plan.flag}</div>
 
- `;
+      <h1>${plan.country}</h1>
 
- showPage("checkout");
+      <p>${plan.data} • ${plan.days} Days • ${plan.speed}</p>
 
-}
+    </div>
 
+    <div class="detail-card">
 
-function selectPayment(element,method){
+      <div class="detail-row">
+        <span>Data</span>
+        <strong>${plan.data}</strong>
+      </div>
 
- selectedPayment=method;
+      <div class="detail-row">
+        <span>Validity</span>
+        <strong>${plan.days} Days</strong>
+      </div>
 
- document.querySelectorAll(".payment-option")
- .forEach(el=>el.classList.remove("selected"));
+      <div class="detail-row">
+        <span>Network</span>
+        <strong>${plan.speed}</strong>
+      </div>
 
- element.classList.add("selected");
+      <div class="detail-row">
+        <span>Activation</span>
+        <strong>eSIM</strong>
+      </div>
 
-}
+      <div class="detail-row">
+        <span>Plan ID</span>
+        <strong>${plan.id}</strong>
+      </div>
 
+    </div>
 
-/* =====================================================
-   CREATE ORDER
-   ===================================================== */
+    <div class="detail-card">
 
-function createOrder(){
+      <div class="detail-row">
+        <span>Price</span>
+        <strong class="detail-price">$${plan.price.toFixed(2)}</strong>
+      </div>
 
- if(!selectedPlan){
-  showToast("No plan selected.");
-  return;
- }
+      <button class="btn green full"
+              onclick="goCheckout()">
+        Continue to Checkout
+      </button>
 
- const name=document.getElementById("customerName").value.trim();
-
- const email=document.getElementById("customerEmail").value.trim();
-
- if(!name){
-  showToast("Please enter your name.");
-  return;
- }
-
- if(!email || !email.includes("@")){
-  showToast("Please enter a valid email.");
-  return;
- }
-
- const now=new Date();
-
- const orderId=
-  "TEL"+now.getFullYear()+
-  String(now.getMonth()+1).padStart(2,"0")+
-  String(now.getDate()).padStart(2,"0")+
-  String(now.getHours()).padStart(2,"0")+
-  String(now.getMinutes()).padStart(2,"0")+
-  String(now.getSeconds()).padStart(2,"0");
-
- currentOrder={
-
-  id:orderId,
-
-  customer:{
-   name:name,
-   email:email
-  },
-
-  plan:{
-   id:selectedPlan.id,
-   country:selectedPlan.country,
-   countryCode:selectedPlan.countryCode,
-   flag:selectedPlan.flag,
-   data:selectedPlan.data,
-   days:selectedPlan.days,
-   price:selectedPlan.price,
-   network:selectedPlan.network
-  },
-
-  paymentMethod:selectedPayment,
-
-  status:"PENDING PAYMENT",
-
-  createdAt:now.toISOString()
-
- };
-
- document.getElementById("paymentSummary").innerHTML=`
-
-  <div class="summary-row">
-   <span>Order ID</span>
-   <strong>${currentOrder.id}</strong>
-  </div>
-
-  <div class="summary-row">
-   <span>Destination</span>
-   <strong>
-    ${currentOrder.plan.flag}
-    ${currentOrder.plan.country}
-   </strong>
-  </div>
-
-  <div class="summary-row">
-   <span>Plan</span>
-   <strong>${currentOrder.plan.data}</strong>
-  </div>
-
-  <div class="summary-row">
-   <span>Payment</span>
-   <strong>${currentOrder.paymentMethod}</strong>
-  </div>
-
-  <div class="summary-row">
-   <span>Total</span>
-   <strong class="total">
-    ${money(currentOrder.plan.price)}
-   </strong>
-  </div>
-
- `;
-
- showPage("payment");
-
-}
-
-
-/* =====================================================
-   COMPLETE PAYMENT
-   ===================================================== */
-
-function completePayment(){
-
- if(!currentOrder){
-  showToast("No active order.");
-  return;
- }
-
- currentOrder.status="PAID";
-
- currentOrder.paidAt=new Date().toISOString();
-
- const orders=getOrders();
-
- orders.unshift(currentOrder);
-
- saveOrders(orders);
-
-
- /* CREATE DEMO ESIM */
-
- const esim={
-
-  iccid:
-   "8962"+
-   Math.floor(100000000000000+Math.random()*899999999999999),
-
-  activationCode:
-   "TELKU-"+Math.random()
-   .toString(36)
-   .substring(2,10)
-   .toUpperCase()+"-"+Math.random()
-   .toString(36)
-   .substring(2,8)
-   .toUpperCase(),
-
-  country:currentOrder.plan.country,
-
-  flag:currentOrder.plan.flag,
-
-  data:currentOrder.plan.data,
-
-  days:currentOrder.plan.days,
-
-  network:currentOrder.plan.network,
-
-  orderId:currentOrder.id,
-
-  activated:true,
-
-  createdAt:new Date().toISOString()
-
- };
-
- saveActiveESIM(esim);
-
- showPage("success");
-
-}
-
-
-/* =====================================================
-   INVOICE
-   ===================================================== */
-
-function showInvoice(){
-
- if(!currentOrder){
-
-  const orders=getOrders();
-
-  currentOrder=orders[0]||null;
-
- }
-
- if(!currentOrder){
-
-  showToast("No invoice available.");
-
-  return;
-
- }
-
- document.getElementById("invoiceContent").innerHTML=`
-
-  <div class="invoice-row">
-   <span>Invoice</span>
-   <strong>${currentOrder.id}</strong>
-  </div>
-
-  <div class="invoice-row">
-   <span>Customer</span>
-   <strong>${currentOrder.customer.name}</strong>
-  </div>
-
-  <div class="invoice-row">
-   <span>Email</span>
-   <strong>${currentOrder.customer.email}</strong>
-  </div>
-
-  <div class="invoice-row">
-   <span>Destination</span>
-   <strong>
-    ${currentOrder.plan.flag}
-    ${currentOrder.plan.country}
-   </strong>
-  </div>
-
-  <div class="invoice-row">
-   <span>eSIM Plan</span>
-   <strong>${currentOrder.plan.data}</strong>
-  </div>
-
-  <div class="invoice-row">
-   <span>Validity</span>
-   <strong>${currentOrder.plan.days} days</strong>
-  </div>
-
-  <div class="invoice-row">
-   <span>Payment</span>
-   <strong>${currentOrder.paymentMethod}</strong>
-  </div>
-
-  <div class="invoice-total">
-   <span>Total Paid</span>
-   <span>${money(currentOrder.plan.price)}</span>
-  </div>
-
-  <div style="margin-top:25px;color:#657386;font-size:12px">
-   TELKU V1.8 Demo Invoice
-  </div>
-
- `;
-
- showPage("invoice");
-
-}
-
-
-/* =====================================================
-   ESIM
-   ===================================================== */
-
-function renderESIM(){
-
- const esim=getActiveESIM();
-
- const container=document.getElementById("esimContent");
-
- if(!esim){
-
-  container.innerHTML=`
-
-   <div class="card">
-
-    <h3>No active eSIM yet</h3>
-
-    <p style="color:var(--muted);margin:8px 0 18px">
-     Purchase an eSIM plan to activate your TELKU connection.
-    </p>
-
-    <button
-    class="btn btn-primary"
-    onclick="showPage('plans')">
-    Browse Plans
-    </button>
-
-   </div>
+    </div>
 
   `;
 
-  return;
-
- }
-
-
- container.innerHTML=`
-
-  <div class="esim-card">
-
-   <div class="esim-top">
-
-    <div>
-
-     <div style="font-size:13px;color:var(--muted)">
-      TELKU eSIM
-     </div>
-
-     <h2 style="margin-top:6px">
-      ${esim.flag} ${esim.country}
-     </h2>
-
-    </div>
-
-    <div class="status">
-     ACTIVE
-    </div>
-
-   </div>
-
-
-   <div class="iccid">
-    ICCID
-   </div>
-
-   <div class="esim-number">
-    ${esim.iccid}
-   </div>
-
-
-   <div style="margin-top:24px">
-
-    <div style="display:flex;justify-content:space-between">
-     <span style="color:var(--muted)">
-      Data
-     </span>
-
-     <strong>
-      ${esim.data}
-     </strong>
-    </div>
-
-    <div class="usage-bar">
-     <div class="usage-fill"></div>
-    </div>
-
-   </div>
-
-
-   <div style="margin-top:24px;display:flex;gap:10px;flex-wrap:wrap">
-
-    <button
-    class="btn btn-primary"
-    onclick="showPage('qr')">
-    View QR
-    </button>
-
-    <button
-    class="btn btn-secondary"
-    onclick="showPage('usage')">
-    Usage
-    </button>
-
-    <button
-    class="btn btn-secondary"
-    onclick="showPage('topup')">
-    Top Up
-    </button>
-
-   </div>
-
-  </div>
-
- `;
-
- renderQR();
+  showPage("detail");
 
 }
 
 
-/* =====================================================
-   QR DEMO
-   ===================================================== */
+/* CHECKOUT */
 
-function renderQR(){
+function goCheckout(){
 
- const box=document.getElementById("qrCode");
+  if(!currentPlan){
+    showToast("Please select a plan first.");
+    return;
+  }
 
- if(!box)return;
+  const plan = currentPlan;
 
- box.innerHTML="";
+  document.getElementById("checkoutPlan").innerHTML = `
 
- for(let i=0;i<144;i++){
+    <div class="checkout-card">
 
-  const span=document.createElement("span");
+      <div class="plan-top">
 
-  span.style.background=
-   Math.random()>.48 ? "#111" : "#fff";
+        <div class="plan-country">
+          <div class="flag">${plan.flag}</div>
 
-  box.appendChild(span);
+          <div>
+            <strong>${plan.country}</strong>
+            <div class="country-meta">
+              ${plan.data} • ${plan.days} Days
+            </div>
+          </div>
 
- }
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+  document.getElementById("checkoutSummary").innerHTML = `
+
+    <div class="detail-row">
+      <span>${plan.country}</span>
+      <strong>${plan.data}</strong>
+    </div>
+
+    <div class="detail-row">
+      <span>Validity</span>
+      <strong>${plan.days} Days</strong>
+    </div>
+
+  `;
+
+  document.getElementById("checkoutTotal").textContent =
+    "$" + plan.price.toFixed(2);
+
+  showPage("checkout");
 
 }
 
 
-function copyActivation(){
+/* COMPLETE ORDER */
 
- const esim=getActiveESIM();
+function completeOrder(){
 
- if(!esim)return;
+  if(!currentPlan){
+    showToast("No plan selected.");
+    return;
+  }
 
- if(navigator.clipboard){
+  const name =
+    document.getElementById("customerName").value.trim();
 
-  navigator.clipboard.writeText(
-   esim.activationCode
+  const email =
+    document.getElementById("customerEmail").value.trim();
+
+  if(!name){
+
+    showToast("Please enter your name.");
+
+    document.getElementById("customerName").focus();
+
+    return;
+  }
+
+  if(!email || !email.includes("@")){
+
+    showToast("Please enter a valid email.");
+
+    document.getElementById("customerEmail").focus();
+
+    return;
+  }
+
+  const order = {
+
+    id:
+      "TK-" +
+      Date.now().toString().slice(-8),
+
+    date:
+      new Date().toLocaleDateString(),
+
+    customer:
+      name,
+
+    email:
+      email,
+
+    planId:
+      currentPlan.id,
+
+    country:
+      currentPlan.country,
+
+    flag:
+      currentPlan.flag,
+
+    data:
+      currentPlan.data,
+
+    days:
+      currentPlan.days,
+
+    price:
+      currentPlan.price,
+
+    status:
+      "Confirmed"
+
+  };
+
+  orders.unshift(order);
+
+  localStorage.setItem(
+    "telkuOrders",
+    JSON.stringify(orders)
   );
 
- }
+  showToast("Order confirmed successfully!");
 
- showToast("Activation code copied.");
+  setTimeout(()=>{
+
+    currentPlan = null;
+
+    document.getElementById("customerName").value="";
+    document.getElementById("customerEmail").value="";
+
+    showPage("orders");
+
+  },700);
 
 }
 
 
-/* =====================================================
-   ORDERS
-   ===================================================== */
+/* ORDERS */
 
 function renderOrders(){
 
- const orders=getOrders();
+  const list = document.getElementById("ordersList");
 
- const container=document.getElementById("ordersContent");
+  if(!list) return;
 
- if(!orders.length){
+  if(orders.length===0){
 
-  container.innerHTML=`
+    list.innerHTML = `
 
-   <div class="card">
+      <div class="empty">
 
-    <h3>No orders yet</h3>
+        <div class="empty-icon">📦</div>
 
-    <p style="color:var(--muted);margin:8px 0 18px">
-     Your TELKU orders will appear here.
-    </p>
+        <h3>No orders yet</h3>
 
-    <button
-    class="btn btn-primary"
-    onclick="showPage('plans')">
-    Explore Plans
-    </button>
+        <p style="margin:8px 0 18px">
+          Your TELKU eSIM purchases will appear here.
+        </p>
 
-   </div>
+        <button class="btn"
+                onclick="showPage('plans')">
+          Explore Plans
+        </button>
 
-  `;
+      </div>
 
-  return;
+    `;
 
- }
+    return;
+  }
 
+  list.innerHTML = orders.map(order=>`
 
- container.innerHTML=orders.map(order=>`
+    <div class="order-card">
 
-  <div class="order">
+      <div class="order-top">
 
-   <div>
+        <div>
+          <strong>
+            ${order.flag} ${order.country}
+          </strong>
 
-    <div class="order-id">
-     ${order.id}
+          <p>
+            Order ${order.id}
+          </p>
+        </div>
+
+        <div class="status">
+          ${order.status}
+        </div>
+
+      </div>
+
+      <div class="detail-row">
+        <span>Plan</span>
+        <strong>${order.data}</strong>
+      </div>
+
+      <div class="detail-row">
+        <span>Validity</span>
+        <strong>${order.days} Days</strong>
+      </div>
+
+      <div class="order-price">
+        $${order.price.toFixed(2)}
+      </div>
+
+      <p>${order.date}</p>
+
     </div>
 
-    <div class="order-meta">
-     ${order.plan.flag}
-     ${order.plan.country}
-     · ${order.plan.data}
-     · ${money(order.plan.price)}
-    </div>
-
-    <div class="order-meta">
-     ${formatDate(order.createdAt)}
-    </div>
-
-   </div>
-
-   <div style="text-align:right">
-
-    <div class="order-status">
-     ${order.status}
-    </div>
-
-    <button
-    class="btn btn-secondary"
-    style="margin-top:9px"
-    onclick="openOrder('${order.id}')">
-    Details
-    </button>
-
-   </div>
-
-  </div>
-
- `).join("");
+  `).join("");
 
 }
 
 
-function openOrder(id){
+/* TOAST */
 
- const order=getOrders().find(o=>o.id===id);
+let toastTimer;
 
- if(!order)return;
+function showToast(message){
 
- currentOrder=order;
+  const toast =
+    document.getElementById("toast");
 
- showInvoice();
+  toast.textContent = message;
 
-}
+  toast.classList.add("show");
 
+  clearTimeout(toastTimer);
 
-/* =====================================================
-   ACCOUNT
-   ===================================================== */
-
-function renderAccount(){
-
- const orders=getOrders();
-
- document.getElementById("orderCount").textContent=
-  orders.length;
-
- const esim=getActiveESIM();
-
- if(orders.length){
-
-  const latest=orders[0];
-
-  document.getElementById("accountName").textContent=
-   latest.customer.name;
-
-  document.getElementById("accountEmail").textContent=
-   latest.customer.email;
-
- }
+  toastTimer = setTimeout(()=>{
+    toast.classList.remove("show");
+  },2200);
 
 }
 
 
-/* =====================================================
-   TOP UP
-   ===================================================== */
+/* INITIALIZE */
 
-function topUp(data,price){
+function init(){
 
- const esim=getActiveESIM();
+  renderHomeCountries();
 
- if(!esim){
+  const homePlans =
+    document.getElementById("homePlans");
 
-  showToast("Please activate an eSIM first.");
+  homePlans.innerHTML =
+    plans.slice(0,3)
+         .map(plan=>planHTML(plan))
+         .join("");
 
-  return;
+  renderCountries();
 
- }
+  renderPlans();
 
- showToast(
-  data+" top up selected — Demo Payment"
- );
-
- setTimeout(()=>{
-
-  showToast(
-   "Demo top up completed: "+data
-  );
-
- },1000);
+  renderOrders();
 
 }
 
 
-/* =====================================================
-   DATE
-   ===================================================== */
+/* START */
 
-function formatDate(date){
-
- try{
-
-  return new Date(date).toLocaleString(
-   "en-ID",
-   {
-    day:"2-digit",
-    month:"short",
-    year:"numeric",
-    hour:"2-digit",
-    minute:"2-digit"
-   }
-  );
-
- }catch(e){
-
-  return date;
-
- }
-
-}
-
-
-/* =====================================================
-   INITIALIZE
-   ===================================================== */
-
-renderPopular();
-
-renderCountries();
-
-renderPlans();
-
-renderESIM();
-
-renderOrders();
-
-renderAccount();
-
-renderQR();
+document.addEventListener(
+  "DOMContentLoaded",
+  init
+);
 
 </script>
 
